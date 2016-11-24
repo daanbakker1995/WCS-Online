@@ -33,3 +33,21 @@ footer {
 .logo{
     height: 50px;
 }
+
+ /*# sourceMappingURL=bootstrap.min.css.map */
+ #wcs {
+    width: 400px;
+    height: auto;   
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    
+}
+.btn-xl,
+.btn-group-xl > .btn {
+  padding: 10px 20px;
+  font-size: 60px;
+  line-height: 1.3333333;
+  border-radius: 10px;
+ 
+}
