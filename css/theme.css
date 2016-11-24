@@ -11,10 +11,13 @@ and open the template in the editor.
 .logo {
     height: 55px;
 }
-
-.header_hardware{
-    background-color: #23527c;
-}
-.header_coppy{
+.header-color{
     background-color: #DD4132;
+}
+.navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
+    color: #9d9d9d;
+    background-color: transparent;
+}
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
 }
