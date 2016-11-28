@@ -1,3 +1,8 @@
+<?php
+include 'classes/Database.php';
+
+$db = new Database();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,6 +37,27 @@
                                 <i class="fa fa-dashboard"></i> Dashboard
                             </li>
                         </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                       <?php
+                       $db->query('SELECT * FROM test');
+                       $results = $db->resultset();
+
+                       echo "<pre>";
+                       print_r($results);
+                       echo "</pre>";
+
+                       foreach($results as $result){
+                           echo "<pre>";
+                           print_r($result);
+                           echo "</pre>";
+                       }
+                       ?>
                     </div>
                 </div>
                 <!-- /.row -->
