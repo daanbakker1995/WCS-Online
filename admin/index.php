@@ -45,18 +45,13 @@ $db = new Database();
                 <div class="row">
                     <div class="col-lg-12">
                        <?php
-                       $db->query('SELECT * FROM test');
+                       $db->query('SELECT * FROM company');
                        $results = $db->resultset();
 
                        echo "<pre>";
                        print_r($results);
                        echo "</pre>";
 
-                       foreach($results as $result){
-                           echo "<pre>";
-                           print_r($result);
-                           echo "</pre>";
-                       }
                        ?>
                     </div>
                 </div>
