@@ -109,9 +109,6 @@
                     <li>
                         <a href="product_overview.php">Overzicht</a>
                     </li>
-<!--                    <li>-->
-<!--                        <a href="product_edit.php">Bewerken</a>-->
-<!--                    </li>-->
                 </ul>
             </li>
             <li>
