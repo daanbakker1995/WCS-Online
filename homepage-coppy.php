@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+include 'admin/classes/Database.php';
+$db = new Database();
+?>
 <html lang="en">
 
 <head>
@@ -9,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Small Business - Start Bootstrap Template</title>
+    <title>hompage-copy</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +21,7 @@
     <!-- Custom CSS -->
     <link href="css/small-business.css" rel="stylesheet">
     <!--- theme --->
-    <link href="css/theme.css" rel="stylesheet">
+    <link href="css/small-business.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -41,13 +45,20 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="index.php">
                 <img class="logo" src="images/logo.png" alt="">
             </a>
-        </div>
+           
+             
+        </div> 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
+        <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
+             <ul class="nav navbar-nav">
+                <li>
+                   <a href="homepage-hardware.php">naar computer service</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="#">About</a>
                 </li>
@@ -66,17 +77,22 @@
 
 <!-- Page Content -->
 <div class="container">
-
+            <?php 
+                $db->query("select * from homepage where homepage_id = 1"); 
+                $result = $db->single();
+            ?>
     <!-- Heading Row -->
     <div class="row">
         <div class="col-md-8">
-            <img class="img-responsive img-rounded" src="http://placehold.it/900x350" alt="">
+            <img class="img-responsive img-rounded" src="<?php print($result["homepage_header_image"]) ?>"  alt="">
         </div>
         <!-- /.col-md-8 -->
         <div class="col-md-4">
-            <h1>Business Name or Tagline</h1>
-            <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
-            <a class="btn btn-primary btn-lg" href="#">Call to Action!</a>
+
+            <h1><?php print($result["homepage_header_title"]); ?></h1>
+            
+            <p><?php print($result["homepage_header_content"]); ?></p>
+            <a class="btn btn-primary btn-lg" href="<?php print($result["homepage_header_button_link"]) ?>"><?php print($result["homepage_header_button_text"]);?></a>
         </div>
         <!-- /.col-md-4 -->
     </div>
@@ -84,35 +100,24 @@
 
     <hr>
 
-    <!-- Call to Action Well -->
-    <!--        <div class="row">-->
-    <!--            <div class="col-lg-12">-->
-    <!--                <div class="well text-center">-->
-    <!--                    This is a well that is a great spot for a business tagline or phone number for easy access!-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!-- /.col-lg-12 -->
-    <!--        </div>-->
-    <!-- /.row -->
 
-    <!-- Content Row -->
     <div class="row">
         <div class="col-md-4">
-            <h2>Heading 1</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat. Recusandae, suscipit, soluta quibusdam accusamus a veniam quaerat eveniet eligendi dolor consectetur.</p>
-            <a class="btn btn-primary" href="#">More Info</a>
+            <h2><?php print($result["homepage_service_one_header"]); ?></h2>
+            <p><?php print($result["homepage_service_one_content"]);?></p>
+            <a class="btn btn-primary" href="<?php print($result["homepage_service_one_button_link"]);?>"><?php print($result["homepage_service_one_button_text"]);?></a>
         </div>
         <!-- /.col-md-4 -->
         <div class="col-md-4">
-            <h2>Heading 2</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat. Recusandae, suscipit, soluta quibusdam accusamus a veniam quaerat eveniet eligendi dolor consectetur.</p>
-            <a class="btn btn-primary" href="#">More Info</a>
+            <h2><?php print($result["homepage_service_two_header"]); ?></h2>
+            <p><?php print($result["homepage_service_two_content"]);?></p>
+            <a class="btn btn-primary" href="<?php print($result["homepage_service_two_button_link"]);?>"><?php print($result["homepage_service_two_button_text"]);?></a>
         </div>
         <!-- /.col-md-4 -->
         <div class="col-md-4">
-            <h2>Heading 3</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat. Recusandae, suscipit, soluta quibusdam accusamus a veniam quaerat eveniet eligendi dolor consectetur.</p>
-            <a class="btn btn-primary" href="#">More Info</a>
+            <h2><?php print($result["homepage_service_three_header"]); ?></h2>
+            <p><?php print($result["homepage_service_three_content"]);?></p>
+            <a class="btn btn-primary" href="<?php print($result["homepage_service_three_button_link"]);?>"><?php print($result["homepage_service_three_button_text"]);?></a>
         </div>
         <!-- /.col-md-4 -->
     </div>
