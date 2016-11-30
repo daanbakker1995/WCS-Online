@@ -90,7 +90,7 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
             <li <?php if($active == "Dashboard") echo "class='active'" ?>>
-                <a href=""><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                <a href="./"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
             </li>
             <li <?php if($active == "Informatie") echo "class='active'" ?>>
                 <a href="javascript:;" data-toggle="collapse" data-target="#pages"><i class="fa fa-fw fa-list"></i> Informatiepagina's<i class="fa fa-fw fa-caret-down"></i></a>
