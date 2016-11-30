@@ -48,7 +48,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    <a href="homepage-hardware.php" class="btn btn-primary btn-xl btn-block" role="button">Copy Service</a>
+                    <a href="homepage-coppy.php" class="btn btn-primary btn-xl btn-block" role="button">Copy service</a>
 
                 </div>
             </div>
@@ -58,7 +58,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    <a href="homepage-coppy.php" class="btn btn-danger btn-xl btn-block" role="button">Computer Service</a>
+                    <a href="homepage-hardware.php" class="btn btn-danger btn-xl btn-block" role="button">Computer service</a>
                 </div>
             </div>
         </div>
