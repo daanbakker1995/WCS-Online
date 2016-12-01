@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <!-- /.row -->
-                <?php if($alert): ?>
+                <?php if(isset($alert)): ?>
                     <div class="alert alert-success">
                         <strong>Succes!</strong> Bekijk de pagina op het overzicht. <a href="pages_overview.php" >Klik hier.</a>
                     </div>

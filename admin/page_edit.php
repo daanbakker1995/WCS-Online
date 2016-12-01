@@ -1,15 +1,20 @@
 <?php
 if(isset($_POST["submit"])){
+    include 'functions.php';
     if($_POST["title"] != "" && ($_POST["content"] != "")){
-        $id = $_GET["id"];
-        $title = $_POST["title"];
-        $description = $_POST["description"];
-        $content = $_POST["content"];
-        $status = $_POST["status"];
-        $type = $_POST["type"];
-        $location = $_POST["location"];
-        if(update_info_page($id,$title, $description, $content, $status, $type, $location)){
-            $alert = true;
+        $page_info['id'] = $_GET["id"];
+        $page_info['title'] = $_POST["title"];
+        $page_info['description'] = $_POST["description"];
+        $page_info['content'] = $_POST["content"];
+        $page_info['status'] = $_POST["status"];
+        $page_info['type'] = $_POST["type"];
+        $page_info['location'] = $_POST["location"];
+        if(update_info_page($page_info)){
+            header('location: ./pages_overview.php');
+        }
+        else{
+            echo "fout";
+            exit;
         }
     }
 }
@@ -65,7 +70,7 @@ else{
                     <div class="col-lg-3">
                         <div class="form-group">
                             <label for="title">Pagina titel</label>
-                            <input type="text" class="form-control" id="title" placeholder="Pagina Titel" value="<?= $page_info["page_title"]; ?>">
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Pagina Titel" value="<?= $page_info["page_title"]; ?>">
                         </div>
                     </div>
                     <div class="col-lg-3">
@@ -93,7 +98,7 @@ else{
                             <label for="status">Locatie</label>
                             <select class="form-control" id="location" name="location">
                                 <option value="0" <?php if($page_info["page_location"] == 0) echo "selected" ?>>Hoofdmenu</option>
-                                <option value="1" <?php if($page_info["page_location"] == 0) echo "selected" ?>>Submenu</option>
+                                <option value="1" <?php if($page_info["page_location"] == 1) echo "selected" ?>>Submenu</option>
                             </select>
                         </div>
                     </div>
@@ -111,7 +116,7 @@ else{
                     </div>
                     <div class="col-lg-12">
                             <a href="pages_overview.php" class="btn btn-default">Annuleren</a>
-                            <input type="submit" class="btn btn-primary" value="Opslaan">
+                            <input type="submit" class="btn btn-primary" name="submit" value="Opslaan">
                     </div>
                     </form>
                 </div>
