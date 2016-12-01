@@ -85,10 +85,10 @@
                                         <?php if($page_info["page_location"] == 0):?>
                                         <td>Hoofdmenu</td>
                                         <?php else:?>
-                                        <td>Hoofdmenu</td>
+                                        <td>Submenu</td>
                                         <?php endif; ?>
                                         <td><a href="page_edit.php?id=<?= $page_info["page_id"] ?>" class="btn btn-primary"><span class="fa fa-pencil"></span></a>
-                                            <a href="#" class="btn btn-danger"><span class="fa fa-trash"></span></a></td>
+                                            <a href="page_delete.php?id=<?= $page_info["page_id"] ?>" class="btn btn-danger"><span class="fa fa-trash"></span></a></td>
                                     </tr>
                                 <?php endforeach; ?>
                                 </tbody>
