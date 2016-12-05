@@ -2,9 +2,9 @@
 if(isset($_GET['id'])){
     include "functions.php";
     if(delete_info_page($_GET['id'])){
-        echo "Succesvol verwijderd.";
+        header('location: pages_overview.php?delete=1');
     }
     else{
-        echo "Er is iets mis gegaan. probeer later opnieuw.";
+        header('location: pages_overview.php?delete=0');
     }
 }

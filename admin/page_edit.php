@@ -10,11 +10,10 @@ if(isset($_POST["submit"])){
         $page_info['type'] = $_POST["type"];
         $page_info['location'] = $_POST["location"];
         if(update_info_page($page_info)){
-            header('location: ./pages_overview.php');
+            header('location: ./pages_overview.php?page_edit=1');
         }
         else{
-            echo "fout";
-            exit;
+            $error = "Er is iets fout gegaan.";
         }
     }
 }
@@ -63,6 +62,12 @@ else{
                     </div>
                 </div>
                 <!-- /.row -->
+
+                <?php if(isset($error)): ?>
+                    <div class="alert alert-danger">
+                        <strong>Fout!</strong> <?= $error ?>
+                    </div>
+                <?php endif; ?>
 
                 <!-- Page Content -->
                 <div class="row">
