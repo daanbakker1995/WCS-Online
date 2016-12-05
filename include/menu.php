@@ -52,7 +52,7 @@
                             $db->query("select page_id, page_title, page_type, page_status, page_location from content_page");
                             $pages = $db->resultset();
                             foreach ($pages as $page) {
-                                if($page["page_type"] == $_SESSION['service'] ||  $page["page_type"] == "0"){
+                                if($page["page_type"] == $_SESSION['service'] || $page["page_type"] == "0"){
                                     if($page["page_status"] == 1){
                                         if($page["page_location"] == 1){
                                             echo "<li><a href='information_page.php?id=". $page["page_id"] ."'>".$page["page_title"]."</a></li>";
