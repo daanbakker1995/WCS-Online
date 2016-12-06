@@ -40,7 +40,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="./">Home</a>
+                    <a href="./homepage.php">Home</a>
                 </li>
                 <?php
                 if($_SESSION['service'] == 1) {?>

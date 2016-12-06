@@ -9,8 +9,8 @@ if (isset($_POST["signin"])) {
     $email = mysql_real_escape_string($email);
     $password = mysql_real_escape_string($password);
 // connect to the server and select database
-    mysql_connect("localhost", "root", "usbw");
-    mysql_select_db("wcs-online_database");
+    mysql_connect("localhost", "root", "");
+    mysql_select_db("wcs-online");
 
     $query = mysql_query("SELECT * FROM user WHERE user_email = '$email' AND user_password = '$password'")
             or die("failed to query database " . mysql_error());
@@ -54,6 +54,5 @@ and open the template in the editor.
 
             </div>
         </div>
-<?php ?>
     </body>
 </html>
