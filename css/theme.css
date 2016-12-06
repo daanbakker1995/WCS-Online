@@ -21,3 +21,28 @@ and open the template in the editor.
 .navbar-inverse .navbar-nav>li>a {
     color: #fff;
 }
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  border-color:white;
+}
+
+[class*="col-"] {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #FFFFFF;
+  border: 1px solid #ddd;
+  border: 1px solid rgba(86,61,124,.2);
+ 
+}
+
+.thumbnail{
+    border-color:white;
+}
+
+.borderless{
+    border-color:white;
+}
