@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 /**
  * Created by PhpStorm.
  * User: Daan
@@ -55,16 +57,16 @@ function insert_info_page($title, $description, $content, $status, $type, $locat
 /**
  * @return mixed
  */
-function update_info_page($id,$title, $description, $content, $status, $type, $location){
+function update_info_page($values){
     $db = new Database();
-    $db->query('UPDATE content_page SET page_title=:ptitle, page_description=:pdescription, page_content=:pcontent, page_status=:pstatus, page_type=:ptype, page_location=:plocation WHERE page_id=:id)');
-    $db->bind(':pid', $id);
-    $db->bind(':ptitle', $title);
-    $db->bind(':pdescription', $description);
-    $db->bind(':pcontent', $content);
-    $db->bind(':pstatus', $status);
-    $db->bind(':ptype', $type);
-    $db->bind(':plocation', $location);
+    $db->query('UPDATE content_page SET page_title=:ptitle, page_description=:pdescription, page_content=:pcontent, page_status=:pstatus, page_type=:ptype, page_location=:plocation WHERE page_id=:pid');
+    $db->bind(':pid', $values['id']);
+    $db->bind(':ptitle', $values['title']);
+    $db->bind(':pdescription', $values['description']);
+    $db->bind(':pcontent', $values['content']);
+    $db->bind(':pstatus', $values['status']);
+    $db->bind(':ptype', $values['type']);
+    $db->bind(':plocation', $values['location']);
     if($db->execute()){
         return true;
     }
@@ -74,6 +76,18 @@ function update_info_page($id,$title, $description, $content, $status, $type, $l
 
 }
 
+function delete_info_page($id){
+    $db = new Database();
+    $db->query('DELETE FROM content_page WHERE page_id=:pid');
+    $db->bind(':pid', $id);
+
+    if($db->execute()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 function upload_img($size,$dir){
                 if (!file_exists($dir.'/')) {
                     mkdir($dir.'/', 0777, true);
