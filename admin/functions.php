@@ -88,3 +88,31 @@ function delete_info_page($id){
         return false;
     }
 }
+function upload_img($size,$dir){
+                if (!file_exists($dir.'/')) {
+                    mkdir($dir.'/', 0777, true);
+                }
+                
+                if(isset($_FILES["file_upload"])){
+                    
+    
+                    
+                    if($_FILES['file_upload']['error'] > 0){
+                        die('Er iets mis gegaan tijdens het uploaden.');
+                    }
+
+                    if($_FILES['file_upload']['type'] != 'image/png' && $_FILES['file_upload']['type']!= 'image/jpeg'){
+                        die('Dit bestand wordt niet ondersteund.');
+                    }
+
+                    if($_FILES['file_upload']['size'] > $size*1000000){
+                        die('Dit bestand is te groot kies een kleiner bestand.');
+                    }
+
+                    if(move_uploaded_file($_FILES['file_upload']['tmp_name'], 'offerte/' . $_FILES['file_upload']['name'])){
+                        print("upload succesfull");
+                    }
+                      
+
+            }
+}
