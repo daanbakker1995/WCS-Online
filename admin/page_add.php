@@ -9,7 +9,10 @@
             $type = $_POST["type"];
             $location = $_POST["location"];
             if(insert_info_page($title, $description, $content, $status, $type, $location)){
-                $alert = true;
+                header('location: pages_overview.php?add_page=1');
+            }
+            else{
+                $error = "Er is iets fout gegaan.";
             }
         }
     }
@@ -49,9 +52,10 @@
                     </div>
                 </div>
                 <!-- /.row -->
-                <?php if($alert): ?>
-                    <div class="alert alert-success">
-                        <strong>Succes!</strong> Bekijk de pagina op het overzicht. <a href="pages_overview.php" >Klik hier.</a>
+
+                <?php if(isset($error)): ?>
+                    <div class="alert alert-danger">
+                        <strong>Fout!</strong> <?= $error ?>
                     </div>
                 <?php endif; ?>
 

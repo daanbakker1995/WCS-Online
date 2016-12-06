@@ -1,4 +1,6 @@
-<?php include 'functions.php'; ?>
+<?php
+include 'functions.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,9 +8,32 @@
     <!-- ADMIN HEADER -->
     <?php include 'include/head.php'; ?>
 
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Bevestiging</h3>
+            </div>
+            <div class="modal-body">
+                <p>Weet u zeker dat u deze pagina wilt verwijderen?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+                <a class="btn btn-danger btn-ok">Verwijder pagina</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div id="wrapper">
 
@@ -32,6 +57,41 @@
                     </div>
                 </div>
                 <!-- /.row -->
+
+                <!-- /.row -->
+                <?php //alert if page is succesfully added
+                if(isset($_GET["add_page"]) && $_GET["add_page"] == 1): ?>
+                    <div class="alert alert-success">
+                        <strong>Geslaagd!</strong> De pagina is toegevoegd.
+                    </div>
+                <?php endif; ?>
+
+
+                <!-- /.row -->
+                <?php //alert if page is succesfully added
+                if(isset($_GET["page_edit"]) && $_GET["page_edit"] == 1): ?>
+                    <div class="alert alert-success">
+                        <strong>Geslaagd!</strong> De pagina is succesvol bewerkt.
+                    </div>
+                <?php endif; ?>
+
+
+                <!-- /.row -->
+                <?php //alert if page is succesfully added
+                if(isset($_GET["delete"]) && $_GET["delete"] == 1): ?>
+                    <div class="alert alert-success">
+                        <strong>Geslaagd!</strong> De pagina is succesvol verwijderd.
+                    </div>
+                <?php endif; ?>
+
+                <!-- /.row -->
+                <?php //alert if page is succesfully added
+                if(isset($_GET["delete"]) && $_GET["delete"] == 0): ?>
+                    <div class="alert alert-danger">
+                        <strong>Fout!</strong> Er is iets fout gegaan tijdens het verwijderen.
+                    </div>
+                <?php endif; ?>
+
 
                 <!-- Page Heading -->
                 <div class="row">
@@ -85,10 +145,11 @@
                                         <?php if($page_info["page_location"] == 0):?>
                                         <td>Hoofdmenu</td>
                                         <?php else:?>
-                                        <td>Hoofdmenu</td>
+                                        <td>Submenu</td>
                                         <?php endif; ?>
                                         <td><a href="page_edit.php?id=<?= $page_info["page_id"] ?>" class="btn btn-primary"><span class="fa fa-pencil"></span></a>
-                                            <a href="#" class="btn btn-danger"><span class="fa fa-trash"></span></a></td>
+                                            <a href="#" data-href="page_delete.php?id=<?= $page_info["page_id"] ?>" class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete" ><span class="fa fa-trash"></span></a>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                                 </tbody>
@@ -108,11 +169,11 @@
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $('#confirm-delete').on('show.bs.modal', function(e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+    </script>
 
 </body>
 
