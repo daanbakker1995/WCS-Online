@@ -33,19 +33,19 @@ session_start();
                         <form action="gebruiker-toegevoegd.php" method="post">
                             <div class="form-group">
                                 <label for="user">Gebruikersnaam</label>
-                                <input type="text" class="form-control" id="user" required>
+                                <input type="text" class="form-control" id="user" required name="user">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" required>
+                                <input type="email" class="form-control" id="email" required name="email">
                             </div>
                             <div class="form-group">
                                 <label for="pwd">Wachtwoord</label>
-                                <input type="password" class="form-control" id="pwd" required>
+                                <input type="password" class="form-control" id="pwd" required name="pwd">
                             </div>
                             <div class="form-group">
-                                <label for="sel1">Rol</label>
-                                <select class="form-control" id="sel1" required>
+                                <label for="role">Rol</label>
+                                <select class="form-control" id="role" required name="role">
                                     <option>Admin</option>
                                     <option>Content Beheerder</option>                                 
                                 </select>
