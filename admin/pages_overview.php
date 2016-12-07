@@ -8,7 +8,6 @@ include 'functions.php';
     <!-- ADMIN HEADER -->
     <?php include 'include/head.php'; ?>
 
-
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
@@ -123,7 +122,7 @@ include 'functions.php';
                                 foreach($pages as $page_info ):
                                 ?>
                                     <tr>
-                                        <td><?= $page_info["page_title"]; ?></td>
+                                        <td><a href="../information_page.php?id=<?php echo $page_info['page_id'] ?>"><?= $page_info["page_title"]; ?></a></td>
 
                                         <?php if($page_info["page_status"] == 1):?>
                                         <td class="color-green"> Actief</td>

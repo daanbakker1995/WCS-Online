@@ -2,15 +2,16 @@
 <?php
 include 'admin/classes/Database.php';
 $db = new Database();
+session_start();
 
-if($_GET['service'] == 'drukservice'){
-    session_start();
+
+if(isset($_GET['service']) && $_GET['service'] == 'drukservice'){
     $_SESSION['service'] = 1; // drukservice
-}else{
-    session_start();
+}elseif(isset($_GET['service']) && $_GET['service'] == 'computerservice'){
     $_SESSION['service'] = 2; // computerservice
+}else{
+
 }
-print $_SESSION['service'];
 ?>
 <html lang="en">
 
@@ -48,7 +49,8 @@ print $_SESSION['service'];
 <!-- Page Content -->
 <div class="container">
             <?php 
-                $db->query("select * from homepage where homepage_id = 1"); 
+                $db->query("select * from homepage where homepage_id=:id");
+                $db->bind(':id', $_SESSION["service"]);
                 $result = $db->single();
             ?>
     <!-- Heading Row -->
@@ -95,11 +97,7 @@ print $_SESSION['service'];
 
     <!-- Footer -->
     <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; Your Website <?= date("Y")?></p>
-            </div>
-        </div>
+        <?php include 'include/footer.php';?>
     </footer>
 
 </div>

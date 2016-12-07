@@ -5,6 +5,9 @@
  * Date: 1-12-2016
  * Time: 10:24
  */
+if(!isset($_SESSION["service"])){
+    header('location: ./');
+}
 
 ?>
 
@@ -40,7 +43,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="./">Home</a>
+                    <a href="./homepage.php">Home</a>
                 </li>
                 <?php
                 if($_SESSION['service'] == 1) {?>
