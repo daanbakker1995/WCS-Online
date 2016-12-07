@@ -98,7 +98,7 @@
                     ?>
                     <div class="col-xs-6 col-md-4">
                         <a href="<?php
-                        print ("/copy-product.php?productid=" . $product["product_id"] . ".php");
+                        print ("/copy-product.php?productid=" . $product["product_id"]);
                         ?>" class="thumbnail thumbmax">                           
                             <img class="img-responsive" src="<?php print($image); ?>"/>
                                 <h2 class="text-center"><?php print(ucfirst($product["product_name"]));?></h2>            
