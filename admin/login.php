@@ -6,8 +6,10 @@ if (isset($_POST["signin"])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    $db->query("SELECT * FROM user WHERE user_email = '$email'");
+    $db->query("SELECT * FROM user WHERE user_email=:email");
+    $db->bind(':email', $email);
     $row = $db->single();
+
     if ($row['user_email'] == $email && password_verify($password, $row['user_password'])) {
         session_start();
         $_SESSION["ingelogd"] = true;
