@@ -1,21 +1,16 @@
 <?php
+include './classes/Database.php';
+$db = new Database();
+
 if (isset($_POST["signin"])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-// to prevent mysql injection
-    $email = stripcslashes($email);
-    $password = stripcslashes($password);
-    $email = mysql_real_escape_string($email);
-    $password = mysql_real_escape_string($password);
-// connect to the server and select database
-    mysql_connect("localhost", "root", "");
-    mysql_select_db("wcs-online");
+    $db->query("SELECT * FROM user WHERE user_email=:email");
+    $db->bind(':email', $email);
+    $row = $db->single();
 
-    $query = mysql_query("SELECT * FROM user WHERE user_email = '$email' AND user_password = '$password'")
-            or die("failed to query database " . mysql_error());
-    $row = mysql_fetch_array($query);
-    if ($row['user_email'] == $email && $row['user_password'] == $password) {
+    if ($row['user_email'] == $email && password_verify($password, $row['user_password'])) {
         session_start();
         $_SESSION["ingelogd"] = true;
         $_SESSION["email"] = $email;
@@ -34,7 +29,7 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>Wcs adminlogin</title>
         <link href="login.css" rel="stylesheet" type="text/css"/>
         <link href="../loginpagina/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="../loginpagina/css/bootstrap.css" rel="stylesheet" type="text/css"/>
@@ -54,5 +49,6 @@ and open the template in the editor.
 
             </div>
         </div>
+<?php ?>
     </body>
 </html>

@@ -49,7 +49,8 @@ if(isset($_GET['service']) && $_GET['service'] == 'drukservice'){
 <!-- Page Content -->
 <div class="container">
             <?php 
-                $db->query("select * from homepage where homepage_id = 1"); 
+                $db->query("select * from homepage where homepage_id=:id");
+                $db->bind(':id', $_SESSION["service"]);
                 $result = $db->single();
             ?>
     <!-- Heading Row -->
