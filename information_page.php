@@ -19,7 +19,7 @@ $page_info = $db->single();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>hompage-copy</title>
+    <title>hompage</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
