@@ -12,8 +12,13 @@ session_start();
 
     <head>
         <!-- ADMIN HEADER -->
-        <?php include 'include/head.php'; ?>
+        <?php include 'include/head.php'; 
+        include '/classes/database.php'?>
         <link href="css/MaartenTheme.css" rel="stylesheet">
+
+        <?php
+
+        ?>
 
     </head>
 
@@ -49,16 +54,16 @@ session_start();
                         </div>
                         <div class="row">
                             <div class="col-md-3">
-                                <p><?php print($_POST["user"]);?></p>
+                                <p><?php print($_POST["user"]); ?></p>
                             </div>
                             <div class="col-md-3">
-                                <p><?php print($_POST["email"]);?></p>
+                                <p><?php print($_POST["email"]); ?></p>
                             </div>
                             <div class="col-md-3">
-                                <p><?php print($_POST["pwd"]);?></p>
+                                <p><?php print($_POST["pwd"]); ?></p>
                             </div>
                             <div class="col-md-3">
-                                <p><?php print($_POST["role"]);?></p>
+                                <p><?php print($_POST["role"]); ?></p>
                             </div>
                         </div>
                     </div>

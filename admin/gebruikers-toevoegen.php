@@ -46,8 +46,8 @@ session_start();
                             <div class="form-group">
                                 <label for="role">Rol</label>
                                 <select class="form-control" id="role" required name="role">
-                                    <option>Admin</option>
-                                    <option>Content Beheerder</option>                                 
+                                    <option value="1">Admin</option>
+                                    <option value="0">Content Beheerder</option>                                 
                                 </select>
                             </div>
                             <div class="form-group">

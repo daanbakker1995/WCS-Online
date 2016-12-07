@@ -67,7 +67,7 @@
         </nav>
         <div class="container">
                     <div class="page-header text-center">
-                        <h1>Hardware Catalogus</h1>
+                        <h1>Copy Catalogus</h1>
                     </div>
         </div>
         <div class="container">
