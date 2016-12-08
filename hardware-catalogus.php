@@ -94,7 +94,7 @@
                     ?>
                     <div class="col-xs-6 col-md-4">
                         <a href="<?php
-                        print ("/hardwarecategorie/" . $product["product_type"] . ".php");
+                        print ("./hardwarecategorie/" . $product["product_type"] . ".php");
                         ?>" class="thumbnail thumbmax">                           
                             <img class="img-responsive" src="<?php print($image); ?>"/>
                                 <h2 class="text-center"><?php print(ucfirst($product["product_type"]));
