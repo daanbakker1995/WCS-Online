@@ -119,7 +119,7 @@
             <h1>uw image komt hier!☺</h1>
           <?php
                if(isset($_FILES["file_upload"])){
-                     echo "<img width='100px' src='offerte/".$_FILES['file_upload']['name']."'";
+                     echo "<img width='250px' src='offerte/".$_FILES['file_upload']['name']."'";
                      
                }
              
