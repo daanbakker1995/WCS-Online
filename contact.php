@@ -163,7 +163,7 @@ if (isset($_POST["submit"])) {
                     </div>
                     
                         <div class="form-group">
-                        <img id="captcha" src="/WCS-Online/securimage/securimage_show.php" alt="CAPTCHA Image" />
+                        <img id="captcha" src="./include/securimage/securimage_show.php" alt="CAPTCHA Image" />
                         <input type="text" name="captcha_code" size="10" maxlength="6" required/>
                         <a href="#" onclick="document.getElementById('captcha').src = '/WCS-Online/securimage/securimage_show.php?' + Math.random(); return false">[ Different Image ]</a>
                         </div>
