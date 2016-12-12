@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <?php
-include '../admin/classes/Database.php';
+include 'admin/classes/Database.php';
 $db = new Database();
+session_start();
 ?>
 <html lang="en">
-
-    <head>
+<head>
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,19 +13,18 @@ $db = new Database();
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>PC componenten</title>
+        <title>Tablets</title>
 
         <!-- Bootstrap Core CSS -->
-        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="../css/small-business.css" rel="stylesheet">
+        <link href="css/small-business.css" rel="stylesheet">
         <!--- theme --->
-        <link href="../css/theme.css" rel="stylesheet">
+        <link href="css/theme.css" rel="stylesheet">
         <!-- Custom CSS -->
-        <link href="../css/hardware.css" rel="stylesheet">
+        <link href="css/hardware.css" rel="stylesheet">
         <link href="\hardwarecategorie\producten.css" rel="stylesheet">
-        
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -38,49 +37,11 @@ $db = new Database();
 
     <body>
 
-        <!-- Navigation -->
-        <nav class="navbar  navbar-inverse header-color navbar-fixed-top" role="navigation">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="../index.php">
-                        <img class="logo" src="../images/logo.png" alt="">
-                    </a>
-
-
-                </div> 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="../homepage-copy.php">naar druk service</a>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#">About</a>
-                        </li>
-                        <li>
-                            <a href="#">Services</a>
-                        </li>
-                        <li>
-                            <a href="#">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.navbar-collapse -->
-            </div>
-            <!-- /.container -->
-        </nav>
+    <!-- Navigation -->
+    <?php include './include/menu.php';?>
         <div class="container">
                     <div class="page-header text-center">
-                        <h1>Onze PC-componenten</h1>
+                        <h1>Onze tablets</h1>
                     </div>
         </div>
         <!-- Page Content -->
@@ -90,7 +51,7 @@ $db = new Database();
 
                 <?php
                 //waarden in een array stoppen
-                $db->query("SELECT * FROM product WHERE product_type = 'PC-component' ORDER BY product_name");
+                $db->query("SELECT * FROM product WHERE product_type = 'tablet' ORDER BY product_name");
                 $products = $db->resultset();
                 foreach ($products as $product) {
                     //invoegen standaard afbeelding als geen afbeelding beschikbaar is

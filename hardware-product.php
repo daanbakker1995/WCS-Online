@@ -5,7 +5,8 @@ session_start();
 
 $db->query("select specs_id, category_id,product_price,product_type,product_name,product_description,product_image,spec_description  "
         . "from product as p join  specification as s on p.specs_id =s.spec_id "
-        . "where product_id=11" );
+        . "where product_id=:id" );
+$db->bind(':id', $_GET["id"]);
 $result = $db->single();
 ?>
 <html lang="en">
