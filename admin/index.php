@@ -1,7 +1,12 @@
 <?php
-include 'classes/Database.php';
+session_start();
+if($_SESSION["ingelogd"] == true){
 
-$db = new Database();
+}
+ else {
+       header('location: ./login.php');       
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,20 +49,7 @@ $db = new Database();
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                       <?php
-                       $db->query('SELECT * FROM test');
-                       $results = $db->resultset();
-
-                       echo "<pre>";
-                       print_r($results);
-                       echo "</pre>";
-
-                       foreach($results as $result){
-                           echo "<pre>";
-                           print_r($result);
-                           echo "</pre>";
-                       }
-                       ?>
+                     
                     </div>
                 </div>
                 <!-- /.row -->

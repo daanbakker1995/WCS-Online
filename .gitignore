@@ -11,3 +11,9 @@ admin/font-awesome/*
 admin/fonts/*
 admin/LICENSE
 admin/README.md
+images/*
+nbproject/private/private.properties
+nbproject/project.properties
+offerte/image002.png
+*.jpg
+test_file.php

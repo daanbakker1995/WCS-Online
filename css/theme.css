@@ -12,7 +12,7 @@ and open the template in the editor.
     height: 55px;
 }
 .header-color{
-    background-color: #DD4132;
+    background-color: #23527c;
 }
 .navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
     color: #9d9d9d;
@@ -20,4 +20,29 @@ and open the template in the editor.
 }
 .navbar-inverse .navbar-nav>li>a {
     color: #fff;
+}
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  border-color:white;
+}
+
+[class*="col-"] {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #FFFFFF;
+  border: 1px solid #ddd;
+  border: 1px solid rgba(86,61,124,.2);
+ 
+}
+
+.thumbnail{
+    border-color:white;
+}
+
+.borderless{
+    border-color:white;
 }
