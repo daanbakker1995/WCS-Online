@@ -93,13 +93,15 @@
                 <a href="./"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
             </li>
             <li <?php if($active == "Informatie") echo "class='active'" ?>>
-                <a href="javascript:;" data-toggle="collapse" data-target="#pages"><i class="fa fa-fw fa-list"></i> Informatiepagina's<i class="fa fa-fw fa-caret-down"></i></a>
-                <ul id="pages" class="collapse">
+                <a href="pages_overview.php" ><i class="fa fa-fw fa-list"></i>Informatiepagina's</a>
+            </li>
+            <li <?php if($active == "Factuur") echo "class='active'" ?>>
+                <a href="javascript:;" data-toggle="collapse" data-target="#quotation"><i class="fa fa-fw fa-file-o"></i> Offertes overzicht<i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="quotation" class="collapse">
                     <li>
-                        <a href="pages_overview.php">Pagina Overzicht</a>
-                    </li>
-                    <li>
-                        <a href="page_edit.php">Bewerken</a>
+                        <a href="quotation_request_overview.php">Aanvragen</a>
+                    </li> <li>
+                        <a href="quotation_overview.php">Offertes</a>
                     </li>
                 </ul>
             </li>

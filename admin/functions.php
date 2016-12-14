@@ -9,6 +9,8 @@ session_start();
  */
 include 'classes/Database.php';
 
+
+/********* GET FUNCTIONS *********/
 /**
  * A function to get all the information pages.
  *
@@ -35,6 +37,71 @@ function get_page_info($id){
 }
 
 /**
+ * A function to get all the information pages.
+ *
+ * @return mixed
+ */
+function get_customer_info($id){
+    $db = new Database();
+    $db->query('SELECT * FROM customer WHERE customer_id=:id');
+    $db->bind(':id', $id);
+    $user = $db->single();
+    return $user;
+}
+
+/**
+ * A function to get all the information pages.
+ *
+ * @return mixed
+ */
+function get_product_info($id){
+    $db = new Database();
+    $db->query('SELECT * FROM product WHERE product_id=:id');
+    $db->bind(':id', $id);
+    $user = $db->single();
+    return $user;
+}
+
+/**
+ * Select all request with status 0(request).
+ *
+ * @return mixed
+ */
+function get_quotation_requests(){
+    $db = new Database();
+    $db->query('SELECT * FROM quotation_request WHERE request_status=0');
+    $requests = $db->resultset();
+    return $requests;
+}
+
+/**
+ * Select all request with status 0(request).
+ *
+ * @return mixed
+ */
+function get_single_quotation_requests($id){
+    $db = new Database();
+    $db->query('SELECT * FROM quotation_request WHERE request_id=:id');
+    $db->bind(':id', $id);
+    $requests = $db->single();
+    return $requests;
+}
+
+/**
+ * Select all request with status 0(request).
+ *
+ * @return mixed
+ */
+function get_quotations(){
+    $db = new Database();
+    $db->query('SELECT * FROM quotatio WHERE quotation_status=0');
+    $requests = $db->resultset();
+    return $requests;
+}
+/********* END GET FUNCTIONS *********/
+
+/********* INSERT FUNCTIONS *********/
+/**
  * @return mixed
  */
 function insert_info_page($title, $description, $content, $status, $type, $location){
@@ -54,6 +121,51 @@ function insert_info_page($title, $description, $content, $status, $type, $locat
     }
 
 }
+
+function accept_quotation_request($id){
+    $quotation_request = get_single_quotation_requests($id);
+    $customer = $quotation_request['customer_id'];
+    $product_id = $quotation_request['product_id'];
+    $product_info = get_product_info($product_id);
+    $btw = 0.21;
+    $product_excl_btw = ($product_info["product_price"] - ($product_info["product_price"]  * $btw) );
+    $db = new Database();
+    $db->beginTransaction();
+    $db->query('INSERT INTO quotation (customer_id) VALUES (:customer_id)');
+    $db->bind(':customer_id', $customer);
+    if($db->execute()){
+        $qoutation_info_id = $db->lastInsertId();
+        $db->query('INSERT INTO quotation_information (quotation_id, product_id, product_net_amount) VALUES (:qid, :pid, :pprice)');
+        $db->bind(':qid', $qoutation_info_id);
+        $db->bind(':pid', $product_id);
+        $db->bind(':pprice', $product_excl_btw);
+        if($db->execute()){
+            $db->query('UPDATE quotation_request SET request_status=:status');
+            $db->bind(':status', 1);
+            if($db->execute()){
+                $db->endTransaction();
+                return true;
+            }
+            else{
+                $db->cancelTransaction();
+                return false;
+            }
+        }
+        else{
+            $db->cancelTransaction();
+            return false;
+        }
+    }
+    else{
+        $db->cancelTransaction();
+        return false;
+    }
+
+}
+
+/********* END INSERT FUNCTIONS *********/
+
+/********* UPDATE FUNCTIONS *********/
 /**
  * @return mixed
  */
@@ -76,6 +188,27 @@ function update_info_page($values){
 
 }
 
+function decline_quotation_request($id){
+    $db = new Database();
+    $db->query('UPDATE quotation_request SET request_status=:status WHERE request_id=:id');
+    $db->bind(':id', $id);
+    $db->bind(':status', 2);
+
+    if($db->execute()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+/********* END UPDATE FUNCTIONS *********/
+
+/********* DELETE FUNCTIONS *********/
+/**
+ * @param $id
+ * @return bool
+ */
 function delete_info_page($id){
     $db = new Database();
     $db->query('DELETE FROM content_page WHERE page_id=:pid');
@@ -88,52 +221,34 @@ function delete_info_page($id){
         return false;
     }
 }
+/********* END DELETE FUNCTIONS *********/
+
+/********* OTHER FUNCTIONS *********/
 function upload_img($size,$dir){
-                if (!file_exists($dir.'/')) {
-                    mkdir($dir.'/', 0777, true);
-                }
-                
-                if(isset($_FILES["file_upload"])){
-                    
-    
-                    
-                    if($_FILES['file_upload']['error'] > 0){
-                        die('Er iets mis gegaan tijdens het uploaden.');
-                    }
+    if (!file_exists($dir.'/')) {
+        mkdir($dir.'/', 0777, true);
+    }
 
-                    if($_FILES['file_upload']['type'] != 'image/png' && $_FILES['file_upload']['type']!= 'image/jpeg'){
-                        die('Dit bestand wordt niet ondersteund.');
-                    }
+    if(isset($_FILES["file_upload"])){
 
-                    if($_FILES['file_upload']['size'] > $size*1000000){
-                        die('Dit bestand is te groot kies een kleiner bestand.');
-                    }
 
-                    if(move_uploaded_file($_FILES['file_upload']['tmp_name'], 'offerte/' . $_FILES['file_upload']['name'])){
-                        print("upload succesfull");
-                    }
-                      
 
-            }
-}
+        if($_FILES['file_upload']['error'] > 0){
+            die('Er iets mis gegaan tijdens het uploaden.');
+        }
 
-function insert_quotation($product_id,$customer_name ,$customer_email){
-    
-    $db = new Database();
-    
-    $db->beginTransaction();
-    $db->query('INSERT INTO customer (customer_name,customer_email) VALUES (:q_customer_name,:q_customer_email)'); 
-    $db->bind('q_customer_name', $customer_name);
-    $db->bind('q_customer_email', $customer_email);
-    $db->execute();
-    
-    $customer_id = $db->lastInsertId();
-    
-    $db->query('INSERT INTO quotation_request (customer_id,product_id,request_date) VALUES (:q_customer_id, :q_product_id,:q_request_date)');
-    $db->bind(':q_customer_id', $customer_id);
-    $db->bind(':q_product_id', $product_id);
-    $db->bind(':q_request_date', date("Y-m-d H:i:s"));
-    $db->execute();
+        if($_FILES['file_upload']['type'] != 'image/png' && $_FILES['file_upload']['type']!= 'image/jpeg'){
+            die('Dit bestand wordt niet ondersteund.');
+        }
 
-    $db->endTransaction();
+        if($_FILES['file_upload']['size'] > $size*1000000){
+            die('Dit bestand is te groot kies een kleiner bestand.');
+        }
+
+        if(move_uploaded_file($_FILES['file_upload']['tmp_name'], 'offerte/' . $_FILES['file_upload']['name'])){
+            print("upload succesfull");
+        }
+
+
+    }
 }
