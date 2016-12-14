@@ -23,7 +23,7 @@ if(!isset($_SESSION["service"])){
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="index.php">
-                <img class="logo" src="images/logo.png" alt="">
+                <img class="logo" src="./images/logo.png" alt="">
             </a>
 
 
@@ -114,6 +114,10 @@ if(!isset($_SESSION["service"])){
                     }
                 }
                 ?>
+                <?php if($_SESSION['service'] == 2){?>
+                <li>
+                    <a href="hardware-catalogus.php">Hardware catalogus</a>
+                </li><?php } ?>
                 <li>
                     <a href="contact.php">Contact</a>
                 </li>

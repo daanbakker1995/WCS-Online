@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <?php
-include '../admin/classes/Database.php';
+include 'admin/classes/Database.php';
 $db = new Database();
+session_start();
 ?>
-
 <html lang="en">
 
     <head>
@@ -18,14 +17,14 @@ $db = new Database();
         <title>Laptops</title>
 
         <!-- Bootstrap Core CSS -->
-        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="../css/small-business.css" rel="stylesheet">
+        <link href="css/small-business.css" rel="stylesheet">
         <!--- theme --->
-        <link href="../css/theme.css" rel="stylesheet">
+        <link href="css/theme.css" rel="stylesheet">
         <!-- Custom CSS -->
-        <link href="../css/hardware.css" rel="stylesheet">
+        <link href="css/hardware.css" rel="stylesheet">
         <link href="\hardwarecategorie\producten.css" rel="stylesheet">
         
 
@@ -41,45 +40,7 @@ $db = new Database();
     <body>
 
         <!-- Navigation -->
-        <nav class="navbar  navbar-inverse header-color navbar-fixed-top" role="navigation">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="../index.php">
-                        <img class="logo" src="../images/logo.png" alt="">
-                    </a>
-
-
-                </div> 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="../homepage-copy.php">naar druk service</a>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#">About</a>
-                        </li>
-                        <li>
-                            <a href="#">Services</a>
-                        </li>
-                        <li>
-                            <a href="#">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.navbar-collapse -->
-            </div>
-            <!-- /.container -->
-        </nav>
+        <?php include './include/menu.php';?>
         <div class="container">
                     <div class="page-header text-center">
                         <h1>Onze laptops</h1>

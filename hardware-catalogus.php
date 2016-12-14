@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php
+include 'admin/classes/Database.php';
+$db = new Database();
+session_start();
+?>
 <html lang="en">
 
     <head>
@@ -33,38 +38,8 @@
     <body>
 
         <!-- Navigation -->
-        <nav class="navbar  navbar-inverse header-color navbar-fixed-top" role="navigation">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">
-                        <img class="logo" src="images/logo.png" alt="">
-                    </a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="#">About</a>
-                        </li>
-                        <li>
-                            <a href="#">Services</a>
-                        </li>
-                        <li>
-                            <a href="#">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.navbar-collapse -->
-            </div>
-            <!-- /.container -->
-        </nav>
+        <?php include 'include/menu.php';?>
+
         <div class="container">
                     <div class="page-header text-center">
                         <h1>Hardware Catalogus</h1>
@@ -75,12 +50,9 @@
                 <!-- print voor elke categorie met een foreach -->
 
                 <?php
-                //database connectie maken
-                include 'admin/classes/Database.php';
-                $pdo = new Database();
                 //waarden in een array stoppen
-                $pdo->query("SELECT DISTINCT product_type, product_type_image FROM category WHERE category_id=2 ORDER BY product_type");
-                $products = $pdo->resultset();
+                $db->query("SELECT DISTINCT product_type, product_type_image FROM category WHERE category_id=2 ORDER BY product_type");
+                $products = $db->resultset();
                 $product_amount = 0;
                 foreach ($products as $product) {
                     //invoegen standaard afbeelding als geen afbeelding beschikbaar is
@@ -94,8 +66,8 @@
                     ?>
                     <div class="col-xs-6 col-md-4">
                         <a href="<?php
-                        print ("./hardwarecategorie/" . $product["product_type"] . ".php");
-                        ?>" class="thumbnail thumbmax">                           
+                        print ("./" . $product["product_type"] . ".php");
+                        ?>" class="thumbnail thumbmax">
                             <img class="img-responsive" src="<?php print($image); ?>"/>
                                 <h2 class="text-center"><?php print(ucfirst($product["product_type"]));
                                 if ($product["product_type"] == "PC") {
@@ -110,7 +82,7 @@
                                 else {
                                     print ("s");
                                 }
-?></h2>            
+?></h2>
                         </a>
                     </div>
                     <?php
