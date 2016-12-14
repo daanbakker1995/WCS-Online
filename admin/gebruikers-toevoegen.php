@@ -27,22 +27,26 @@ session_start();
             ?>
 
             <div id="page-wrapper">
-
+                <!--- form -->
                 <div class="container-fluid">
                     <div id="page-wrapper">
                         <form action="gebruiker-toegevoegd.php" method="post">
+                            <!-- Gebruikersnaam-->
                             <div class="form-group">
                                 <label for="user">Gebruikersnaam</label>
                                 <input type="text" class="form-control" id="user" required name="user">
                             </div>
+                            <!--Email-->
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" class="form-control" id="email" required name="email">
                             </div>
+                            <!--Wachtwoord-->
                             <div class="form-group">
                                 <label for="pwd">Wachtwoord</label>
                                 <input type="password" class="form-control" id="pwd" required name="pwd">
                             </div>
+                            <!--Rol-->
                             <div class="form-group">
                                 <label for="role">Rol</label>
                                 <select class="form-control" id="role" required name="role">
@@ -50,6 +54,7 @@ session_start();
                                     <option value="0">Content Beheerder</option>                                 
                                 </select>
                             </div>
+                            <!--Mooie submit knop-->
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="toevoegen"/>
                             </div>

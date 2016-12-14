@@ -16,10 +16,6 @@ session_start();
         include '/classes/database.php'?>
         <link href="css/MaartenTheme.css" rel="stylesheet">
 
-        <?php
-
-        ?>
-
     </head>
 
     <body>
