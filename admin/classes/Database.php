@@ -123,6 +123,12 @@ class Database{
     }
 
     /**
+     * @return bool
+     */
+    public function cancelTransaction(){
+        return $this->dbh->rollBack();
+    }
+    /**
      * @return mixed
      */
     public function debugDumpParams(){
