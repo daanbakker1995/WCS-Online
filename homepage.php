@@ -9,8 +9,6 @@ if(isset($_GET['service']) && $_GET['service'] == 'drukservice'){
     $_SESSION['service'] = 1; // drukservice
 }elseif(isset($_GET['service']) && $_GET['service'] == 'computerservice'){
     $_SESSION['service'] = 2; // computerservice
-}else{
-
 }
 ?>
 <html lang="en">
