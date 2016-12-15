@@ -8,6 +8,12 @@ $db->query('SELECT * FROM content_page WHERE page_id=:id');
 $db->bind(':id', $_GET['id']);
 $page_info = $db->single();
 
+if($page_info["page_type"] == 1){
+    $_SESSION['service'] = 1; // drukservice
+}elseif($page_info["page_type"] == 2){
+    $_SESSION['service'] = 2; // computerservice
+}
+
 ?>
 <html lang="en">
 
