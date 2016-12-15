@@ -94,9 +94,25 @@ function get_single_quotation_requests($id){
  */
 function get_quotations(){
     $db = new Database();
-    $db->query('SELECT * FROM quotatio WHERE quotation_status=0');
+    $db->query('SELECT * FROM quotation WHERE quotation_status=0');
     $requests = $db->resultset();
     return $requests;
+}
+/**
+ * Select all request with status 0(request).
+ *
+ * @return mixed
+ */
+function get_quotation_total_price($id){
+    $total_price = 0;
+    $db = new Database();
+    $db->query('SELECT product_net_amount FROM quotation_information WHERE quotation_id=:id');
+    $db->bind(':id', $id);
+    $products = $db->resultset();
+    foreach($products as $product){
+        $total_price = $total_price+$product["product_net_amount"];
+    }
+    return $total_price;
 }
 /********* END GET FUNCTIONS *********/
 
