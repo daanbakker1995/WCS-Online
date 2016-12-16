@@ -118,6 +118,11 @@ if(!isset($_SESSION["service"])){
                 <li>
                     <a href="hardware-catalogus.php">Hardware catalogus</a>
                 </li><?php } ?>
+                
+                <?php if($_SESSION['service'] == 1){?>
+                <li>
+                    <a href="druk-categorie.php">Drukservice catalogus</a>
+                </li><?php } ?>
                 <li>
                     <a href="contact.php">Contact</a>
                 </li>
