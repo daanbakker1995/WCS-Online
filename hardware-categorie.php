@@ -45,54 +45,54 @@ $products = $db->resultset();
         <nav class="navbar  navbar-inverse header-color navbar-fixed-top" role="navigation">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
+
                 <?php include 'include/menu.php'; ?>
-                <!-- /.navbar-collapse -->
+
+              <!-- /.navbar-collapse -->
             </div>
             <!-- /.container -->
         </nav>
         <div class="container">
-            <div class="page-header text-center">
-                <h1>Onze producten</h1>
-            </div>
-            <!-- Page Content -->
-            <div class="container">
-                <div class="row">
-                    <!-- print voor elke product met een foreach -->
+          <div class="page-header text-center">
+            <h1>Onze producten</h1>
+        <!-- Page Content -->
+            <div class="row">
+                <!-- print voor elke product met een foreach -->
 
-                    <?php
-                    //waarden in een array stoppen
-                    foreach ($products as $product) {
-                        //invoegen standaard afbeelding als geen afbeelding beschikbaar is
-                        if ($product["product_image"] != NULL) {
-                            $image = $product["product_image"];
-                        } else {
-                            $image = "http://gemkolabwell.com/Admin/images/product/default_product.jpg";
-                        }
-                        ?>
-                        <div class="col-xs-8 col-md-2">
-                            <a href="<?php print ("./product.php?id=" . ($product["product_id"])); ?>" class="thumbnail thumbmax">                           
-                                <img class="img-responsive" src="<?php print($image); ?>"/>
-                                <h4 class="text-center"><?php print(ucfirst($product["product_name"]));
-                        ?></h4>
-                                <p class="text-center"><?php print("€ " . $product["product_price"]);
-                        ?></p>
-                            </a>
-                        </div>
-                        <?php
+                <?php
+                //waarden in een array stoppen
+                foreach ($products as $product) {
+                    //invoegen standaard afbeelding als geen afbeelding beschikbaar is
+                    if ($product["product_image"] != NULL) {
+                        $image = $product["product_image"];
+                    } else {
+                        $image = "http://gemkolabwell.com/Admin/images/product/default_product.jpg";
                     }
                     ?>
-                </div>
+                    <div class="col-xs-8 col-md-2">
+                        <a href="<?php print ("./hardware-product.php?id=" . ($product["product_id"])); ?>" class="thumbnail thumbmax">                           
+                            <img class="img-responsive" src="<?php print($image); ?>"/>
+                            <h4 class="text-center"><?php print(ucfirst($product["product_name"]));
+                      ?></h4>
+                            <p class="text-center"><?php print("€ " . $product["product_price"]);
+                            ?></p>
+                        </a>
+                    </div>
+    <?php
+}
+?>
             </div>
+        </div>
 
+ 
 
+        <!-- /.container -->
 
-            <!-- /.container -->
+        <!-- jQuery -->
+        <script src="js/jquery.js"></script>
 
-            <!-- jQuery -->
-            <script src="js/jquery.js"></script>
-
-            <!-- Bootstrap Core JavaScript -->
-            <script src="js/bootstrap.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="js/bootstrap.min.js"></script>
 
     </body>
 
