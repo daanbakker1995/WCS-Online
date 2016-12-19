@@ -100,8 +100,12 @@
                 <ul id="quotation" class="collapse">
                     <li>
                         <a href="quotation_request_overview.php">Aanvragen</a>
-                    </li> <li>
+                    </li>
+                    <li>
                         <a href="quotation_overview.php">Offertes</a>
+                    </li>
+                    <li>
+                            <a href="quotation_archive_overview.php">Archief</a>
                     </li>
                 </ul>
             </li>
