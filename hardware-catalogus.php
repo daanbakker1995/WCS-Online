@@ -51,7 +51,7 @@ session_start();
 
                 <?php
                 //waarden in een array stoppen
-                $db->query("SELECT DISTINCT product_type, product_type_image FROM category WHERE category_id=2 ORDER BY product_type");
+                $db->query("SELECT * FROM category WHERE category_name = 'hardware service' ORDER BY product_type");
                 $products = $db->resultset();
                 $product_amount = 0;
                 foreach ($products as $product) {
@@ -65,9 +65,7 @@ session_start();
                     }
                     ?>
                     <div class="col-xs-6 col-md-4">
-                        <a href="<?php
-                        print ("./" . $product["product_type"] . ".php");
-                        ?>" class="thumbnail thumbmax">
+                        <a href="hardware-categorie.php?category=<?=$product["category_id"];?>" class="thumbnail thumbmax">
                             <img class="img-responsive" src="<?php print($image); ?>"/>
                                 <h2 class="text-center"><?php print(ucfirst($product["product_type"]));
                                 if ($product["product_type"] == "PC") {
