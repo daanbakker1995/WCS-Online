@@ -84,7 +84,7 @@ include 'functions.php';
                 <?php endif; ?>
 
                 <!-- /.row -->
-                <?php //alert if page is succesfully added
+                <?php //alert if page is not added
                 if(isset($_GET["delete"]) && $_GET["delete"] == 0): ?>
                     <div class="alert alert-danger">
                         <strong>Fout!</strong> Er is iets fout gegaan tijdens het verwijderen.

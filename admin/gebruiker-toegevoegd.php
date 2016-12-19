@@ -25,9 +25,33 @@ session_start();
             <?php
             $active = "Dashboard";
             include 'include/menu.php';
+            include 'classes/Database.php';
             ?>
 
             <div id="page-wrapper">
+                <!--invoegen in database-->
+                <?php
+                //rol string omzetten naar integer voor gemak
+
+                if ($_POST["role"] == "Admin")
+                {
+                    $role = 1;
+                } else
+                {
+                    $role = 2;
+                }
+                //password hashen
+                $paswh = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
+                
+                //database connectie
+                $db = "mysql:host=localhost; dbname=wcs-online_database; port=3307";
+                $user = "root";
+                $pass = "usbw";
+                $pdo = new PDO($db, $user, $pass);
+                $sql = "INSERT INTO user (user_name, user_email, user_password, user_type) VALUES (?,?,?,?)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(array($_POST["user"], $_POST["email"], $paswh, $role));
+                ?>
 
                 <div class="container-fluid">
                     <div id="page-wrapper">
@@ -49,16 +73,16 @@ session_start();
                         </div>
                         <div class="row">
                             <div class="col-md-3">
-                                <p><?php print($_POST["user"]);?></p>
+                                <p><?php print($_POST["user"]); ?></p>
                             </div>
                             <div class="col-md-3">
-                                <p><?php print($_POST["email"]);?></p>
+                                <p><?php print($_POST["email"]); ?></p>
                             </div>
                             <div class="col-md-3">
-                                <p><?php print($_POST["pwd"]);?></p>
+                                <p><?php print($_POST["pwd"]); ?></p>
                             </div>
                             <div class="col-md-3">
-                                <p><?php print($_POST["role"]);?></p>
+                                <p><?php print($_POST["role"]); ?></p>
                             </div>
                         </div>
                     </div>

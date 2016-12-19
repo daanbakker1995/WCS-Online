@@ -33,11 +33,11 @@ if(!isset($_SESSION["service"])){
             <ul class="nav navbar-nav">
                 <?php if($_SESSION['service'] == 1){?>
                 <li>
-                    <a href="homepage.php?service=computerservice">naar computer service</a>
+                    <a class="btn btn-success btn-xs" href="homepage.php?service=computerservice">naar computer service</a>
                 </li>
                 <?php }elseif($_SESSION['service'] == 2){?>
                 <li>
-                    <a href="homepage.php?service=drukservice">naar druk service</a>
+                    <a class="btn btn-primary btn-xs" href="homepage.php?service=drukservice">naar druk service</a>
                 </li>
                 <?php } ?>
             </ul>
@@ -117,6 +117,11 @@ if(!isset($_SESSION["service"])){
                 <?php if($_SESSION['service'] == 2){?>
                 <li>
                     <a href="hardware-catalogus.php">Hardware catalogus</a>
+                </li><?php } ?>
+                
+                <?php if($_SESSION['service'] == 1){?>
+                <li>
+                    <a href="druk-categorie.php">Drukservice catalogus</a>
                 </li><?php } ?>
                 <li>
                     <a href="contact.php">Contact</a>
