@@ -67,7 +67,7 @@ $products = $db->resultset();
                 }
                 ?>
                 <div class="col-xs-8 col-md-2">
-                    <a href="<?php print ("./product.php?id=" . ($product["product_id"])); ?>" class="thumbnail thumbmax">                           
+                    <a href="<?php print ("./product.php?id=" . ($product["product_id"])."&category=".$_SESSION["copy-category"]); ?>" class="thumbnail thumbmax">                           
                         <img class="img-responsive" src="<?php print($image); ?>"/>
                         <h4 class="text-center"><?php print(ucfirst($product["product_name"]));
                 ?></h4>
