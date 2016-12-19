@@ -128,6 +128,27 @@ function get_quotation_total_price($id){
 /********* END GET FUNCTIONS *********/
 
 /********* INSERT FUNCTIONS *********/
+
+function insert_quotation($product_id,$customer_name ,$customer_email){
+    
+    $db = new Database();
+    
+    $db->beginTransaction();
+    $db->query('INSERT INTO customer (customer_name,customer_email) VALUES (:q_customer_name,:q_customer_email)'); 
+    $db->bind('q_customer_name', $customer_name);
+    $db->bind('q_customer_email', $customer_email);
+    $db->execute();
+    
+    $customer_id = $db->lastInsertId();
+    
+    $db->query('INSERT INTO quotation_request (customer_id,product_id,request_date) VALUES (:q_customer_id, :q_product_id,:q_request_date)');
+    $db->bind(':q_customer_id', $customer_id);
+    $db->bind(':q_product_id', $product_id);
+    $db->bind(':q_request_date', date("Y-m-d H:i:s"));
+    $db->execute();
+
+    $db->endTransaction();
+}
 /**
  * @return mixed
  */
