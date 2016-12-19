@@ -27,7 +27,44 @@ session_start();
             ?>
 
             <div id="page-wrapper">
-
+                <!--data opvragen
+          <?php include 'classes/database.php';
+            //$stmt = $pdo->prepare("SELECT user_id, user_name, user_email, user_type FROM user");
+            //$stmt->execute();
+           // $admins = $stmt->fetchAll();
+           // foreach ($admins as $admin)
+           // {
+               // if ($admin["user_type"] == 1)
+                {
+                  //  $role = "Admin";
+                }// elseif ($admin["user_type"] == 2)
+                {
+                   // $role = "Content Beheerder";
+                }// else
+                {
+                   // $role = "Super Admin";
+                }
+                ?>
+              <div class="row">
+                  <div class="col-md-1">
+                      <p>//<?php// print($admin["user_id"]); ?></p>
+                  </div>
+                  <div class="col-md-3">
+                            <p>//<?php //print($admin["user_name"]); ?></p>                        
+                        </div>
+                        <div class="col-md-4">
+                            <p>//<?php// print($admin["user_email"]); ?></p>
+                        </div>
+                        <div class="col-md-2">
+                            <p>//<?php //print($role); ?></p>
+                        </div>
+                        <div class="col-md-2">
+                            <button href="gebruiker-wijzigen.php?userid=//<?php// print($admin["user_id"]) ?>" class="btn btn-primary"></button>
+                            <button/>
+                        </div>
+                    <?php //} ?>
+                -->
+                </div>
                 <div class="container-fluid">
                     <div id="page-wrapper">
                         <form action="gebruiker-toegevoegd.php" method="post">

@@ -290,6 +290,81 @@ function delete_info_page($id){
 /********* END DELETE FUNCTIONS *********/
 
 /********* OTHER FUNCTIONS *********/
+//add hardware products
+function insert_product($category, $price, $name, $description, $image){
+    $db = new Database();
+    $db->query("INSERT INTO product (category_id, product_price, product_name, product_description, product_image) VALUES (:pcategory_id, :pprice, :pname, :pdescription, :pimage);");
+    $db->bind(':pcategory_id', $category);
+    $db->bind(':pprice', $price);
+    $db->bind(':pname', $name);
+    $db->bind(':pdescription', $description);
+    $db->bind(':pimage', $image);    
+    if($db->execute()){
+        return true;
+    }
+    else{
+        return false;
+    }
+
+}
+
+//get products
+function get_hardware_products(){
+    $db = new Database();
+    $db->query("SELECT * FROM product p JOIN category c on p.category_id = c.category_id WHERE category_name = 'hardware service' ");
+    $products = $db->resultset();
+    return $products;
+}
+
+//get product
+function get_product_info($id){
+    $db = new Database();
+    $db->query('SELECT * FROM product where product_id=:id');
+    $db->bind(':id', $id);
+    $product = $db->single();
+    return $product;
+}
+
+// update product
+function update_product($values){
+    $db = new Database();
+    $db->query('UPDATE product SET product_name=:pname, category_id=:pcategory, product_price=:pprice, product_description=:pdescription, product_image=:pimage WHERE product_id=:pid');
+    $db->bind(':pid', $values['id']);
+    $db->bind(':pname', $values['name']);
+    $db->bind(':pcategory', $values['category']);
+    $db->bind(':pprice', $values['price']);
+    $db->bind(':pdescription', $values['description']);    
+    $db->bind(':pimage', $values['image']);
+    if($db->execute()){
+        return true;
+    }
+    else{
+        return false;
+    }
+
+}
+
+// delete product
+function delete_product($id){
+    $db = new Database();
+    $db->query('DELETE FROM product WHERE product_id=:pid');
+    $db->bind(':pid', $id);
+
+    if($db->execute()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+// 
+function get_copy_products(){
+    $db = new Database();
+    $db->query("SELECT * FROM product p JOIN category c on p.category_id = c.category_id WHERE category_name = 'copy service' ");
+    $products = $db->resultset();
+    return $products;
+}
 function upload_img($size,$dir){
     if (!file_exists($dir.'/')) {
         mkdir($dir.'/', 0777, true);
@@ -302,7 +377,6 @@ function upload_img($size,$dir){
         if($_FILES['file_upload']['error'] > 0){
             die('Er iets mis gegaan tijdens het uploaden.');
         }
-
         if($_FILES['file_upload']['type'] != 'image/png' && $_FILES['file_upload']['type']!= 'image/jpeg'){
             die('Dit bestand wordt niet ondersteund.');
         }
