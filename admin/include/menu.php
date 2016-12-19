@@ -117,6 +117,14 @@
                     </li>
                 </ul>
             </li>
+            <li <?php if ($active == "Copyservice") echo "class='active'" ?>>
+                <a href="javascript:;" data-toggle="collapse" data-target="#drukservice"><i class="fa fa-fw fa-laptop"></i> Drukservice<i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="drukservice" class="collapse">
+                    <li>
+                        <a href="drukservice_overview.php">Overzicht</a>
+                    </li>
+                </ul>
+            </li>            
             <li>
                 <a href="../"><i class="fa fa-fw fa-sign-out"></i> Naar Website</a>
             </li>
