@@ -103,6 +103,17 @@ function get_quotations(){
  *
  * @return mixed
  */
+function get_quotations_archived(){
+    $db = new Database();
+    $db->query('SELECT * FROM quotation WHERE quotation_status=1');
+    $requests = $db->resultset();
+    return $requests;
+}
+/**
+ * Select all request with status 0(request).
+ *
+ * @return mixed
+ */
 function get_quotation_total_price($id){
     $total_price = 0;
     $db = new Database();
@@ -182,6 +193,24 @@ function accept_quotation_request($id){
 /********* END INSERT FUNCTIONS *********/
 
 /********* UPDATE FUNCTIONS *********/
+
+/**
+ * @param $id
+ * @return bool
+ */
+function acrhive_quotation($id){
+    $db = new Database();
+    $db->query('UPDATE quotation SET quotation_status=:status WHERE quotation_id=:qid');
+    $db->bind(':qid', $id);
+    $db->bind(':status', 1);
+    if($db->execute()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 /**
  * @return mixed
  */

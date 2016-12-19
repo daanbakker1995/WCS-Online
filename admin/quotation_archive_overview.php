@@ -49,7 +49,7 @@ include 'functions.php';
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">
-                        Offerte
+                        Offerte Archief
                         <small>Overzicht</small>
                     </h1>
                 </div>
@@ -77,15 +77,14 @@ include 'functions.php';
                             <thead>
                             <tr>
                                 <th>Offerte nr.</th>
-                                <th>Datum</th>
+                                <th>Datum aangemaakt</th>
                                 <th>Klantnaam</th>
                                 <th>Total prijs</th>
-                                <th>Opties</th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php
-                            $quotations = get_quotations();
+                            $quotations = get_quotations_archived();
                             foreach($quotations as $quotation ):
                                 $user = get_customer_info($quotation["customer_id"]);
                                 $total_price = get_quotation_total_price($quotation["quotation_id"]);
@@ -102,12 +101,6 @@ include 'functions.php';
                                         <b>Bedrijf: </b><?= $user["customer_company"] ?><br>
                                     </td>
                                     <td><?= "&euro;".number_format($total_price, 2, ',', ' ') ?></td>
-                                    <td>
-                                        <a href="#" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                        <a href="#" class="btn btn-success"><i class="fa fa-file-o" aria-hidden="true"></i></a>
-                                        <a href="#" class="btn btn-warning"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
-                                        <a href="#" data-href="quotation_archive.php?id=<?= $quotation["quotation_id"] ?>" class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-archive" aria-hidden="true"></i></a>
-                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>
