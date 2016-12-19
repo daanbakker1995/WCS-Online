@@ -117,23 +117,79 @@ function upload_img($size,$dir){
             }
 }
 
-function insert_quotation($product_id,$customer_name ,$customer_email){
-    
+//add hardware products
+function insert_product($category, $price, $name, $description, $image){
     $db = new Database();
-    
-    $db->beginTransaction();
-    $db->query('INSERT INTO customer (customer_name,customer_email) VALUES (:q_customer_name,:q_customer_email)'); 
-    $db->bind('q_customer_name', $customer_name);
-    $db->bind('q_customer_email', $customer_email);
-    $db->execute();
-    
-    $customer_id = $db->lastInsertId();
-    
-    $db->query('INSERT INTO quotation_request (customer_id,product_id,request_date) VALUES (:q_customer_id, :q_product_id,:q_request_date)');
-    $db->bind(':q_customer_id', $customer_id);
-    $db->bind(':q_product_id', $product_id);
-    $db->bind(':q_request_date', date("Y-m-d H:i:s"));
-    $db->execute();
+    $db->query("INSERT INTO product (category_id, product_price, product_name, product_description, product_image) VALUES (:pcategory_id, :pprice, :pname, :pdescription, :pimage);");
+    $db->bind(':pcategory_id', $category);
+    $db->bind(':pprice', $price);
+    $db->bind(':pname', $name);
+    $db->bind(':pdescription', $description);
+    $db->bind(':pimage', $image);    
+    if($db->execute()){
+        return true;
+    }
+    else{
+        return false;
+    }
 
-    $db->endTransaction();
+}
+
+//get products
+
+function get_hardware_products(){
+    $db = new Database();
+    $db->query("SELECT * FROM product p JOIN category c on p.category_id = c.category_id WHERE category_name = 'hardware service' ");
+    $products = $db->resultset();
+    return $products;
+}
+
+//get product
+function get_product_info($id){
+    $db = new Database();
+    $db->query('SELECT * FROM product where product_id=:id');
+    $db->bind(':id', $id);
+    $product = $db->single();
+    return $product;
+}
+
+// update product
+function update_product($values){
+    $db = new Database();
+    $db->query('UPDATE product SET product_name=:pname, category_id=:pcategory, product_price=:pprice, product_description=:pdescription, product_image=:pimage WHERE product_id=:pid');
+    $db->bind(':pid', $values['id']);
+    $db->bind(':pname', $values['name']);
+    $db->bind(':pcategory', $values['category']);
+    $db->bind(':pprice', $values['price']);
+    $db->bind(':pdescription', $values['description']);    
+    $db->bind(':pimage', $values['image']);
+    if($db->execute()){
+        return true;
+    }
+    else{
+        return false;
+    }
+
+}
+
+// delete product
+function delete_product($id){
+    $db = new Database();
+    $db->query('DELETE FROM product WHERE product_id=:pid');
+    $db->bind(':pid', $id);
+
+    if($db->execute()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+// 
+function get_copy_products(){
+    $db = new Database();
+    $db->query("SELECT * FROM product p JOIN category c on p.category_id = c.category_id WHERE category_name = 'copy service' ");
+    $products = $db->resultset();
+    return $products;
 }

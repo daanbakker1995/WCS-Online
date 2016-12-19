@@ -17,6 +17,7 @@ include 'functions.php';
 </head>
 
 <body>
+    <!-- Modal Confirm Delete-->
 <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -38,7 +39,7 @@ include 'functions.php';
 
     <!-- ADMIN MENU -->
     <?php
-    $active = "Catalogus";
+    $active = "Copyservice";
     include 'include/menu.php';
     ?>
 
@@ -50,7 +51,7 @@ include 'functions.php';
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Hardware producten
+                            Drukservice
                             <small>Overzicht</small>
                         </h1>
                     </div>
@@ -90,7 +91,7 @@ include 'functions.php';
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                      <a href="./product_add.php" class="btn btn-primary">Toevoegen</a><br><br>
+                      <a href="./copy_product_add.php" class="btn btn-primary">Toevoegen</a><br><br>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -112,18 +113,19 @@ include 'functions.php';
                                 </tr>
                                 </thead>
                                 <tbody>
+                                    <!-- Get all copy products in table -->
                                 <?php
-                                $products = get_hardware_products();
+                                $products = get_copy_products();
                                 foreach($products as $product ):
                                 ?>
                                 <tr>
-                                    <td><a href="../hardware-product.php?id=<?php echo $product['product_id'] ?>"><?= $product["product_name"]; ?></a></td>
+                                    <td><a href="#"><?= $product["product_name"]; ?></a></td>
                                     <td><img class="img-responsive" width="100px" src="<?php echo $product["product_image"]; ?>"/></td>
                                     <td><?php echo $product["category_id"]; ?></td>
                                     <td><?php echo $product["product_description"]; ?></td>
                                     <td><?php echo $product["product_price"]; ?></td>
-                                    <td><a href="product_edit.php?id=<?= $product["product_id"] ?>" class="btn btn-primary"><span class="fa fa-pencil"></span></a>
-                                        <a href="#" data-href="product_delete.php?id=<?= $product["product_id"] ?>" class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete" ><span class="fa fa-trash"></span></a>        
+                                    <td><a href="copy_product_edit.php?id=<?= $product["product_id"] ?>" class="btn btn-primary"><span class="fa fa-pencil"></span></a>
+                                        <a href="#" data-href="copy_product_delete.php?id=<?= $product["product_id"] ?>" class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete" ><span class="fa fa-trash"></span></a>        
                                         </td>
                                 </tr>
                                 <?php endforeach ?>
@@ -143,6 +145,8 @@ include 'functions.php';
 
     </div>
     <!-- /#wrapper -->
+    
+    <!-- script for modal -->
     <script>
         $('#confirm-delete').on('show.bs.modal', function(e) {
             $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));

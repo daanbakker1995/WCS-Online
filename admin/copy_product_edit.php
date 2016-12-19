@@ -10,7 +10,7 @@ if(isset($_POST["submit"])){
         $product_info['image'] = $_POST["image"];
 
         if(update_product($product_info)){
-            header('location: ./product_overview.php?product_edit=1');
+            header('location: ./drukservice_overview.php?product_edit=1');
         }
         else{
             $error = "Er is iets fout gegaan.";
@@ -23,7 +23,7 @@ else {
         $product_info = get_product_info($_GET["id"]);
     }
     else{
-        header('location: ./product_overview.php');
+        header('location: ./drukservice_overview.php');
     }
 }
 ?>
@@ -82,13 +82,9 @@ else {
                         <div class="form-group">
                             <label for="type">Product type</label>
                             <select class="form-control" id="type" name="type">
-                                <option value="3" <?php if($product_info["category_id"] == 3) echo "selected" ?>>laptop</option>
-                                <option value="4" <?php if($product_info["category_id"] == 4) echo "selected" ?>>desktop</option>
-                                <option value="5" <?php if($product_info["category_id"] == 5) echo "selected" ?>>monitor</option>
-                                <option value="2" <?php if($product_info["category_id"] == 2) echo "selected" ?>>tablet</option>
-                                <option value="6" <?php if($product_info["category_id"] == 6) echo "selected" ?>>PC-component</option>
-                                <option value="7" <?php if($product_info["category_id"] == 7) echo "selected" ?>>printer</option>
-                                <option value="8" <?php if($product_info["category_id"] == 8) echo "selected" ?>>scanner</option>
+                                <option value="10" <?php if($product_info["category_id"] == 10) echo "selected" ?>>vlag</option>
+                                <option value="1" <?php if($product_info["category_id"] == 1) echo "selected" ?>>kleding</option>
+                                <option value="11" <?php if($product_info["category_id"] == 11) echo "selected" ?>>spandoek</option>
                             </select>
                         </div>
                     </div>
@@ -111,7 +107,7 @@ else {
                         </div>
                     </div>                       
                     <div class="col-lg-12">
-                            <a href="product_overview.php" class="btn btn-default">Annuleren</a>
+                            <a href="drukservice_overview.php" class="btn btn-default">Annuleren</a>
                             <input type="submit" class="btn btn-primary" name="submit" value="Opslaan">
                     </div>
                     </form>
