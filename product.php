@@ -3,7 +3,7 @@ include "admin/functions.php";
 $jan = 1;
 $db = new Database();
 
-///pagina info opvragem met het id van de vorige pagina
+///product info opvragem met het id van de vorige pagina
 $db->query("select *  "
         . "from product "
         . "where product_id=" . $_GET['id']);
@@ -54,7 +54,7 @@ if (isset($_POST['email'])) {
     if (!$mail->Send()) {
         print('<div class="alert alert-success"> <strong>Success!</strong> Uw aanvraag is verzonden, u ontvangt een email ter bevestiging.</div>');
     } else {
-        print('<div class="alert alert-success"> <strong>Success!</strong> Uw aanvraag is verzonden, u ontvangt een email ter bevestiging.</div>');
+        print('<div class="alert alert-success"> <strong>Success!</strong> Uw aanvraag is verzonden, u ontvangt een email ter bevestiging.</div>' . print_r($_POST));
     }
 }
 ?>
@@ -102,96 +102,115 @@ if (isset($_POST['email'])) {
     </head>
 
     <body>
-        <div class="modal fade" id="quotation_request" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
+        
+        <form method="POST">
+            <div class="modal fade" id="quotation_request" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
 
-                    <div class="modal-header">
-                        <h3>aanvraag bevestigen</h3>
+                        <div class="modal-header">
+                            <h3>aanvraag bevestigen</h3>
+                        </div>
+                        
+                            <div class="modal-body">
+                                <p>Om uw aanvraag te bevestigen hebben wij de volgende gegevens nodig</p>
+                                <input type="hidden" value="<?php echo $product_id; ?>" name="id">
+                                naam:<input type="text" class="form-control" name="name" required/>
+                                email:<input type="email" class="form-control" name="email" required/>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Annuleren</a>
+                                <input type ="submit" class="btn btn-primary btn-ok" name="submit" value="gegevens verzenden"/>
+                            </div>
+                                        
                     </div>
-                    <form method="POST">
-                        <div class="modal-body">
-                            <p>Om uw aanvraag te bevestigen hebben wij de volgende gegevens nodig</p>
-                            <input type="hidden" value="<?php echo $product_id; ?>" name="id">
-                            naam:<input type="text" class="form-control" name="name" required/>
-                            email:<input type="email" class="form-control" name="email" required/>
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Annuleren</a>
-                            <input type ="submit" class="btn btn-primary btn-ok" name="submit" value="gegevens verzenden"/>
-                        </div>
-                    </form>                
                 </div>
             </div>
-        </div>
-<?php include 'include/menu.php'; ?>
+            <?php include 'include/menu.php'; ?>
 
-        <!-- Page Content -->
-        <div class="container">
-            <!--            <div class="thumbnail">-->
-            <div class="row">
-                <div class="col-md-5 col-md-offset-2">
-                    <img class="img-responsive" src="<?php print($result["product_image"]) ?>" alt="">
-                </div>
-                <div class="caption-full">
-                    <div class="col-md-3">
+            <!-- Page Content -->
+            <div class="container">
+                <!--            <div class="thumbnail">-->
 
-                        <?php
-                        if ($_SESSION['service'] == 1) {
-                            print('
-                        <form method="post">
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-2">
+                        <img class="img-responsive" src="<?php print($result["product_image"]) ?>" alt="">
+                    </div>
+                    <div class="caption-full">
+                        <div class="col-md-3">
+                            aantal<input class=" form-control col-xs-2 " type="number" name="aantal" min="0"><br>
+                            <?php
+                            if ($result['category_id'] == 1) {
+                                print('
+                        
                             welke groot wil u hebben<br>
                             <label class="form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> S
+                                <input class="form-check-input" type="radio" name="maat" id="Radio1" value="S"> S
                             </label>
                             <label class="form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> M
+                                <input class="form-check-input" type="radio" name="maat" id="Radio2" value="M"> M
                             </label>
                             <label class="form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> L
+                                <input class="form-check-input" type="radio" name="maat" id="Radio3" value="M"> L
                             </label>
                             <label class="form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> XL
+                                <input class="form-check-input" type="radio" name="maat" id="Radio3" value="XL"> XL
                             </label>
                             <label class="form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> XXL
+                                <input class="form-check-input" type="radio" name="maat" id="Radio3" value="XXl"> XXL
                             </label>
                         </form>
-                        ');
-                        }
-                        ?>
-                    </div>
-                </div>    
-            </div>
-            <div class="col-md-offset-2">
-                <h4><a href="#"><?php print($result["product_name"]) ?></a></h4>
-                <p><?php print($result["product_description"]) ?></p>
-                <a  class="btn btn-primary" data-toggle="modal" data-target="#quotation_request">factuur aanvragen</a>
+                        '); 
+                            }?>
+                     <?php
+                          if ($result['category_id'] == 10 || $result['category_id'] == 11) { 
+                          print('afmetingen
+                            <div class = "row form-group">
+                                <div class = "col-md-6">
+                                    <label for = "ex1">lengte</label>
+                                    <input class = "form-control"  type = "number" min="0" name="lengte">
+                                </div>
+                                
+                                <div class = "col-md-6">
+                                    <label for = "ex1">breedte</label>
+                                    <input class = "form-control" type = "number" min="0" name="breedte">
+                                </div>
+                            </div>    
+                          ');}
+                             
+                          ?>
+                        </div>
+                    </div>    
+                </div>
+                <div class="col-md-offset-2">
+                    <h4><a href="#"><?php print($result["product_name"]) ?></a></h4>
+                    <p><?php print($result["product_description"]) ?></p>
+                    <a  class="btn btn-primary" data-toggle="modal" data-target="#quotation_request">factuur aanvragen</a>
+                </div>
             </div>
         </div>
+
+
+
+
     </div>
+    <!-- /.container -->
 
+    <div class="container">
 
+        <!-- Footer -->
+        <footer>
+            <?php include 'include/footer.php'; ?>
+        </footer>
 
+    </div>
+    <!-- /.container -->
 
-</div>
-<!-- /.container -->
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
 
-<div class="container">
-
-    <!-- Footer -->
-    <footer>
-<?php include 'include/footer.php'; ?>
-    </footer>
-
-</div>
-<!-- /.container -->
-
-<!-- jQuery -->
-<script src="js/jquery.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
 
 </body>
 

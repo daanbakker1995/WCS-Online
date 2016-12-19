@@ -1,5 +1,7 @@
+<!--jan kaptijn s1103061-->
 <!DOCTYPE html>
 <?php
+//databse class aanroepen
 include 'admin/classes/Database.php';
 $db = new Database();
 session_start();
@@ -13,7 +15,7 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>hompage-copy</title>
+    <title>categorie</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -63,8 +65,9 @@ session_start();
                         $image = "http://gemkolabwell.com/Admin/images/product/default_product.jpg";
                     }
                     ?>
+                    <?php $_SESSION['copy-category']=$product["category_id"]?>
                     <div class="col-xs-6 col-md-4">
-                        <a href="druk-catalogus.php?category=<?=$product["category_id"];?>" class="thumbnail thumbmax">
+                        <a href="druk-catalogus.php?category=<?=$_SESSION['copy-category'];?>" class="thumbnail thumbmax">
                             <img class="img-responsive" src="<?php print($image); ?>"/>
                                 <h2 class="text-center"><?php print(ucfirst($product["product_type"]));?></h2>
                         </a>

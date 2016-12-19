@@ -316,14 +316,6 @@ function get_hardware_products(){
     return $products;
 }
 
-//get product
-function get_product_info($id){
-    $db = new Database();
-    $db->query('SELECT * FROM product where product_id=:id');
-    $db->bind(':id', $id);
-    $product = $db->single();
-    return $product;
-}
 
 // update product
 function update_product($values){
