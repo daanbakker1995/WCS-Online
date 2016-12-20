@@ -1,6 +1,8 @@
+
+<!--jan kaptijn-->
 <?php
 include "admin/functions.php";
-$jan = 1;
+
 $db = new Database();
 
 ///product info opvragem met het id van de vorige pagina
@@ -10,14 +12,32 @@ $db->query("select *  "
 $result = $db->single();
 $product_id = $_GET["id"];
 
+/// kijken of er afmetingen moeten komen of dat er een maat moet komen.
+if (isset($_POST['lengte'])){
+    $specs = $_POST['lengte']."X".$_POST['breedte'];
+}
+elseif(isset ($_POST['maat'])){
+   
+    $specs = $_POST['maat'];
+}
+else{
+    $specs = "no specs";
+}
+
+/// bedrijf is niet verplicht dus deze moet leeg zijn als hij niet geset is
+if(isset($_POST['company'])){
+    $company=$_POST['company'];
+}
+else
+    $company = NULL;
 
 ///kijken of de er gesubmit is
 if (isset($_POST['submit'])) {
-    if (insert_quotation($_GET["id"], $_POST['name'], $_POST['email'])) {
-        echo "succesvol aangevraagd!";
+    insert_quotation($_GET["id"], $_POST['name'], $_POST['email'],$_POST['address'],$_POST['zipcode'],$company,$_POST['place'],$specs,$_POST['aantal']);
+        
     }
-}
 
+/// als er een email adres is ingevlut wordt de email geconfigureerd.
 if (isset($_POST['email'])) {
     require_once('admin/classes/phpmailer/class.phpmailer.php');
     include("admin/classes/phpmailer/class.smtp.php"); // optional, gets called from within class.phpmailer.php if not already loaded
@@ -54,7 +74,7 @@ if (isset($_POST['email'])) {
     if (!$mail->Send()) {
         print('<div class="alert alert-success"> <strong>Success!</strong> Uw aanvraag is verzonden, u ontvangt een email ter bevestiging.</div>');
     } else {
-        print('<div class="alert alert-success"> <strong>Success!</strong> Uw aanvraag is verzonden, u ontvangt een email ter bevestiging.</div>' . print_r($_POST));
+        print('<div class="alert alert-success"> <strong>Success!</strong> Uw aanvraag is verzonden, u ontvangt een email ter bevestiging.</div>');
     }
 }
 ?>
@@ -68,7 +88,7 @@ if (isset($_POST['email'])) {
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>hardware-product</title>
+        <title>product</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -111,12 +131,16 @@ if (isset($_POST['email'])) {
                         <div class="modal-header">
                             <h3>aanvraag bevestigen</h3>
                         </div>
-                        
+<!--                        het maken van een popup  -->
                             <div class="modal-body">
                                 <p>Om uw aanvraag te bevestigen hebben wij de volgende gegevens nodig</p>
-                                <input type="hidden" value="<?php echo $product_id; ?>" name="id">
-                                naam:<input type="text" class="form-control" name="name" required/>
-                                email:<input type="email" class="form-control" name="email" required/>
+                                <input type="hidden" value="<?php echo $product_id; ?>" name="id">*
+                                naam:<input type="text" class="form-control" name="name" required/>*
+                                email:<input type="email" class="form-control" name="email" required/>*
+                                adres:<input type="text" class="form-control" name="address" required/>*
+                                woonplaats:<input type="text" class="form-control" name="place" required/>*
+                                postcode:<input type="text" class="form-control" name="zipcode" required/>
+                                bedrijf:<input type="text" class="form-control" name="company"/>
                             </div>
                             <div class="modal-footer">
                                 <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Annuleren</a>
@@ -138,9 +162,14 @@ if (isset($_POST['email'])) {
                     </div>
                     <div class="caption-full">
                         <div class="col-md-3">
-                            aantal<input class=" form-control col-xs-2 " type="number" name="aantal" min="0"><br>
+                            
+<!--                            hier kan de klant een aantal invoeren-->
+                        aantal<input class=" form-control col-xs-2 " type="number" name="aantal" min="0" max="99"><br>
                             <?php
+                            /// als de catgorie kleding is->
                             if ($result['category_id'] == 1) {
+                               
+                              
                                 print('
                         
                             welke groot wil u hebben<br>
@@ -160,11 +189,17 @@ if (isset($_POST['email'])) {
                                 <input class="form-check-input" type="radio" name="maat" id="Radio3" value="XXl"> XXL
                             </label>
                         </form>
+                       
                         '); 
-                            }?>
+                            }
+                            if(isset($_POST['maat'])){
+                                  $mail_content =" maat:".$_POST['maat'];
+                            }
+                            ?>
                      <?php
+                          ///als de categorie iets anders van de drukservice is ->
                           if ($result['category_id'] == 10 || $result['category_id'] == 11) { 
-                          print('afmetingen
+                          print('afmetingen in cm
                             <div class = "row form-group">
                                 <div class = "col-md-6">
                                     <label for = "ex1">lengte</label>
