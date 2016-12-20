@@ -22,6 +22,17 @@ function get_info_pages(){
     $pages = $db->resultset();
     return $pages;
 }
+/**
+ * A function to get all the information pages.
+ *
+ * @return mixed
+ */
+function get_company_info(){
+    $db = new Database();
+    $db->query('SELECT * FROM company');
+    $pages = $db->single();
+    return $pages;
+}
 
 /**
  * A function to get all the information pages.
@@ -103,11 +114,34 @@ function get_quotations(){
  *
  * @return mixed
  */
+function get_single_quotation($id){
+    $db = new Database();
+    $db->query('SELECT * FROM quotation WHERE quotation_id=:id');
+    $db->bind(":id", $id);
+    $requests = $db->single();
+    return $requests;
+}
+/**
+ * Select all request with status 0(request).
+ *
+ * @return mixed
+ */
 function get_quotations_archived(){
     $db = new Database();
     $db->query('SELECT * FROM quotation WHERE quotation_status=1');
     $requests = $db->resultset();
     return $requests;
+}/**
+ * Select all request with status 0(request).
+ *
+ * @return mixed
+ */
+function get_quotation_product($id){
+    $db = new Database();
+    $db->query('SELECT product_id FROM quotation_information WHERE quotation_id=:id');
+    $db->bind(":id", $id);
+    $product = $db->single();
+    return $product["product_id"];
 }
 /**
  * Select all request with status 0(request).
