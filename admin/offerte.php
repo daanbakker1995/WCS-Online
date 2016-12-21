@@ -4,10 +4,18 @@
         $id = $_GET['id'];
         $quotation = get_single_quotation($id);
         $user = get_customer_info($quotation["customer_id"]);
-        $total_price = get_quotation_total_price($quotation["quotation_id"]);
         $company = get_company_info();
-        $product_id = get_quotation_product($quotation["quotation_id"]);
-        $product = get_product_info($product_id);
+        $quotation_product = get_quotation_product($quotation["quotation_id"]);
+        $product = get_product_info($quotation_product["product_id"]);
+
+        $product_amount = $quotation_product['product_amount']; //product amount
+        $product_single_price = $quotation_product['product_net_amount']; //product price for each item
+        $product_sub_total = $product_amount * $product_single_price; //product total price
+        $VAT = $quotation_product["product_VAT"];
+        $product_total = $product_sub_total+($product_sub_total * ($VAT / 100)); //product total price
+
+
+
     }
     else{
         header('location: ./');
@@ -45,13 +53,33 @@
     <div style="margin: 10px 20%; font-size: 18px;">
         In aansluiting op uw prijsaanvraag bieden wij u uiteraard geheel vrijblijvend het volgende aan:
     </div>
-    <div style="margin: 10px 20%; font-size: 18px;">
-        <table>
+    <div style="margin: 15px 20%; font-size: 18px;">
+        <table width="100%" style="text-align: left;">
             <tr>
-                <th>Product nr.</th>
-                <th>Product afbeelding</th>
-                <th>Product naam</th>
-                <th>Product omschrijving</th>
+                <th style="border-bottom: 1px solid #000">Afbeelding</th>
+                <th style="border-bottom: 1px solid #000">Naam</th>
+                <th style="border-bottom: 1px solid #000">Omschrijving</th>
+                <th style="border-bottom: 1px solid #000">Aantal</th>
+                <th style="border-bottom: 1px solid #000">Stuckprijs(&euro;)</th>
+                <th style="border-bottom: 1px solid #000">Totaal(&euro;)</th>
+            </tr>
+            <tr>
+                <td style="border-bottom: 1px solid #000"><img width="100px" src="<?= "../".$product['product_image'] ?>" /></td>
+                <td style="border-bottom: 1px solid #000"><?= $product['product_name'] ?></td>
+                <td style="border-bottom: 1px solid #000"><?= $product['product_description'] ?></td>
+                <td style="border-bottom: 1px solid #000"><?= $product_amount ?></td>
+                <td style="text-align: right;border-bottom: 1px solid #000"><?= number_format($product_single_price, 2, ',', ' ')  ?></td>
+                <td style="text-align: right;border-bottom: 1px solid #000"><?= number_format($product_sub_total, 2, ',', ' ') ?></td>
+            </tr>
+        </table>
+        <table style="width:25%;margin: 0 0 0 auto;">
+            <tr>
+                <td style="text-align: right;border-bottom: 1px solid #000">BTW(&#37;)</td>
+                <td style="text-align: right;border-bottom: 1px solid #000"><?=  $VAT ?></td>
+            </tr>
+            <tr>
+                <td style="text-align: right;"><b>Totaal(&euro;)</b></td>
+                <td style="text-align: right;"><?=  number_format($product_total, 2, ',', ' ') ?></td>
             </tr>
         </table>
     </div>

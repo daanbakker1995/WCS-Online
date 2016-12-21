@@ -138,10 +138,10 @@ function get_quotations_archived(){
  */
 function get_quotation_product($id){
     $db = new Database();
-    $db->query('SELECT product_id FROM quotation_information WHERE quotation_id=:id');
+    $db->query('SELECT * FROM quotation_information WHERE quotation_id=:id');
     $db->bind(":id", $id);
     $product = $db->single();
-    return $product["product_id"];
+    return $product;
 }
 /**
  * Select all request with status 0(request).
