@@ -253,7 +253,7 @@ function accept_quotation_request($id){
     }
 
 }
-
+///comentaar
 function quotation_to_invoice($id){
     $db = new Database();
     $db->query('SELECT * FROM quotation WHERE quotation_id =:q_id ');
