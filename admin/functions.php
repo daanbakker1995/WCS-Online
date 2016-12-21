@@ -217,7 +217,8 @@ function accept_quotation_request($id){
     $product_id = $quotation_request['product_id'];
     $product_info = get_product_info($product_id);
     $btw = 0.21;
-    $product_excl_btw = ($product_info["product_price"] - ($product_info["product_price"]  * $btw) );
+    $product_excl_btw = ((100*$product_info["product_price"])/$btw );
+    
     $db = new Database();
     $db->beginTransaction();
     $db->query('INSERT INTO quotation (customer_id) VALUES (:customer_id)');
@@ -229,7 +230,8 @@ function accept_quotation_request($id){
         $db->bind(':pid', $product_id);
         $db->bind(':pprice', $product_excl_btw);
         if($db->execute()){
-            $db->query('UPDATE quotation_request SET request_status=:status');
+            $db->query('UPDATE quotation_request SET request_status=:status where request_id = :q_id ');
+            $db->bind(':q_id', $id);
             $db->bind(':status', 1);
             if($db->execute()){
                 $db->endTransaction();
@@ -250,6 +252,40 @@ function accept_quotation_request($id){
         return false;
     }
 
+}
+
+function quotation_to_invoice($id){
+    $db = new Database();
+    $db->query('SELECT * FROM quotation WHERE quotation_id =:q_id ');
+    $db->bind(':q_id', $id);
+    $quotation = $db->single();
+    
+    print_r($quotation);
+    
+    $db->query('INSERT INTO invoice (customer_id,quotation_id,edition) VALUES (:q_customer,:q_quotation,:q_edition)');
+    $db->bind(':q_customer',$quotation['customer_id']);
+    $db->bind(':q_quotation',$quotation['quotation_id']);
+    $db->bind(':q_edition',$quotation['edition']);
+    $db->execute();
+    $lastinsertid = $db->lastInsertId();
+    $db->query('SELECT * from quotation_information WHERE quotation_id =:q_id ');
+    $db->bind(':q_id', $id);
+    $quotation_info = $db->single();
+    
+    
+    
+    print_r($quotation_info);
+    print($lastinsertid);
+    
+    $db->query('INSERT INTO invoice_information(invoice_id,product_id,product_amount,product_net_amount,product_VAT) VALUES (:q_invoice_id,:q_product_id,:q_product_amount,:q_product_net_amount,:q_product_VAT)');
+    $db->bind(':q_invoice_id', $lastinsertid);
+    $db->bind(':q_product_id',$quotation_info['product_id']);
+    $db->bind(':q_product_amount',$quotation_info['product_amount']);
+    $db->bind(':q_product_net_amount',$quotation_info['product_net_amount']);
+    $db->bind(':q_product_VAT',$quotation_info['product_VAT']);
+    $db->execute();
+    print("het lukte!");
+     
 }
 
 /********* END INSERT FUNCTIONS *********/
