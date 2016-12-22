@@ -23,7 +23,7 @@ include 'functions.php';
                 <h3>Bevestiging archivering</h3>
             </div>
             <div class="modal-body">
-                <p>Weet u zeker dat u dit offerte wilt archiveren?</p>
+                <p>Weet u zeker dat u deze offerte wilt archiveren?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
@@ -75,13 +75,13 @@ include 'functions.php';
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover table-striped">
                             <thead>
-                            <tr>
-                                <th>Offerte nr.</th>
-                                <th>Datum</th>
-                                <th>Klantnaam</th>
-                                <th>Total prijs</th>
-                                <th>Opties</th>
-                            </tr>
+                                <tr>
+                                    <th class="col-md-2">Offerte nr.</th>
+                                    <th class="col-md-2">Datum</th>
+                                    <th class="col-md-3">Klantnaam</th>
+                                    <th class="col-md-2">Total prijs</th>
+                                    <th class="col-md-3">Opties</th>
+                                </tr>
                             </thead>
                             <tbody>
                             <?php
@@ -99,14 +99,14 @@ include 'functions.php';
                                         <b>Adres: </b><br>
                                         <?= $user["customer_address"] ?><br>
                                         <?= $user["customer_zipcode"].", ".$user["customer_location"] ?><br>
-                                        <b>Bedrijf: </b><?= $user["customer_company"] ?><br>
+                                        <?php if($user["customer_company"] != ""){?><b>Bedrijf: </b><?= $user["customer_company"] ?><br><?php } ?>
                                     </td>
                                     <td><?= "&euro;".number_format($total_price, 2, ',', ' ') ?></td>
                                     <td>
-                                        <a href="#" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                        <a href="#" class="btn btn-success"><i class="fa fa-file-o" aria-hidden="true"></i></a>
+                                        <a href="offerte.php?id=<?= $quotation["quotation_id"] ?>" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                         <a href="#" class="btn btn-warning"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
                                         <a href="#" data-href="quotation_archive.php?id=<?= $quotation["quotation_id"] ?>" class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-archive" aria-hidden="true"></i></a>
+                                        <a href="#" class="btn btn-success">Maak een factuur</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

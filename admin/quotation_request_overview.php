@@ -5,7 +5,6 @@ include 'functions.php';
 <html lang="en">
 
 <head>
-
     <!-- ADMIN HEADER -->
     <?php include 'include/head.php'; ?>
 
@@ -14,7 +13,6 @@ include 'functions.php';
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-
 </head>
 <body>
 <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -41,7 +39,7 @@ include 'functions.php';
                 <h3>Bevestiging Aanmaken offerte</h3>
             </div>
             <div class="modal-body">
-                <p>Weet u zeker dat u deze aanvraag wilt <strong>goedkeurenen een offerte</strong> wilt maken?</p>
+                <p>Weet u zeker dat u deze aanvraag wilt <strong>goedkeuren en een offerte</strong> wilt maken?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
