@@ -138,10 +138,10 @@ function get_quotations_archived(){
  */
 function get_quotation_product($id){
     $db = new Database();
-    $db->query('SELECT product_id FROM quotation_information WHERE quotation_id=:id');
+    $db->query('SELECT * FROM quotation_information WHERE quotation_id=:id');
     $db->bind(":id", $id);
     $product = $db->single();
-    return $product["product_id"];
+    return $product;
 }
 /**
  * Select all request with status 0(request).
@@ -158,6 +158,35 @@ function get_quotation_total_price($id){
         $total_price = $total_price+$product["product_net_amount"];
     }
     return $total_price;
+}
+
+
+function get_quotations_limit_10(){
+    $db = new Database();
+    $db->query('SELECT * FROM quotation WHERE quotation_status=0 LIMIT 10');
+    $requests = $db->resultset();
+    return $requests;
+}
+
+function get_invoice_limit_10(){
+    $db = new Database();
+    $db->query('SELECT * FROM invoice WHERE invoice_status=0 LIMIT 10');
+    $invoice = $db->resultset();
+    return $invoice;
+}
+
+function get_products_limit_10(){
+    $db = new Database();
+    $db->query('SELECT * FROM product P JOIN category C WHERE category_name="hardware service" AND P.category_id=C.category_id LIMIT 10');
+    $products = $db->resultset();
+    return $products;
+}
+
+function get_pages_limit_10(){
+    $db = new Database();
+    $db->query('SELECT * FROM content_page LIMIT 10');
+    $products = $db->resultset();
+    return $products;
 }
 /********* END GET FUNCTIONS *********/
 
@@ -347,6 +376,49 @@ function decline_quotation_request($id){
 
 /********* END UPDATE FUNCTIONS *********/
 
+/********* COUNT FUNCTIONS *********/
+/**
+ * @return mixed
+ */
+function count_requests(){
+    $db = new Database();
+    $db->query('SELECT COUNT(request_id) as requests FROM quotation_request where request_status=0');
+    $count = $db->single();
+    return $count['requests'];
+}
+
+/**
+ * @return mixed
+ */
+function count_invoices(){
+    $db = new Database();
+    $db->query('SELECT COUNT(invoice_id) as invoices FROM invoice where invoice_status=0');
+    $count = $db->single();
+    return $count['invoices'];
+}
+
+/**
+ * @return mixed
+ */
+function count_hardware_products(){
+    $db = new Database();
+    $db->query('SELECT COUNT(product_id) products FROM product P JOIN category C WHERE category_name="hardware service" AND P.category_id=C.category_id');
+    $count = $db->single();
+    return $count['products'];
+}
+
+/**
+ * @return mixed
+ */
+function count_copy_products(){
+    $db = new Database();
+    $db->query('SELECT COUNT(product_id) products FROM product P JOIN category C WHERE category_name="copy service" AND P.category_id=C.category_id');
+    $count = $db->single();
+    return $count['products'];
+}
+
+/********* END COUNT FUNCTIONS *********/
+
 /********* DELETE FUNCTIONS *********/
 /**
  * @param $id
@@ -461,3 +533,4 @@ function upload_img($size,$dir){
 
     }
 }
+
