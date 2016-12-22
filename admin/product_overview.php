@@ -118,7 +118,7 @@ include 'functions.php';
                                 ?>
                                 <tr>
                                     <td><a href="../product.php?id=<?php echo $product['product_id'] ?>"><?= $product["product_name"]; ?></a></td>
-                                    <td><img class="img-responsive" width="100px" src="<?php echo $product["product_image"]; ?>"/></td>
+                                    <td><img class="img-responsive" width="100px" src="../<?php echo $product["product_image"]; ?>"/></td>
                                     <td><?php echo $product["category_id"]; ?></td>
                                     <td><?php echo $product["product_description"]; ?></td>
                                     <td><?php echo $product["product_price"]; ?></td>

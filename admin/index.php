@@ -70,12 +70,12 @@ if($_SESSION["ingelogd"] == true){
                                         <i class="fa fa-eur fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-<!--                                        <div class="huge">--><?//= count_invoices(); ?><!--</div>-->
+                                        <div class="huge"><?= count_invoices(); ?></div>
                                         <div>Aantal Facturen</div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="invoice_overview.php">
+                            <a href="#">
                                 <div class="panel-footer">
                                     <span class="pull-left">Bekijk details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -136,7 +136,7 @@ if($_SESSION["ingelogd"] == true){
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="alert alert-info">
-                            <a class="btn btn-primary" href="https://analytics.google.com/analytics/web/?hl=nl&pli=1#report/defaultid/a89317406w132489073p136458998/">Google Analytics</a>
+                            <a class="btn btn-primary" target="_blank" href="https://analytics.google.com/analytics/web/?hl=nl&pli=1#report/defaultid/a89317406w132489073p136458998/">Google Analytics</a>
                             <strong>Meer statistieken!</strong> Om Google analytics te zien op de knop.
                         </div>
                     </div>
@@ -223,7 +223,7 @@ if($_SESSION["ingelogd"] == true){
                                     </table>
                                 </div>
                                 <div class="text-right">
-                                    <a href="invoice_overview.php">Bekijk Alles <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a href="#">Bekijk Alles <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -252,7 +252,7 @@ if($_SESSION["ingelogd"] == true){
                                         foreach($products as $product):
                                             ?>
                                             <tr>
-                                                <td><img src="<?= $product['product_image'] ?>" class="image_responsive" </td>
+                                                <td><img src="../<?= $product['product_image'] ?>" class="image_responsive" width="100%"> </td>
                                                 <td><?= $product['product_name'] ?></td>
                                                 <td class="price"><?= $product['product_price']  ?></td>
                                             </tr>

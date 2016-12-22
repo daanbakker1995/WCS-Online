@@ -5,7 +5,6 @@ include 'functions.php';
 <html lang="en">
 
 <head>
-
     <!-- ADMIN HEADER -->
     <?php include 'include/head.php'; ?>
 
@@ -14,7 +13,6 @@ include 'functions.php';
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-
 </head>
 <body>
 <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
