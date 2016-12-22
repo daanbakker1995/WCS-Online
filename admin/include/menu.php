@@ -40,7 +40,15 @@
                 <a href="./"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
             </li>
             <li <?php if($active == "Informatie") echo "class='active'" ?>>
-                <a href="pages_overview.php" ><i class="fa fa-fw fa-list"></i>Informatiepagina's</a>
+                <a href="javascript:;" data-toggle="collapse" data-target="#pages"><i class="fa fa-fw fa-list"></i> Pagina's<i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="pages" class="collapse">
+                    <li>
+                        <a href="homepages_overview.php" >Homepagina's</a>
+                    </li>
+                    <li>
+                        <a href="pages_overview.php" >Informatiepagina's</a>
+                    </li>
+                </ul>
             </li>
             <li <?php if($active == "Factuur") echo "class='active'" ?>>
                 <a href="javascript:;" data-toggle="collapse" data-target="#quotation"><i class="fa fa-fw fa-file-o"></i> Offertes overzicht<i class="fa fa-fw fa-caret-down"></i></a>
