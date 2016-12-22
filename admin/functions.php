@@ -46,6 +46,18 @@ function get_page_info($id){
     $pages = $db->single();
     return $pages;
 }
+/**
+ * A function to get all the information pages.
+ *
+ * @return mixed
+ */
+function get_homepage_info($id){
+    $db = new Database();
+    $db->query('SELECT * FROM homepage where homepage_id=:id');
+    $db->bind(':id', $id);
+    $page = $db->single();
+    return $page;
+}
 
 /**
  * A function to get all the information pages.
