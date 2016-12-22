@@ -30,8 +30,8 @@ function get_info_pages(){
 function get_company_info(){
     $db = new Database();
     $db->query('SELECT * FROM company');
-    $pages = $db->single();
-    return $pages;
+    $company = $db->single();
+    return $company;
 }
 
 /**
