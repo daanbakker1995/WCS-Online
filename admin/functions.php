@@ -22,6 +22,17 @@ function get_info_pages(){
     $pages = $db->resultset();
     return $pages;
 }
+/**
+ * A function to get all the information pages.
+ *
+ * @return mixed
+ */
+function get_company_info(){
+    $db = new Database();
+    $db->query('SELECT * FROM company');
+    $company = $db->single();
+    return $company;
+}
 
 /**
  * A function to get all the information pages.
@@ -103,11 +114,34 @@ function get_quotations(){
  *
  * @return mixed
  */
+function get_single_quotation($id){
+    $db = new Database();
+    $db->query('SELECT * FROM quotation WHERE quotation_id=:id');
+    $db->bind(":id", $id);
+    $requests = $db->single();
+    return $requests;
+}
+/**
+ * Select all request with status 0(request).
+ *
+ * @return mixed
+ */
 function get_quotations_archived(){
     $db = new Database();
     $db->query('SELECT * FROM quotation WHERE quotation_status=1');
     $requests = $db->resultset();
     return $requests;
+}/**
+ * Select all request with status 0(request).
+ *
+ * @return mixed
+ */
+function get_quotation_product($id){
+    $db = new Database();
+    $db->query('SELECT * FROM quotation_information WHERE quotation_id=:id');
+    $db->bind(":id", $id);
+    $product = $db->single();
+    return $product;
 }
 /**
  * Select all request with status 0(request).
@@ -129,22 +163,29 @@ function get_quotation_total_price($id){
 
 /********* INSERT FUNCTIONS *********/
 
-function insert_quotation($product_id,$customer_name ,$customer_email){
+function insert_quotation($product_id,$customer_name ,$customer_email,$customer_address,$customer_zipcode,$customer_company,$customer_location,$specs,$aantal){
     
     $db = new Database();
     
     $db->beginTransaction();
-    $db->query('INSERT INTO customer (customer_name,customer_email) VALUES (:q_customer_name,:q_customer_email)'); 
+    $db->query('INSERT INTO customer (customer_name,customer_email,customer_address,customer_zipcode,customer_company,customer_location) '
+            . 'VALUES (:q_customer_name,:q_customer_email,:q_customer_address,:q_customer_zipcode,:q_customer_company,:q_customer_location)'); 
     $db->bind('q_customer_name', $customer_name);
     $db->bind('q_customer_email', $customer_email);
+    $db->bind('q_customer_address', $customer_address);
+    $db->bind('q_customer_zipcode', $customer_zipcode);
+    $db->bind('q_customer_company', $customer_company);
+    $db->bind('q_customer_location', $customer_location);
     $db->execute();
     
     $customer_id = $db->lastInsertId();
     
-    $db->query('INSERT INTO quotation_request (customer_id,product_id,request_date) VALUES (:q_customer_id, :q_product_id,:q_request_date)');
+    $db->query('INSERT INTO quotation_request (customer_id,product_id,request_date,specs,aantal) VALUES (:q_customer_id, :q_product_id,:q_request_date,:q_specs,:q_aantal)');
     $db->bind(':q_customer_id', $customer_id);
     $db->bind(':q_product_id', $product_id);
     $db->bind(':q_request_date', date("Y-m-d H:i:s"));
+    $db->bind(':q_specs', $specs);
+    $db->bind(':q_aantal', $aantal);
     $db->execute();
 
     $db->endTransaction();

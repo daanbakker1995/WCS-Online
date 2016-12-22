@@ -33,7 +33,7 @@ if(!isset($_SESSION["service"])){
             <ul class="nav navbar-nav">
                 <?php if($_SESSION['service'] == 1){?>
                 <li>
-                    <a class="btn btn-success btn-xs" href="homepage.php?service=computerservice">naar computer service</a>
+                    <a class="btn btn-danger btn-xs" href="homepage.php?service=computerservice">naar computer service</a>
                 </li>
                 <?php }elseif($_SESSION['service'] == 2){?>
                 <li>
