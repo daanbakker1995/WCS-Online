@@ -110,6 +110,12 @@ function get_single_quotation_requests($id){
     return $requests;
 }
 
+function get_invoices(){
+    $db = new Database();
+    $db->query('SELECT * FROM invoice WHERE invoice_status=0 ');
+    $requests = $db->resultset();
+    return $requests;
+}
 /**
  * Select all request with status 0(request).
  *
@@ -256,9 +262,8 @@ function accept_quotation_request($id){
     $quotation_request = get_single_quotation_requests($id);
     $customer = $quotation_request['customer_id'];
     $product_id = $quotation_request['product_id'];
-    $product_info = get_product_info($product_id);
-    $btw = 0.21;
-    $product_excl_btw = ((100*$product_info["product_price"])/$btw );
+    $product_info = get_product_info($product_id); 
+    $product_excl_btw = ((100*$product_info["product_price"])/121 );
     
     $db = new Database();
     $db->beginTransaction();
@@ -301,7 +306,7 @@ function quotation_to_invoice($id){
     $db->bind(':q_id', $id);
     $quotation = $db->single();
     
-    print_r($quotation);
+    
     
     $db->query('INSERT INTO invoice (customer_id,quotation_id,edition) VALUES (:q_customer,:q_quotation,:q_edition)');
     $db->bind(':q_customer',$quotation['customer_id']);
@@ -315,8 +320,7 @@ function quotation_to_invoice($id){
     
     
     
-    print_r($quotation_info);
-    print($lastinsertid);
+ 
     
     $db->query('INSERT INTO invoice_information(invoice_id,product_id,product_amount,product_net_amount,product_VAT) VALUES (:q_invoice_id,:q_product_id,:q_product_amount,:q_product_net_amount,:q_product_VAT)');
     $db->bind(':q_invoice_id', $lastinsertid);
@@ -325,7 +329,9 @@ function quotation_to_invoice($id){
     $db->bind(':q_product_net_amount',$quotation_info['product_net_amount']);
     $db->bind(':q_product_VAT',$quotation_info['product_VAT']);
     $db->execute();
-    print("het lukte!");
+    acrhive_quotation($id);
+    return true;
+    
      
 }
 
@@ -340,6 +346,19 @@ function quotation_to_invoice($id){
 function acrhive_quotation($id){
     $db = new Database();
     $db->query('UPDATE quotation SET quotation_status=:status WHERE quotation_id=:qid');
+    $db->bind(':qid', $id);
+    $db->bind(':status', 1);
+    if($db->execute()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function archive_invoice($id){
+    $db = new Database();
+    $db->query('UPDATE invoice SET invoice_status=:status WHERE invoice_id=:qid');
     $db->bind(':qid', $id);
     $db->bind(':status', 1);
     if($db->execute()){
