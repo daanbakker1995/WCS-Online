@@ -5,6 +5,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-include "functions.php";
-$id =14;
-quotation_to_invoice($id);
+
+if(isset($_GET['id'])){
+    include "functions.php";
+    if(quotation_to_invoice($_GET['id'])){
+        header('location: quotation_overview.php?accept=1');
+    }
+    else{
+        
+        header('location: quotation_overview.php?accept=0');
+    }
+}

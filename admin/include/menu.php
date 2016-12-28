@@ -60,6 +60,9 @@
                         <a href="quotation_overview.php">Offertes</a>
                     </li>
                     <li>
+                        <a href="invoice_overview.php">facturen</a>
+                    </li>
+                    <li>
                             <a href="quotation_archive_overview.php">Archief</a>
                     </li>
                 </ul>
