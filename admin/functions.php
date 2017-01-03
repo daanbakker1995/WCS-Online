@@ -181,14 +181,14 @@ function get_quotation_total_price($id){
 
 function get_quotations_limit_10(){
     $db = new Database();
-    $db->query('SELECT * FROM quotation WHERE quotation_status=0 LIMIT 10');
+    $db->query('SELECT * FROM quotation WHERE quotation_status=0 ORDER BY quotation_id DESC LIMIT 10 ');
     $requests = $db->resultset();
     return $requests;
 }
 
 function get_invoice_limit_10(){
     $db = new Database();
-    $db->query('SELECT * FROM invoice WHERE invoice_status=0 LIMIT 10');
+    $db->query('SELECT * FROM invoice WHERE invoice_status=0 ORDER BY invoice_id DESC LIMIT 10 ');
     $invoice = $db->resultset();
     return $invoice;
 }
@@ -200,9 +200,9 @@ function get_products_limit_10(){
     return $products;
 }
 
-function get_pages_limit_10(){
+function get_pages_limit_15(){
     $db = new Database();
-    $db->query('SELECT * FROM content_page LIMIT 10');
+    $db->query('SELECT * FROM content_page LIMIT 15');
     $products = $db->resultset();
     return $products;
 }
@@ -391,6 +391,80 @@ function update_info_page($values){
 
 }
 
+/**
+ * @param $page_info
+ * @return bool
+ */
+function update_homepage($page_info){
+    $db = new Database();
+    $db->query('
+    UPDATE `homepage`
+    SET    `homepage_header_title`=:homepage_header_title,
+    `homepage_header_content`=:homepage_header_content,
+    `homepage_header_button_text`=:homepage_header_button_text,
+    `homepage_header_button_link`=:homepage_header_button_link,
+
+    `homepage_service_one_header`=:s_1_header,
+    `homepage_service_one_content`=:s_1_content,
+    `homepage_service_one_button_text`=:s_1_b_text,
+    `homepage_service_one_button_link`=:s_1_b_link,
+
+    `homepage_service_two_header`=:s_2_header,
+    `homepage_service_two_content`=:s_2_content,
+    `homepage_service_two_button_text`=:s_2_b_text,
+    `homepage_service_two_button_link`=:s_2_b_link,
+
+    `homepage_service_three_header`=:s_3_header,
+    `homepage_service_three_content`=:s_3_content,
+    `homepage_service_three_button_text`=:s_3_b_text,
+    `homepage_service_three_button_link`=:s_3_b_link
+    WHERE `homepage_id`=:id
+    ');
+    $db->bind(':id',$page_info["id"]);
+    $db->bind(':homepage_header_title', $page_info["homepage_header_title"]);
+    $db->bind(':homepage_header_content', $page_info["homepage_header_content"]);
+    $db->bind(':homepage_header_button_text', $page_info["homepage_header_button_text"]);
+    $db->bind(':homepage_header_button_link', $page_info["homepage_header_button_link"]);
+
+    $db->bind(':s_1_header', $page_info["s_1_header"]);
+    $db->bind(':s_1_content', $page_info["s_1_content"]);
+    $db->bind(':s_1_b_text', $page_info["s_1_b_text"]);
+    $db->bind(':s_1_b_link', $page_info["s_1_b_link"]);
+
+    $db->bind(':s_2_header', $page_info["s_2_header"]);
+    $db->bind(':s_2_content', $page_info["s_2_content"]);
+    $db->bind(':s_2_b_text', $page_info["s_2_b_text"]);
+    $db->bind(':s_2_b_link', $page_info["s_2_b_link"]);
+
+    $db->bind(':s_3_header', $page_info["s_3_header"]);
+    $db->bind(':s_3_content', $page_info["s_3_content"]);
+    $db->bind(':s_3_b_text', $page_info["s_3_b_text"]);
+    $db->bind(':s_3_b_link', $page_info["s_3_b_link"]);
+
+    if($db->execute()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function update_homepage_image($file_name,$id){
+    $db = new Database();
+    $db->query('
+    UPDATE `homepage` SET    `homepage_header_image`=:homepage_header_image WHERE `homepage_id`=:id
+    ');
+    $db->bind(':id', $id);
+    $db->bind(':homepage_header_image', $file_name);
+
+    if($db->execute()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 function decline_quotation_request($id){
     $db = new Database();
     $db->query('UPDATE quotation_request SET request_status=:status WHERE request_id=:id');
@@ -537,14 +611,21 @@ function get_copy_products(){
     $products = $db->resultset();
     return $products;
 }
-function upload_img($size,$dir){
+
+/**
+ * @param $size
+ * @param $dir
+ * @param $file_name
+ *
+ * Uploads image to given directory with given file_name.
+ */
+function upload_img($dir,$file_name){
+
     if (!file_exists($dir.'/')) {
         mkdir($dir.'/', 0777, true);
     }
 
     if(isset($_FILES["file_upload"])){
-
-
 
         if($_FILES['file_upload']['error'] > 0){
             die('Er iets mis gegaan tijdens het uploaden.');
@@ -553,11 +634,11 @@ function upload_img($size,$dir){
             die('Dit bestand wordt niet ondersteund.');
         }
 
-        if($_FILES['file_upload']['size'] > $size*1000000){
+        if($_FILES['file_upload']['size'] > 1000000){
             die('Dit bestand is te groot kies een kleiner bestand.');
         }
 
-        if(move_uploaded_file($_FILES['file_upload']['tmp_name'], 'offerte/' . $_FILES['file_upload']['name'])){
+        if(move_uploaded_file($_FILES['file_upload']['tmp_name'], $dir.'/' . $file_name)){
             print("upload succesfull");
         }
 
