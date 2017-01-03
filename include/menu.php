@@ -46,19 +46,20 @@ if(!isset($_SESSION["service"])){
                     <a href="./homepage.php">Home</a>
                 </li>
                 <?php
-                if($_SESSION['service'] == 1) {?>
+                if($_SESSION['service'] == 1) {
+                    $db->query("select page_id, page_title, page_type, page_status, page_location from content_page");
+                    $pages = $db->resultset();
+                    ?>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Informatie <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">Informatie <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <?php
-                            $session_active = 1; // copy
-                            $db->query("select page_id, page_title, page_type, page_status, page_location from content_page");
-                            $pages = $db->resultset();
                             foreach ($pages as $page) {
-                                if($page["page_type"] == $_SESSION['service'] || $page["page_type"] == "0"){
-                                    if($page["page_status"] == 1){
-                                        if($page["page_location"] == 1){
-                                            echo "<li><a href='information_page.php?id=". $page["page_id"] ."'>".$page["page_title"]."</a></li>";
+                                if ($page["page_type"] == $_SESSION['service'] || $page["page_type"] == "0") {
+                                    if ($page["page_status"] == 1) {
+                                        if ($page["page_location"] == 1) {
+                                            echo "<li><a href='information_page.php?id=" . $page["page_id"] . "'>" . $page["page_title"] . "</a></li>";
                                         }
                                     }
                                 }
@@ -80,19 +81,21 @@ if(!isset($_SESSION["service"])){
                     }
                 }
                 elseif($_SESSION['service'] == 2) {
+                    $db->query("select page_id, page_title, page_type, page_status, page_location from content_page");
+                    $pages = $db->resultset();
                     ?>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true"
                            aria-expanded="false">Informatie <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <?php
-                            $db->query("select page_id, page_title, page_type, page_status, page_location from content_page");
-                            $pages = $db->resultset();
+
                             foreach ($pages as $page) {
                                 if ($page["page_type"] == $_SESSION['service'] || $page["page_type"] == "0") {
                                     if ($page["page_status"] == 1) {
                                         if ($page["page_location"] == 1) {
-                                            echo "<li><a href='information_page.php?id=". $page["page_id"] ."'>" . $page["page_title"] . "</a></li>";
+                                            echo "<li><a href='information_page.php?id=" . $page["page_id"] . "'>" . $page["page_title"] . "</a></li>";
                                         }
                                     }
                                 }
@@ -101,8 +104,6 @@ if(!isset($_SESSION["service"])){
                         </ul>
                     </li>
                     <?php
-                    $db->query("select page_id, page_title, page_type, page_status, page_location from content_page");
-                    $pages = $db->resultset();
                     foreach ($pages as $page) {
                         if ($page["page_type"] == $_SESSION['service'] || $page["page_type"] == "0") {
                             if ($page["page_status"] == 1) {

@@ -115,7 +115,7 @@ if($_SESSION["ingelogd"] == true){
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge"><?= count_copy_products()?></div>
-                                        <div>Drukservice Porducten</div>
+                                        <div>Drukservice Producten</div>
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +157,6 @@ if($_SESSION["ingelogd"] == true){
                                     <table class="table table-bordered table-hover table-striped">
                                         <thead>
                                         <tr>
-                                            <th>Nummer</th>
                                             <th>Klant</th>
                                             <th>Datum</th>
                                             <th>Bedrag</th>
@@ -171,7 +170,6 @@ if($_SESSION["ingelogd"] == true){
                                             $total_price = get_quotation_total_price($quotation["quotation_id"]);
                                             ?>
                                             <tr>
-                                                <td><?= $quotation['quotation_id'] ?></td>
                                                 <td><?= $user["customer_name"] ?></td>
                                                 <td><?= date('d-m-Y', strtotime($quotation["quotation_date"] )); ?></td>
                                                 <td class="price"><?= $total_price ?></td>
@@ -199,7 +197,6 @@ if($_SESSION["ingelogd"] == true){
                                     <table class="table table-bordered table-hover table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Nummer</th>
                                                 <th>Klant</th>
                                                 <th>Datum</th>
                                                 <th>Bedrag</th>
@@ -207,15 +204,14 @@ if($_SESSION["ingelogd"] == true){
                                         </thead>
                                         <tbody>
                                         <?php
-                                            $quotations = get_quotations_limit_10();
-                                            foreach($quotations as $quotation):
-                                                $user = get_customer_info($quotation["customer_id"]);
-                                                $total_price = get_quotation_total_price($quotation["quotation_id"]);
+                                            $invoices = get_invoice_limit_10();
+                                            foreach($invoices as $invoice):
+                                                $user = get_customer_info($invoice["customer_id"]);
+                                                $total_price = get_quotation_total_price($invoice["quotation_id"]);
                                         ?>
                                             <tr>
-                                                <td><?= $quotation['quotation_id'] ?></td>
                                                 <td><?= $user["customer_name"] ?></td>
-                                                <td><?= date('d-m-Y', strtotime($quotation["quotation_date"] )); ?></td>
+                                                <td><?= date('d-m-Y', strtotime($invoice["invoice_date"] )); ?></td>
                                                 <td class="price"><?= $total_price ?></td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -241,7 +237,6 @@ if($_SESSION["ingelogd"] == true){
                                     <table class="table table-bordered table-hover table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Afbeelding</th>
                                                 <th>Naam</th>
                                                 <th>Prijs</th>
                                             </tr>
@@ -252,7 +247,6 @@ if($_SESSION["ingelogd"] == true){
                                         foreach($products as $product):
                                             ?>
                                             <tr>
-                                                <td><img src="../<?= $product['product_image'] ?>" class="image_responsive" width="100%"> </td>
                                                 <td><?= $product['product_name'] ?></td>
                                                 <td class="price"><?= $product['product_price']  ?></td>
                                             </tr>
@@ -285,7 +279,7 @@ if($_SESSION["ingelogd"] == true){
                                         </thead>
                                         <tbody>
                                         <?php
-                                        $pages = get_pages_limit_10();
+                                        $pages = get_pages_limit_15();
                                         foreach($pages as $page_info):
                                             ?>
                                             <tr>
