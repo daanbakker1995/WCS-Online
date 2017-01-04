@@ -1,5 +1,6 @@
 <?php
     include 'functions.php';
+    include "check_login.php";
     if(isset($_POST["submit"])){
         if($_POST["title"] != "" && ($_POST["content"] != "")){
             $title = $_POST["title"];
