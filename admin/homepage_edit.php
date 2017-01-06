@@ -1,5 +1,6 @@
 <?php
 include 'functions.php';
+include "check_login.php";
 $page_info = get_homepage_info($_GET["id"]);
 
 if(isset($_POST["submit"])){

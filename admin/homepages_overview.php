@@ -1,5 +1,6 @@
 <?php
 include 'functions.php';
+include "check_login.php";
 
 $page_info_copy = get_homepage_info(1);
 $page_info_computer = get_homepage_info(2);

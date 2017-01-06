@@ -1,11 +1,5 @@
 <?php
-session_start();
-//if($_SESSION["ingelogd"] == true){
-//
-//}
-// else {
-//       header('location: ./login.php');       
-//}
+include "check_login.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">

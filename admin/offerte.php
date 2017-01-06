@@ -1,4 +1,5 @@
 <?php
+include "check_login.php";
     if(isset($_GET['id'])){
         include 'functions.php';
         $id = $_GET['id'];
