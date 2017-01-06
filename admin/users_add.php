@@ -29,7 +29,7 @@ if($_SESSION["ingelogd"] == true){
             <div id="page-wrapper">
                 <div class="container-fluid">
                     <div id="page-wrapper">
-                        <form action="gebruiker-toegevoegd.php" method="post">
+                        <form action="users_added.php" method="post">
                             <div class="form-group">
                                 <label for="user">Gebruikersnaam</label>
                                 <input type="text" class="form-control" id="user" required name="user">
