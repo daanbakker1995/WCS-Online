@@ -8,6 +8,12 @@ $db->query('SELECT * FROM content_page WHERE page_id=:id');
 $db->bind(':id', $_GET['id']);
 $page_info = $db->single();
 
+if($page_info["page_type"] == 1){
+    $_SESSION['service'] = 1; // drukservice
+}elseif($page_info["page_type"] == 2){
+    $_SESSION['service'] = 2; // computerservice
+}
+
 ?>
 <html lang="en">
 
@@ -19,7 +25,7 @@ $page_info = $db->single();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>hompage-copy</title>
+    <title>hompage</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -35,7 +41,16 @@ $page_info = $db->single();
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
+        ga('create', 'UA-89317406-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
 </head>
 
 <body>

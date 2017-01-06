@@ -17,3 +17,4 @@ nbproject/project.properties
 offerte/image002.png
 *.jpg
 test_file.php
+admin/classes/database_settings.php

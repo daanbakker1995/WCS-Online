@@ -5,6 +5,9 @@
  * Date: 1-12-2016
  * Time: 10:24
  */
+if(!isset($_SESSION["service"])){
+    header('location: ./');
+}
 
 ?>
 
@@ -20,7 +23,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="index.php">
-                <img class="logo" src="images/logo.png" alt="">
+                <img class="logo" src="./images/logo.png" alt="">
             </a>
 
 
@@ -30,11 +33,11 @@
             <ul class="nav navbar-nav">
                 <?php if($_SESSION['service'] == 1){?>
                 <li>
-                    <a href="homepage.php?service=computerservice">naar computer service</a>
+                    <a class="btn btn-danger btn-xs" href="homepage.php?service=computerservice">naar computer service</a>
                 </li>
                 <?php }elseif($_SESSION['service'] == 2){?>
                 <li>
-                    <a href="homepage.php?service=drukservice">naar druk service</a>
+                    <a class="btn btn-primary btn-xs" href="homepage.php?service=drukservice">naar druk service</a>
                 </li>
                 <?php } ?>
             </ul>
@@ -43,19 +46,20 @@
                     <a href="./homepage.php">Home</a>
                 </li>
                 <?php
-                if($_SESSION['service'] == 1) {?>
+                if($_SESSION['service'] == 1) {
+                    $db->query("select page_id, page_title, page_type, page_status, page_location from content_page");
+                    $pages = $db->resultset();
+                    ?>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Informatie <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">Informatie <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <?php
-                            $session_active = 1; // copy
-                            $db->query("select page_id, page_title, page_type, page_status, page_location from content_page");
-                            $pages = $db->resultset();
                             foreach ($pages as $page) {
-                                if($page["page_type"] == $_SESSION['service'] || $page["page_type"] == "0"){
-                                    if($page["page_status"] == 1){
-                                        if($page["page_location"] == 1){
-                                            echo "<li><a href='information_page.php?id=". $page["page_id"] ."'>".$page["page_title"]."</a></li>";
+                                if ($page["page_type"] == $_SESSION['service'] || $page["page_type"] == "0") {
+                                    if ($page["page_status"] == 1) {
+                                        if ($page["page_location"] == 1) {
+                                            echo "<li><a href='information_page.php?id=" . $page["page_id"] . "'>" . $page["page_title"] . "</a></li>";
                                         }
                                     }
                                 }
@@ -77,19 +81,21 @@
                     }
                 }
                 elseif($_SESSION['service'] == 2) {
+                    $db->query("select page_id, page_title, page_type, page_status, page_location from content_page");
+                    $pages = $db->resultset();
                     ?>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true"
                            aria-expanded="false">Informatie <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <?php
-                            $db->query("select page_id, page_title, page_type, page_status, page_location from content_page");
-                            $pages = $db->resultset();
+
                             foreach ($pages as $page) {
                                 if ($page["page_type"] == $_SESSION['service'] || $page["page_type"] == "0") {
                                     if ($page["page_status"] == 1) {
                                         if ($page["page_location"] == 1) {
-                                            echo "<li><a href='information_page.php?id=". $page["page_id"] ."'>" . $page["page_title"] . "</a></li>";
+                                            echo "<li><a href='information_page.php?id=" . $page["page_id"] . "'>" . $page["page_title"] . "</a></li>";
                                         }
                                     }
                                 }
@@ -98,8 +104,6 @@
                         </ul>
                     </li>
                     <?php
-                    $db->query("select page_id, page_title, page_type, page_status, page_location from content_page");
-                    $pages = $db->resultset();
                     foreach ($pages as $page) {
                         if ($page["page_type"] == $_SESSION['service'] || $page["page_type"] == "0") {
                             if ($page["page_status"] == 1) {
@@ -111,6 +115,15 @@
                     }
                 }
                 ?>
+                <?php if($_SESSION['service'] == 2){?>
+                <li>
+                    <a href="hardware-catalogus.php">Hardware catalogus</a>
+                </li><?php } ?>
+                
+                <?php if($_SESSION['service'] == 1){?>
+                <li>
+                    <a href="druk-categorie.php">Drukservice catalogus</a>
+                </li><?php } ?>
                 <li>
                     <a href="contact.php">Contact</a>
                 </li>

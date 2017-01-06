@@ -9,14 +9,16 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Producten Copy Service</title>
-
+        <title>Hardware Catalogus</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
+
         <!-- Custom CSS -->
         <link href="css/small-business.css" rel="stylesheet">
-        <!-- theme -->
+        <!--- theme --->
+        <link href="css/hardware.css" rel="stylesheet">
+        <!--- category img CSS -->
         <link href="css/theme.css" rel="stylesheet">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -25,6 +27,16 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-89317406-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
 
     </head>
 
@@ -63,68 +75,48 @@
             </div>
             <!-- /.container -->
         </nav>
-
-
         <div class="container">
-            <div class="row row-eq-height">
+                    <div class="page-header text-center">
+                        <h1>Copy Catalogus</h1>
+                    </div>
+        </div>
+        <div class="container">
+            <div class="row">
                 <!-- print voor elke categorie met een foreach -->
 
                 <?php
                 //database connectie maken
+                include 'admin/classes/Database.php';
+                                //database connectie maken
                 $db = "mysql:host=localhost; dbname=wcs-online_database; port=3307";
                 $user = "root";
                 $pass = "usbw";
                 $pdo = new PDO($db, $user, $pass);
                 //waarden in een array stoppen
-                $stmt = $pdo->prepare("SELECT product_price, product_image, product_description, product_name FROM product WHERE category_id=1 ORDER BY product_name ASC");
+                $stmt = $pdo->prepare("SELECT product_price, product_image, product_description, product_name, product_id FROM product WHERE category_id=1 ORDER BY product_name ASC");
                 $stmt->execute();
-                $products = $stmt->fetchAll();
-                $product_amount = 0;
-
-                //waarden uit de array in een tabel stoppen
-                foreach ($products as $product):
+                $products=$stmt->fetchAll();
+                foreach ($products as $product) {
                     //invoegen standaard afbeelding als geen afbeelding beschikbaar is
-                    if (!isset($product["product_image"]))
-                    {
-                        $image = "http://larics.rasip.fer.hr/wp-content/uploads/2016/04/default-placeholder.png";
-                    } else
-                    {
+                    if ($product["product_image"] != NULL) {
                         $image = $product["product_image"];
+                       
                     }
-                    //check of de prijs een rond getal is
-                    if (is_float($product["product_price"]))
-                    {
-                        $afronding = "";
-                    } else
-                    {
-                        $afronding = ",-";
+                    else {
+                        $image = "http://gemkolabwell.com/Admin/images/product/default_product.jpg";
                     }
                     ?>
-                    <div class="col-md-3">
-                        <div class="thumbnail">
-                            <img src="<?php print($image); ?>" alt="<?php print($product["product_name"]); ?>" />
-                            <div class='caption'>
-                                <h2><?php print($product["product_name"]); ?></h2>
-                                <p><?php print($product["product_description"]); ?></p>
-                                <div class="bt-group-vertical">
-                                    
-                                        <a href="#" class="btn btn-primary">Aanvragen</a>
-                                   
-                                   
-                                        <a href="#" class="btn btn-default disabled"> Vanaf    &euro;<?php print($product["product_price"] . $afronding); ?></a>
-                                  
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-xs-6 col-md-4">
+                        <a href="<?php
+                        print ("/copy-product.php?productid=" . $product["product_id"]);
+                        ?>" class="thumbnail thumbmax">                           
+                            <img class="img-responsive" src="<?php print($image); ?>"/>
+                                <h2 class="text-center"><?php print(ucfirst($product["product_name"]));?></h2>            
+                        </a>
                     </div>
                     <?php
-                    //nieuwe rij beginnen na elk 4e product
-                    $product_amount = $product_amount + 1;
-                    if (is_integer(($product_amount / 4)))
-                    {
-                        print('</div><div class="row row-equal-height">');
-                    }
-                endforeach;
+
+                }
                 ?>
             </div>
         </div>

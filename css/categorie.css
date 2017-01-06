@@ -1,0 +1,6 @@
+.thumbmax {
+    max-height: 400px;
+}
+.thumbnail img {
+    max-height: 220px; 
+}
