@@ -1,27 +1,25 @@
+
 <!--gemaakt door Daan bakker, aangepast door jan kaptijn-->
 <?php
-
 ob_start();
-
-
+	
 
 	
-	
-    if(isset($_GET['id'])){
-        include 'functions.php';
-        $id = $_GET['id'];
+    if(isset($_GET["id"])){
 
-        $quotation = get_single_quotation($id);
-        $user = get_customer_info($quotation["customer_id"]);
+        include "functions.php";
+        $id = $_GET["id"];
+        $invoice = get_single_invoice($id);
+        $user = get_customer_info($invoice["customer_id"]);
         $company = get_company_info();
-        $quotation_product = get_quotation_product($quotation["quotation_id"]);
-        $product = get_product_info($quotation_product["product_id"]);
+        $invoice_product = get_invoice_product($invoice["invoice_id"]);
+        $product = get_product_info($invoice_product["product_id"]);
 
-        $product_amount = $quotation_product["product_amount"]; //product amount
-        $product_single_price = $quotation_product["product_net_amount"]; //product price for each item
+        $product_amount = $invoice_product["product_amount"]; //product amount
+        $product_single_price = $invoice_product["product_net_amount"]; //product price for each item
         $product_sub_total = $product_amount * $product_single_price; //product total price
-        $VAT = $quotation_product["product_VAT"];
-        $product_total = $product_sub_total+($product_sub_total * ($VAT / 100)); //product total price
+        $VAT = $invoice_product["product_VAT"];
+        $product_total = $product_sub_total+($product_sub_total * ($VAT / 121)); //product total price
 
 
 
@@ -34,7 +32,7 @@ ob_start();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>offerte <?php  ?></title>
+    <title>factuur </title>
 </head>
 <body style="border-top: 20px solid #ef4035;border-bottom: 20px solid #48a942;margin: 0;">
     <div style="width: 350px;margin: 20px auto;">
@@ -53,7 +51,7 @@ ob_start();
     </div>
     <br>
     <div style="margin: 10px 20%; font-size: 18px;">
-        offertenr.: <?= $quotation["quotation_id"]?><br>
+        offertenr.: <?= $invoice["invoice_id"]?><br>
         betreft: <?= $product["product_name"] ?>
     </div><br>
     <div style="margin: 10px 20%; font-size: 18px;">
@@ -77,8 +75,8 @@ ob_start();
                 <td style="border-bottom: 1px solid #000"><?= $product["product_name"] ?></td>
                 <td style="border-bottom: 1px solid #000"><?= $product["product_description"] ?></td>
                 <td style="border-bottom: 1px solid #000"><?= $product_amount ?></td>
-                <td style="text-align: right;border-bottom: 1px solid #000"><?= number_format($product_single_price, 2, ",", " ")  ?></td>
-                <td style="text-align: right;border-bottom: 1px solid #000"><?= number_format($product_sub_total, 2, ",", " ") ?></td>
+                <td style="text-align: right;border-bottom: 1px solid #000"><?= $product_single_price  ?></td>
+                <td style="text-align: right;border-bottom: 1px solid #000"><?= $product_sub_total ?></td>
             </tr>
         </table>
         <table style="width:25%;margin: 0 0 0 auto;">
@@ -88,7 +86,7 @@ ob_start();
             </tr>
             <tr>
                 <td style="text-align: right;"><b>Totaal(&euro;)</b></td>
-                <td style="text-align: right;"><?=  number_format($product_total, 2, ",", " ") ?></td>
+                <td style="text-align: right;"><?= $product_total ?></td>
             </tr>
         </table>
     </div>
@@ -109,13 +107,11 @@ ob_start();
 </body>
 </html>
 
-
 <?php
 $content = ob_get_contents();
-$open = fopen("offertes/".$_GET["id"].".html", "w");
+$open = fopen("factuur/".$_GET["id"].".html", "w");
 fwrite($open, $content);
 fclose($open); 
 
 ?>
-<a href="offertes/<?= $_GET['id']?>.html" download>DOWNLOAD</a>
-
+<a href="factuur/<?= $_GET['id']?>.html" download>DOWNLOAD</a>

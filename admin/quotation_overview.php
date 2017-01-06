@@ -33,7 +33,38 @@ include "check_login.php";
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="confirm-invoice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Bevestiging factuur aanmaken</h3>
+            </div>
+            <div class="modal-body">
+                <p>Weet u zeker dat u een factuur wilt maken van deze offerte?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+                <a class="btn btn-success btn-ok">Aanmaken</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirm-invoice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Bevestiging factuur aanmaken</h3>
+            </div>
+            <div class="modal-body">
+                <p>Weet u zeker dat u een factuur wilt maken van deze offerte?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+                <a class="btn btn-success btn-ok">Aanmaken</a>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="wrapper">
 
     <!-- ADMIN MENU -->
@@ -105,9 +136,9 @@ include "check_login.php";
                                     <td><?= "&euro;".number_format($total_price, 2, ',', ' ') ?></td>
                                     <td>
                                         <a href="offerte.php?id=<?= $quotation["quotation_id"] ?>" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                        <a href="#" class="btn btn-warning"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+                                        
                                         <a href="#" data-href="quotation_archive.php?id=<?= $quotation["quotation_id"] ?>" class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-archive" aria-hidden="true"></i></a>
-                                        <a href="#" class="btn btn-success">Maak een factuur</a>
+                                         <a href="#" data-href="quotation_to_invoice.php?id=<?= $quotation["quotation_id"] ?>" class="btn btn-success" data-toggle="modal" data-target="#confirm-invoice">Factuur aanmaken</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -130,6 +161,10 @@ include "check_login.php";
 
 <script>
     $('#confirm-delete').on('show.bs.modal', function(e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+    });
+    
+    $('#confirm-invoice').on('show.bs.modal', function(e) {
         $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
     });
 </script>
