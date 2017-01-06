@@ -2,14 +2,9 @@
 <?php
 
 ob_start();
-
-
-
-	
-	
-    if(isset($_GET['id'])){
-        include 'functions.php';
-        $id = $_GET['id'];
+    if(isset($_GET["id"])){
+        include "functions.php";
+        $id = $_GET["id"];
 
         $quotation = get_single_quotation($id);
         $user = get_customer_info($quotation["customer_id"]);
@@ -117,5 +112,7 @@ fwrite($open, $content);
 fclose($open); 
 
 ?>
+
 <a href="offertes/<?= $_GET['id']?>.html" download>DOWNLOAD</a>
+
 
