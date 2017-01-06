@@ -71,10 +71,10 @@ if (isset($_POST['email'])) {
     $mail->AddAddress($address, "John Doe");
 
 
-    if (!$mail->Send()) {
-        print('<div class="alert alert-success"> <strong>Success!</strong> Uw aanvraag is verzonden, u ontvangt een email ter bevestiging.</div>');
+    if ($mail->Send()) {
+        $melding = '<div class="alert alert-success"> <strong>Success!</strong> Uw aanvraag is verzonden, u ontvangt een email ter bevestiging.</div>';
     } else {
-        print('<div class="alert alert-success"> <strong>Success!</strong> Uw aanvraag is verzonden, u ontvangt een email ter bevestiging.</div>');
+         $melding = '<div class="alert alert-danger"> <strong>fout!</strong> Uw aanvraag is niet verzonden, probeer het later opnieuw.</div>';
     }
 }
 ?>
@@ -164,7 +164,7 @@ if (isset($_POST['email'])) {
             <!-- Page Content -->
             <div class="container">
                 <!--            <div class="thumbnail">-->
-
+            <?php if(isset($melding)){ echo $melding;} ?>
                 <div class="row">
                     <div class="col-md-5 col-md-offset-2">
                         <img class="img-responsive" src="<?php print($result["product_image"]) ?>" alt="">

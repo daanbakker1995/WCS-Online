@@ -1,6 +1,5 @@
 <?php
 include 'functions.php';
-include "check_login.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +23,7 @@ include "check_login.php";
                 <h3>Bevestiging archivering</h3>
             </div>
             <div class="modal-body">
-                <p>Weet u zeker dat u deze factuur wilt archiveren?</p>
+                <p>Weet u zeker dat u dit offerte wilt archiveren?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
@@ -33,27 +32,12 @@ include "check_login.php";
         </div>
     </div>
 </div>
-<div class="modal fade" id="confirm-invoice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Bevestiging factuur aanmaken</h3>
-            </div>
-            <div class="modal-body">
-                <p>Weet u zeker dat u een factuur wilt maken van deze offerte?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
-                <a class="btn btn-success btn-ok">Aanmaken</a>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div id="wrapper">
 
     <!-- ADMIN MENU -->
     <?php
-    $active = "oferte";
+    $active = "Factuur";
     include 'include/menu.php';
     ?>
 
@@ -65,7 +49,7 @@ include "check_login.php";
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">
-                        Factuur
+                        Offerte Archief
                         <small>Overzicht</small>
                     </h1>
                 </div>
@@ -75,13 +59,13 @@ include "check_login.php";
             <?php //alert if quotation is succesfully archived
             if(isset($_GET["archive"]) && $_GET["archive"] == 1): ?>
                 <div class="alert alert-success">
-                    <strong>Geslaagd!</strong> Factuur succesvol gearchiveerd.
+                    <strong>Geslaagd!</strong> offerte succesvol gearchiveerd.
                 </div>
             <?php endif; ?>
             <?php //alert if quotation not archived
             if(isset($_GET["archive"]) && $_GET["archive"] == 0): ?>
                 <div class="alert alert-danger">
-                    <strong>fout!</strong> Factuur niet gearchiveerd.
+                    <strong>fout!</strong> offerte niet gearchiveerd.
                 </div>
             <?php endif; ?>
 
@@ -91,40 +75,32 @@ include "check_login.php";
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover table-striped">
                             <thead>
-                                <tr>
-                                    <th class="col-md-2">Factuur nr.</th>
-                                    <th class="col-md-2">Datum</th>
-                                    <th class="col-md-3">Klantnaam</th>
-                                    <th class="col-md-2">Total prijs</th>
-                                    <th class="col-md-3">Opties</th>
-                                </tr>
+                            <tr>
+                                <th>Offerte nr.</th>
+                                <th>Datum aangemaakt</th>
+                                <th>Klantnaam</th>
+                                <th>Total prijs</th>
+                            </tr>
                             </thead>
                             <tbody>
                             <?php
-                            $invoices = get_invoices();
-                            foreach($invoices as $invoices ):
-                                $user = get_customer_info($invoices["customer_id"]);
-                                $total_price = get_quotation_total_price($invoices["quotation_id"]);
+                            $quotations = get_quotations_archived();
+                            foreach($quotations as $quotation ):
+                                $user = get_customer_info($quotation["customer_id"]);
+                                $total_price = get_quotation_total_price($quotation["quotation_id"]);
                                 ?>
                                 <tr>
-                                    <td><?= $invoices["invoice_id"] ?></td>
-                                    <td><?= $invoices["invoice_date"] ?></td>
+                                    <td><?= $quotation["quotation_id"] ?></td>
+                                    <td><?= $quotation["quotation_date"] ?></td>
                                     <td>
                                         <b>Naam: </b><?= $user["customer_name"] ?><br>
                                         <b>Email: </b><?= $user["customer_email"] ?><br>
                                         <b>Adres: </b><br>
                                         <?= $user["customer_address"] ?><br>
                                         <?= $user["customer_zipcode"].", ".$user["customer_location"] ?><br>
-                                        <?php if($user["customer_company"] != ""){?><b>Bedrijf: </b><?= $user["customer_company"] ?><br><?php } ?>
+                                        <b>Bedrijf: </b><?= $user["customer_company"] ?><br>
                                     </td>
                                     <td><?= "&euro;".number_format($total_price, 2, ',', ' ') ?></td>
-                                    <td>
-                                        <a href="factuur.php?id=<?= $invoices["invoice_id"] ?>" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
-
-                                        <a href="#" data-href="invoice_archive.php?id=<?= $invoices["invoice_id"] ?>" class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-archive" aria-hidden="true"></i></a>
-                                       
-                                       
-                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>
@@ -148,12 +124,10 @@ include "check_login.php";
     $('#confirm-delete').on('show.bs.modal', function(e) {
         $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
     });
-    
-    $('#confirm-invoice').on('show.bs.modal', function(e) {
-        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-    });
 </script>
 
 </body>
 
 </html>
+
+

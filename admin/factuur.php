@@ -1,4 +1,7 @@
 
+
+
+
 <!--gemaakt door Daan bakker, aangepast door jan kaptijn-->
 <?php
 ob_start();
@@ -6,6 +9,7 @@ ob_start();
 
 	
     if(isset($_GET["id"])){
+
 
         include "functions.php";
         $id = $_GET["id"];
@@ -32,7 +36,10 @@ ob_start();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+
     <title>factuur </title>
+
 </head>
 <body style="border-top: 20px solid #ef4035;border-bottom: 20px solid #48a942;margin: 0;">
     <div style="width: 350px;margin: 20px auto;">
@@ -114,4 +121,7 @@ fwrite($open, $content);
 fclose($open); 
 
 ?>
+
+
 <a href="factuur/<?= $_GET['id']?>.html" download>DOWNLOAD</a>
+

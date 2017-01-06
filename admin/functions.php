@@ -43,6 +43,15 @@ function get_email_quotation($id){
     
 }
 
+function get_email_quotation($id){
+    $db = new Database();
+    $db->query(' SELECT * FROM customer as c join quotation as q on c.customer_id=q.customer_id WHERE q.quotation_id = :q_id');
+    $db->bind(":q_id", $id);
+    $email = $db->single();
+    return $email;
+    
+}
+
 /**
  * A function to get all the information pages.
  *
