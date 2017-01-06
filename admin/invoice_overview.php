@@ -1,5 +1,6 @@
 <?php
 include 'functions.php';
+include "check_login.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -119,7 +120,7 @@ include 'functions.php';
                                     <td><?= "&euro;".number_format($total_price, 2, ',', ' ') ?></td>
                                     <td>
                                         <a href="factuur.php?id=<?= $invoices["invoice_id"] ?>" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                        <a href="#" class="btn btn-warning"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+
                                         <a href="#" data-href="invoice_archive.php?id=<?= $invoices["invoice_id"] ?>" class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-archive" aria-hidden="true"></i></a>
                                        
                                        

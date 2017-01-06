@@ -1,5 +1,10 @@
 <?php
 include 'functions.php';
+include "check_login.php";
+
+$page_info_copy = get_homepage_info(1);
+$page_info_computer = get_homepage_info(2);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +79,7 @@ include 'functions.php';
                 <div class="row">
                     <div class="col-md-6">
                         <div class="thumbnail thumbnail-copy">
-                            <img src="../images/color-paint-palette-wall-painting.jpg" class="image-responsive"><br>
+                            <img src=".<?=$page_info_copy["homepage_header_image"]?>" class="image-responsive"><br>
                             <div class="caption">
                                 <h3>Copy Service</h3>
                                 <p>Dit is de homepagina van de copy service. klik hieronder om de pagina te bewerken of te bekijken</p>
@@ -84,7 +89,7 @@ include 'functions.php';
                     </div>
                     <div class="col-md-6">
                         <div class="thumbnail thumbnail-computer">
-                            <img src="../images/woman-typing-writing-windows.jpg" class="image-responsive"><br>
+                            <img src=".<?=$page_info_computer["homepage_header_image"]?>" class="image-responsive"><br>
                             <div class="caption">
                                 <h3>Computer service</h3>
                                 <p>Dit is de homepagina van de computer service. klik hieronder om de pagina te bewerken of te bekijken</p>

@@ -1,8 +1,11 @@
+<!--gemaakt door Daan bakker, aangepast door jan kaptijn-->
 <?php
+
 ob_start();
     if(isset($_GET["id"])){
         include "functions.php";
         $id = $_GET["id"];
+
         $quotation = get_single_quotation($id);
         $user = get_customer_info($quotation["customer_id"]);
         $company = get_company_info();
@@ -101,6 +104,7 @@ ob_start();
 </body>
 </html>
 
+
 <?php
 $content = ob_get_contents();
 $open = fopen("offertes/".$_GET["id"].".html", "w");
@@ -108,4 +112,7 @@ fwrite($open, $content);
 fclose($open); 
 
 ?>
+
 <a href="offertes/<?= $_GET['id']?>.html" download>DOWNLOAD</a>
+
+

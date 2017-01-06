@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+include "check_login.php";
 if(isset($_GET['id'])){
     include "functions.php";
     if(quotation_to_invoice($_GET['id'])){
