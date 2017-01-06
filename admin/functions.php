@@ -34,6 +34,15 @@ function get_company_info(){
     return $company;
 }
 
+function get_email_quotation($id){
+    $db = new Database();
+    $db->query(' SELECT * FROM customer as c join quotation as q on c.customer_id=q.customer_id WHERE q.quotation_id = :q_id');
+    $db->bind(":q_id", $id);
+    $email = $db->single();
+    return $email;
+    
+}
+
 /**
  * A function to get all the information pages.
  *
@@ -139,6 +148,13 @@ function get_single_quotation($id){
     $requests = $db->single();
     return $requests;
 }
+function get_single_invoice($id){
+    $db = new Database();
+    $db->query('SELECT * FROM invoice WHERE invoice_id=:id');
+    $db->bind(":id", $id);
+    $requests = $db->single();
+    return $requests;
+}
 /**
  * Select all request with status 0(request).
  *
@@ -157,6 +173,14 @@ function get_quotations_archived(){
 function get_quotation_product($id){
     $db = new Database();
     $db->query('SELECT * FROM quotation_information WHERE quotation_id=:id');
+    $db->bind(":id", $id);
+    $product = $db->single();
+    return $product;
+}
+
+function get_invoice_product($id){
+    $db = new Database();
+    $db->query('SELECT * FROM invoice_information WHERE invoice_id=:id');
     $db->bind(":id", $id);
     $product = $db->single();
     return $product;
