@@ -1,4 +1,5 @@
 <?php
+include "check_login.php";
 if(isset($_GET['id'])){
     include "functions.php";
     if(delete_info_page($_GET['id'])){

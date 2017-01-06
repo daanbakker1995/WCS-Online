@@ -1,6 +1,7 @@
 <?php
 if(isset($_POST["submit"])){
     include 'functions.php';
+    include "check_login.php";
     if($_POST["name"] != "" && ($_POST["type"] != "") && ($_POST["price"] != "") && ($_POST["description"] != "")){
         $product_info['id'] = $_GET["id"];
         $product_info['name'] = $_POST["name"];

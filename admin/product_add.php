@@ -1,5 +1,6 @@
 <?php
     include 'functions.php';
+    include "check_login.php";
     if(isset($_POST["submit"])){
         if($_POST["name"] != "" && ($_POST["type"] != "") && ($_POST["price"] != "") && ($_POST["description"] != "")){
             $category_id = $_POST["type"];

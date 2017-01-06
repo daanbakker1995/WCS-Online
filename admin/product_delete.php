@@ -1,4 +1,5 @@
 <?php
+include "check_login.php";
 if(isset($_GET['id'])){
     include "functions.php";
     if(delete_product($_GET['id'])){
