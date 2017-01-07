@@ -55,13 +55,13 @@ if ($_SESSION["ingelogd"] == true)
                     $paswh = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
 
                     //database connectie
-                    $db = "mysql:host=localhost; dbname=wcs-online_database; port=3307";
-                    $user = "root";
-                    $pass = "usbw";
-                    $pdo = new PDO($db, $user, $pass);
-                    $sql = "INSERT INTO user (user_name, user_email, user_password, user_type) VALUES (?,?,?,?)";
-                    $stmt = $pdo->prepare($sql);
-                    $stmt->execute(array($_POST["user"], $_POST["email"], $paswh, $role));
+                    $db = new Database();
+                    $db->query('INSERT INTO user (user_name, user_email, user_password, user_type) VALUES (:username,:mail,:password,:type)');
+                    $db->bind(':username', $_POST['user']);
+                    $db->bind(':mail', $_POST['email']);
+                    $db->bind(':password', $paswh);
+                    $db->bind(':type', $role);
+                    $db->execute();
                     ?>
 
                     <div class="container-fluid">
