@@ -1,4 +1,4 @@
-
+<!-- orgineel Milan Weiss aangepast door Jan Kapijn-->
 <!DOCTYPE html>
 <?php
 include './admin/classes/Database.php';

@@ -1,4 +1,4 @@
-<!--jan kaptijn s1103061-->
+<!-- orgineel Milan Weiss aangepast door Jan Kapijn-->
 <!DOCTYPE html>
 <?php
 //databse class aanroepen

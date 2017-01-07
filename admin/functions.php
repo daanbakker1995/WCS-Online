@@ -5,7 +5,8 @@ session_start();
  * Created by PhpStorm.
  * User: Daan
  * Date: 29-11-2016
- * Time: 11:33
+ * Time: 11:
+ * met medwerking van Jan Kaptijn
  */
 include 'classes/Database.php';
 
