@@ -64,7 +64,7 @@ ob_start();
                 <th style="border-bottom: 1px solid #000">Naam</th>
                 <th style="border-bottom: 1px solid #000">Omschrijving</th>
                 <th style="border-bottom: 1px solid #000">Aantal</th>
-                <th style="border-bottom: 1px solid #000">Stuckprijs(&euro;)</th>
+                <th style="border-bottom: 1px solid #000">Stukprijs(&euro;)</th>
                 <th style="border-bottom: 1px solid #000">Totaal(&euro;)</th>
             </tr>
             <tr>
