@@ -13,7 +13,7 @@ include 'classes/Database.php';
 
 /********* GET FUNCTIONS *********/
 /**
- * A function to get all the information pages.
+ * A function to get all the content pages information.
  *
  * @return mixed
  */
@@ -24,7 +24,7 @@ function get_info_pages(){
     return $pages;
 }
 /**
- * A function to get all the information pages.
+ * A function to get all the company information.
  *
  * @return mixed
  */
@@ -44,10 +44,8 @@ function get_email_quotation($id){
     
 }
 
-
-
 /**
- * A function to get all the information pages.
+ * A function to get all the information of a single page
  *
  * @return mixed
  */
@@ -59,7 +57,7 @@ function get_page_info($id){
     return $pages;
 }
 /**
- * A function to get all the information pages.
+ * A function to get all the information of a single homepage row from the homepage table based on its id.
  *
  * @return mixed
  */
@@ -72,7 +70,7 @@ function get_homepage_info($id){
 }
 
 /**
- * A function to get all the information pages.
+ * A function to get all the information of a single customer.
  *
  * @return mixed
  */
@@ -85,7 +83,7 @@ function get_customer_info($id){
 }
 
 /**
- * A function to get all the information pages.
+ * A function to get all the information of a single product.
  *
  * @return mixed
  */
@@ -98,7 +96,7 @@ function get_product_info($id){
 }
 
 /**
- * Select all request with status 0(request).
+ * Selects all quotation requests with request_status 0(request).
  *
  * @return mixed
  */
@@ -110,7 +108,7 @@ function get_quotation_requests(){
 }
 
 /**
- * Select all request with status 0(request).
+ * A function to get all the information of a single quotation.
  *
  * @return mixed
  */
@@ -129,7 +127,7 @@ function get_invoices(){
     return $requests;
 }
 /**
- * Select all request with status 0(request).
+ * A function to get all the information of all quotations with status 0.
  *
  * @return mixed
  */
@@ -140,7 +138,7 @@ function get_quotations(){
     return $requests;
 }
 /**
- * Select all request with status 0(request).
+ * A function to get all the information of a single quotation.
  *
  * @return mixed
  */
@@ -151,6 +149,7 @@ function get_single_quotation($id){
     $requests = $db->single();
     return $requests;
 }
+
 function get_single_invoice($id){
     $db = new Database();
     $db->query('SELECT * FROM invoice WHERE invoice_id=:id');
@@ -159,7 +158,7 @@ function get_single_invoice($id){
     return $requests;
 }
 /**
- * Select all request with status 0(request).
+ * A function to get all the information of all quotations with status 1(archived).
  *
  * @return mixed
  */
@@ -169,7 +168,7 @@ function get_quotations_archived(){
     $requests = $db->resultset();
     return $requests;
 }/**
- * Select all request with status 0(request).
+ * A function to get all the information of a single quotation_information.
  *
  * @return mixed
  */
@@ -189,7 +188,7 @@ function get_invoice_product($id){
     return $product;
 }
 /**
- * Select all request with status 0(request).
+ * A function to get the total price of a quotation.
  *
  * @return mixed
  */
@@ -205,7 +204,11 @@ function get_quotation_total_price($id){
     return $total_price;
 }
 
-
+/**
+ * A function to get the latest quotations with a limit of 10.
+ *
+ * @return mixed
+ */
 function get_quotations_limit_10(){
     $db = new Database();
     $db->query('SELECT * FROM quotation WHERE quotation_status=0 ORDER BY quotation_id DESC LIMIT 10 ');
@@ -213,6 +216,11 @@ function get_quotations_limit_10(){
     return $requests;
 }
 
+/**
+ * A function to get the latest invoices with a limit of 10.
+ *
+ * @return mixed
+ */
 function get_invoice_limit_10(){
     $db = new Database();
     $db->query('SELECT * FROM invoice WHERE invoice_status=0 ORDER BY invoice_id DESC LIMIT 10 ');
@@ -220,13 +228,22 @@ function get_invoice_limit_10(){
     return $invoice;
 }
 
+/**
+ * A function to get the latest hardware products with a limit of 10.
+ *
+ * @return mixed
+ */
 function get_products_limit_10(){
     $db = new Database();
     $db->query('SELECT * FROM product P JOIN category C WHERE category_name="hardware service" AND P.category_id=C.category_id LIMIT 10');
     $products = $db->resultset();
     return $products;
 }
-
+/**
+ * A function to get the latest information pages with a limit of 15.
+ *
+ * @return mixed
+ */
 function get_pages_limit_15(){
     $db = new Database();
     $db->query('SELECT * FROM content_page LIMIT 15');
@@ -265,6 +282,8 @@ function insert_quotation($product_id,$customer_name ,$customer_email,$customer_
     $db->endTransaction();
 }
 /**
+ * A function to insert a new information page to the datebase.
+ *
  * @return mixed
  */
 function insert_info_page($title, $description, $content, $status, $type, $location){
@@ -284,7 +303,11 @@ function insert_info_page($title, $description, $content, $status, $type, $locat
     }
 
 }
-
+/**
+ * A function to insert a new quotation into the database and update the request status.
+ *
+ * @return mixed
+ */
 function accept_quotation_request($id){
     $quotation_request = get_single_quotation_requests($id);
     $customer = $quotation_request['customer_id'];
@@ -367,6 +390,7 @@ function quotation_to_invoice($id){
 /********* UPDATE FUNCTIONS *********/
 
 /**
+ * A function to update the quotation status to 1(archived).
  * @param $id
  * @return bool
  */
@@ -397,18 +421,20 @@ function archive_invoice($id){
 }
 
 /**
+ * A function to update an information page with the given page_info.
+ *
  * @return mixed
  */
-function update_info_page($values){
+function update_info_page($page_info){
     $db = new Database();
     $db->query('UPDATE content_page SET page_title=:ptitle, page_description=:pdescription, page_content=:pcontent, page_status=:pstatus, page_type=:ptype, page_location=:plocation WHERE page_id=:pid');
-    $db->bind(':pid', $values['id']);
-    $db->bind(':ptitle', $values['title']);
-    $db->bind(':pdescription', $values['description']);
-    $db->bind(':pcontent', $values['content']);
-    $db->bind(':pstatus', $values['status']);
-    $db->bind(':ptype', $values['type']);
-    $db->bind(':plocation', $values['location']);
+    $db->bind(':pid', $page_info['id']);
+    $db->bind(':ptitle', $page_info['title']);
+    $db->bind(':pdescription', $page_info['description']);
+    $db->bind(':pcontent', $page_info['content']);
+    $db->bind(':pstatus', $page_info['status']);
+    $db->bind(':ptype', $page_info['type']);
+    $db->bind(':plocation', $page_info['location']);
     if($db->execute()){
         return true;
     }
@@ -419,6 +445,8 @@ function update_info_page($values){
 }
 
 /**
+ * A function to update a homepage with the given page_info.
+ *
  * @param $page_info
  * @return bool
  */
@@ -476,11 +504,15 @@ function update_homepage($page_info){
     }
 }
 
+/**
+ * A small update function to update just the header image with the given file_name of a homepage based on its id.
+ * @param $file_name
+ * @param $id
+ * @return bool
+ */
 function update_homepage_image($file_name,$id){
     $db = new Database();
-    $db->query('
-    UPDATE `homepage` SET    `homepage_header_image`=:homepage_header_image WHERE `homepage_id`=:id
-    ');
+    $db->query('UPDATE `homepage` SET `homepage_header_image`=:homepage_header_image WHERE `homepage_id`=:id');
     $db->bind(':id', $id);
     $db->bind(':homepage_header_image', $file_name);
 
@@ -492,6 +524,12 @@ function update_homepage_image($file_name,$id){
     }
 }
 
+/**
+ * A small update function to update the status of a request to 2(declined).
+ *
+ * @param $id
+ * @return bool
+ */
 function decline_quotation_request($id){
     $db = new Database();
     $db->query('UPDATE quotation_request SET request_status=:status WHERE request_id=:id');
@@ -510,6 +548,8 @@ function decline_quotation_request($id){
 
 /********* COUNT FUNCTIONS *********/
 /**
+ * a count function to count the request in the quotation_requests table.
+ *
  * @return mixed
  */
 function count_requests(){
@@ -520,6 +560,8 @@ function count_requests(){
 }
 
 /**
+ * a count function to count the invoices in the invoice table.
+ *
  * @return mixed
  */
 function count_invoices(){
@@ -530,6 +572,8 @@ function count_invoices(){
 }
 
 /**
+ * a count function to count the hardware products in the product table where the category is 'hardware service'.
+ *
  * @return mixed
  */
 function count_hardware_products(){
@@ -540,6 +584,8 @@ function count_hardware_products(){
 }
 
 /**
+ * a count function to count the copy products in the product table where the category is 'copy service'.
+ *
  * @return mixed
  */
 function count_copy_products(){
@@ -553,6 +599,7 @@ function count_copy_products(){
 
 /********* DELETE FUNCTIONS *********/
 /**
+ * a delete function to delete a information page by the given id.
  * @param $id
  * @return bool
  */
@@ -640,11 +687,10 @@ function get_copy_products(){
 }
 
 /**
- * @param $size
+ * Uploads image to given directory with given file_name.
+ *
  * @param $dir
  * @param $file_name
- *
- * Uploads image to given directory with given file_name.
  */
 function upload_img($dir,$file_name){
 
