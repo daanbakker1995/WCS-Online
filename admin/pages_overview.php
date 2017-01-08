@@ -59,7 +59,7 @@ include "check_login.php";
                 <!-- /.row -->
 
                 <!-- /.row -->
-                <?php //alert if page is succesfully added
+                <?php //alert if page is successfully added
                 if(isset($_GET["add_page"]) && $_GET["add_page"] == 1): ?>
                     <div class="alert alert-success">
                         <strong>Geslaagd!</strong> De pagina is toegevoegd.
@@ -68,7 +68,7 @@ include "check_login.php";
 
 
                 <!-- /.row -->
-                <?php //alert if page is succesfully added
+                <?php //alert if page is successfully edited
                 if(isset($_GET["page_edit"]) && $_GET["page_edit"] == 1): ?>
                     <div class="alert alert-success">
                         <strong>Geslaagd!</strong> De pagina is succesvol bewerkt.
@@ -77,7 +77,7 @@ include "check_login.php";
 
 
                 <!-- /.row -->
-                <?php //alert if page is succesfully added
+                <?php //alert if page is successfully deleted
                 if(isset($_GET["delete"]) && $_GET["delete"] == 1): ?>
                     <div class="alert alert-success">
                         <strong>Geslaagd!</strong> De pagina is succesvol verwijderd.
@@ -85,7 +85,7 @@ include "check_login.php";
                 <?php endif; ?>
 
                 <!-- /.row -->
-                <?php //alert if page is not added
+                <?php //alert if page is not deleted
                 if(isset($_GET["delete"]) && $_GET["delete"] == 0): ?>
                     <div class="alert alert-danger">
                         <strong>Fout!</strong> Er is iets fout gegaan tijdens het verwijderen.
@@ -119,7 +119,7 @@ include "check_login.php";
                                 </thead>
                                 <tbody>
                                 <?php
-                                $pages = get_info_pages();
+                                $pages = get_info_pages(); // get all the information pages.
                                 foreach($pages as $page_info ):
                                 ?>
                                     <tr>

@@ -1,10 +1,11 @@
 <?php
 include 'functions.php';
 include "check_login.php";
-$page_info = get_homepage_info($_GET["id"]);
+
+$page_info = get_homepage_info($_GET["id"]); // get the information of the homepage.
 
 if(isset($_POST["submit"])){
-    if(($_POST["homepage_header_title"] != "") && ($_POST["s_1_header"] != "")&& ($_POST["s_2_header"] != "")&& ($_POST["s_3_header"] != "")){
+    if(($_POST["homepage_header_title"] != "") && ($_POST["s_1_header"] != "")&& ($_POST["s_2_header"] != "")&& ($_POST["s_3_header"] != "")){ // if all headers are nog empty
         $new_page_info['id'] = $_GET["id"];
         $new_page_info["homepage_header_title"] = $_POST["homepage_header_title"];
         $new_page_info["homepage_header_content"] = $_POST["homepage_header_content"];
@@ -23,60 +24,60 @@ if(isset($_POST["submit"])){
         $new_page_info["s_3_b_text"] = $_POST["s_3_b_text"];
         $new_page_info["s_3_b_link"] = $_POST["s_3_b_link"];
 
-        if(update_homepage($new_page_info)){
-            header('location: ./homepages_overview.php?page_edit=1');
+        if(update_homepage($new_page_info)){ // if update the homepage.
+            header('location: ./homepages_overview.php?page_edit=1'); // redirect user to overview with page_edit set to 1(success).
         }
         else{
-            $errors[] = "Er is iets fout gegaan tijdens het bijwerken.";
+            $errors[] = "Er is iets fout gegaan tijdens het bijwerken."; // add error to the array errors.
         }
     }
     else{
-        $errors[] = "Niet alle titels zijn ingevuld.";
+        $errors[] = "Niet alle titels zijn ingevuld."; // add error to the array errors.
     }
 }
-elseif(isset($_POST["submit-image"])){
-    $dir = "../images/";
-    if($_GET["id"] == 1){
+elseif(isset($_POST["submit-image"])){ // if post submit-image is set.
+    $dir = "../images/"; // set the directory for the image.
+    if($_GET["id"] == 1){ // if id is 1 image file_name if 'copy'.
         $file_name = "copy";
     }
-    else{
+    else{ // else file_name is 'computer'
         $file_name = "computer";
     }
-    if($_FILES['file_upload']['type'] == 'image/png' ){
-        $full_file_name = $file_name.".png";
+    if($_FILES['file_upload']['type'] == 'image/png' ){ // if the uploaded file type is 'PNG'.
+        $full_file_name = $file_name.".png"; // set var full_file_name with the file_name and type.
     }
-    elseif($_FILES['file_upload']['type'] == 'image/jpeg'){
-        $full_file_name = $file_name.".jpg";
-    }
-
-    if (!file_exists($dir)) {
-        mkdir($dir, 0777, true);
+    elseif($_FILES['file_upload']['type'] == 'image/jpeg'){ // if the uploaded file type is 'JPEG/JPG'.
+        $full_file_name = $file_name.".jpg"; // set var full_file_name with the file_name and type.
     }
 
-    if(isset($_FILES["file_upload"])){
+    if (!file_exists($dir)) { // if the directory doesn't exist.
+        mkdir($dir, 0777, true); // make the directory and set the mode to 777 and allow nested pathname.
+    }
 
-        if($_FILES['file_upload']['error'] > 0){
-            $errors[] = 'Er iets mis gegaan tijdens het uploaden.';
+    if(isset($_FILES["file_upload"])){ // if an file is uploaded
+
+        if($_FILES['file_upload']['error'] > 0){ // if there are nog errors with the uploaded file.
+            $errors[] = 'Er iets mis gegaan tijdens het uploaden.'; // set errors array with an error.
         }
-        if($_FILES['file_upload']['type'] != 'image/png' && $_FILES['file_upload']['type']!= 'image/jpeg'){
-            $errors[] = 'Dit bestand wordt niet ondersteund.';
+        if($_FILES['file_upload']['type'] != 'image/png' && $_FILES['file_upload']['type']!= 'image/jpeg'){ // if file type if not png/jpg/jpeg.
+            $errors[] = 'Dit bestand wordt niet ondersteund.'; // set errors array with an error.
         }
 
-        if($_FILES['file_upload']['size'] > 1000000){
-            $errors[] = 'Dit bestand is te groot kies een kleiner bestand.';
+        if($_FILES['file_upload']['size'] > 1000000){ // if img size is bigger than 1000kb.
+            $errors[] = 'Dit bestand is te groot kies een kleiner bestand.'; // set errors array with an error.
         }
-        if(empty($errors)) {
-            if (move_uploaded_file($_FILES['file_upload']['tmp_name'], $dir . $full_file_name)) {
-                if(update_homepage_image("./images/".$full_file_name,$_GET["id"])){
-                    $success[] = "De abeelding is geupload en bijgewerkt.";
+        if(empty($errors)) { // if no errors are set.
+            if (move_uploaded_file($_FILES['file_upload']['tmp_name'], $dir . $full_file_name)) { // move temp file to target directory.
+                if(update_homepage_image("./images/".$full_file_name,$_GET["id"])){ // update database.
+                    $success[] = "De abeelding is geupload en bijgewerkt."; // set success array.
                 }
             }
         }
 
     }
 }
-elseif(!isset($_GET["id"])){
-    header('location: ./homepages_overview.php');
+elseif(!isset($_GET["id"])){ // if page id is not set
+    header('location: ./homepages_overview.php'); // redirect to homepage overview page.
 }
 ?>
 <!DOCTYPE html>
@@ -113,19 +114,19 @@ elseif(!isset($_GET["id"])){
             </div>
             <!-- /.row -->
 
-            <?php if(isset($errors)): ?>
+            <?php if(isset($errors)): // if any errors are set ?>
                 <div class="alert alert-danger">
                     <strong>Let Op! Er is iets fout gegaan.</strong>
-                    <?php foreach($errors as $error): ?>
-                    <li><?= $error ?></li>
+                    <?php foreach($errors as $error): //for each error create new list line. ?>
+                    <li><?= $error // echo the error. ?></li>
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
-            <?php if(isset($success)): ?>
+            <?php if(isset($success)): // if succes array is set.?>
                 <div class="alert alert-success">
                     <strong>Succes!</strong>
-                    <?php foreach($success as $a): ?>
-                    <li><?= $a ?></li>
+                    <?php foreach($success as $a): // for each error create new list line ?>
+                    <li><?= $a // echo the success text. ?></li>
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>

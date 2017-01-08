@@ -2,8 +2,8 @@
 include 'functions.php';
 include "check_login.php";
 
-$page_info_copy = get_homepage_info(1);
-$page_info_computer = get_homepage_info(2);
+$page_info_copy = get_homepage_info(1); // get homepage copy
+$page_info_computer = get_homepage_info(2); // get homepage hardware
 
 ?>
 <!DOCTYPE html>
@@ -62,7 +62,7 @@ $page_info_computer = get_homepage_info(2);
                 </div>
                 <!-- /.row -->
 
-                <?php //alert if page is succesfully edited
+                <?php //alert if page is successfully edited
                 if(isset($_GET["page_edit"]) && $_GET["page_edit"] == 1): ?>
                     <div class="alert alert-success">
                         <strong>Geslaagd!</strong> De pagina is succesvol bewerkt.
