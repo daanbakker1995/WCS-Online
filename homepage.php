@@ -1,3 +1,4 @@
+<!--jan kaptijn -->
 <!DOCTYPE html>
 <?php
 include 'admin/classes/Database.php';
