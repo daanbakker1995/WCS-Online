@@ -18,3 +18,4 @@ offerte/image002.png
 *.jpg
 test_file.php
 admin/classes/database_settings.php
+include/phpmailer/class.phpmailer.php
