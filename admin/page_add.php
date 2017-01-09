@@ -1,20 +1,24 @@
 <?php
     include 'functions.php';
     include "check_login.php";
+
     if(isset($_POST["submit"])){
-        if($_POST["title"] != "" && ($_POST["content"] != "")){
+        if($_POST["title"] != "" && ($_POST["content"] != "")){ // if the title and content is set.
             $title = $_POST["title"];
             $description = $_POST["description"];
             $content = $_POST["content"];
             $status = $_POST["status"];
             $type = $_POST["type"];
             $location = $_POST["location"];
-            if(insert_info_page($title, $description, $content, $status, $type, $location)){
-                header('location: pages_overview.php?add_page=1');
+            if(insert_info_page($title, $description, $content, $status, $type, $location)){ // with the given information use the function insert_info_pages().
+                header('location: pages_overview.php?add_page=1'); // if successful send the user to the pages_overview page with the var add_page set to 1(successfully added).
             }
             else{
-                $error = "Er is iets fout gegaan.";
+                $error = "Er is iets fout gegaan."; // if not successful set var error.
             }
+        }
+        else{
+            $error = "Er is iets fout gegaan."; // if not successful set var error.
         }
     }
 ?>
@@ -54,9 +58,9 @@
                 </div>
                 <!-- /.row -->
 
-                <?php if(isset($error)): ?>
+                <?php if(isset($error)): // if var error is set echo var error. ?>
                     <div class="alert alert-danger">
-                        <strong>Fout!</strong> <?= $error ?>
+                        <strong>Let op!</strong> <?= $error ?>
                     </div>
                 <?php endif; ?>
 

@@ -2,7 +2,7 @@
 include "check_login.php";
 if(isset($_POST["submit"])){
     include 'functions.php';
-    if($_POST["title"] != "" && ($_POST["content"] != "")){
+    if($_POST["title"] != "" && ($_POST["content"] != "")){ // if the title and content is set.
         $page_info['id'] = $_GET["id"];
         $page_info['title'] = $_POST["title"];
         $page_info['description'] = $_POST["description"];
@@ -10,21 +10,24 @@ if(isset($_POST["submit"])){
         $page_info['status'] = $_POST["status"];
         $page_info['type'] = $_POST["type"];
         $page_info['location'] = $_POST["location"];
-        if(update_info_page($page_info)){
-            header('location: ./pages_overview.php?page_edit=1');
+        if(update_info_page($page_info)){// with the given information use the function update_info_page().
+            header('location: ./pages_overview.php?page_edit=1');// if successful send the user to the pages_overview page with the var page_edit set to 1(successfull).
         }
         else{
-            $error = "Er is iets fout gegaan.";
+            $error = "Er is iets fout gegaan."; // if not successful set var error.
         }
+    }
+    else{
+        $error = "Er is iets fout gegaan."; // if not successful set var error.
     }
 }
 else{
-    if(isset($_GET["id"])){
+    if(isset($_GET["id"])){ // check if id of page is set.
         include 'functions.php';
-        $page_info = get_page_info($_GET["id"]);
+        $page_info = get_page_info($_GET["id"]); // get the page information.
     }
     else{
-        header('location: ./pages_overview.php');
+        header('location: ./pages_overview.php'); // redirect to the overview.
     }
 }
 ?>

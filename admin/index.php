@@ -17,8 +17,8 @@ include "check_login.php";
 
         <!-- ADMIN MENU -->
         <?php
-            $active = "Dashboard";
-             include 'include/menu.php';
+            $active = "Dashboard"; // active page in menu.
+             include 'include/menu.php'; // include the menu of the backend.
         ?>
 
         <div id="page-wrapper">
@@ -160,6 +160,7 @@ include "check_login.php";
                                         </thead>
                                         <tbody>
                                         <?php
+                                        // get the 10 last the quotations and show them in a table.
                                         $quotations = get_quotations_limit_10();
                                         foreach($quotations as $quotation):
                                             $user = get_customer_info($quotation["customer_id"]);
@@ -200,10 +201,11 @@ include "check_login.php";
                                         </thead>
                                         <tbody>
                                         <?php
-                                            $invoices = get_invoice_limit_10();
-                                            foreach($invoices as $invoice):
-                                                $user = get_customer_info($invoice["customer_id"]);
-                                                $total_price = get_quotation_total_price($invoice["quotation_id"]);
+                                        // get the 10 last the invoices and show them in a table.
+                                        $invoices = get_invoice_limit_10();
+                                        foreach($invoices as $invoice):
+                                            $user = get_customer_info($invoice["customer_id"]);
+                                            $total_price = get_quotation_total_price($invoice["quotation_id"]);
                                         ?>
                                             <tr>
                                                 <td><?= $user["customer_name"] ?></td>
@@ -239,6 +241,7 @@ include "check_login.php";
                                         </thead>
                                         <tbody>
                                         <?php
+                                        // get the 10 last the hardware products and show them in a table.
                                         $products = get_products_limit_10();
                                         foreach($products as $product):
                                             ?>
@@ -275,6 +278,7 @@ include "check_login.php";
                                         </thead>
                                         <tbody>
                                         <?php
+                                        // get the 15 last the information pages and show them in a table.
                                         $pages = get_pages_limit_15();
                                         foreach($pages as $page_info):
                                             ?>
