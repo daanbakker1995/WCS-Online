@@ -84,6 +84,9 @@
                 </ul>
             </li>            
             <li>
+                <a href="./users.php"><i class="fa fa-fw fa-user"></i> Gebruikers</a>
+            </li>
+            <li>
                 <a href="../"><i class="fa fa-fw fa-sign-out"></i> Naar Website</a>
             </li>
         </ul>
