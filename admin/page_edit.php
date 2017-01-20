@@ -1,7 +1,8 @@
 <?php
+include 'functions.php';
+
 include "check_login.php";
 if(isset($_POST["submit"])){
-    include 'functions.php';
     if($_POST["title"] != "" && ($_POST["content"] != "")){ // if the title and content is set.
         $page_info['id'] = $_GET["id"];
         $page_info['title'] = $_POST["title"];
@@ -23,7 +24,6 @@ if(isset($_POST["submit"])){
 }
 else{
     if(isset($_GET["id"])){ // check if id of page is set.
-        include 'functions.php';
         $page_info = get_page_info($_GET["id"]); // get the page information.
     }
     else{

@@ -24,7 +24,6 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <!-- ADMIN HEADER -->
     <?php include 'include/head.php'; ?>

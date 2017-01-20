@@ -2,6 +2,7 @@
 include "admin/functions.php";
 $db = new Database();
 
+//checken of alles correct is na het submitten
 if (isset($_POST["submit"])) {
     $id_gender = $_POST["id_gender"];
     $full_name = $_POST['firstname'] . " " . $_POST['lastname'];
@@ -15,10 +16,12 @@ if (isset($_POST["submit"])) {
     $headers .= 'From: . $full_name ." ".  <$email>' . "\r\n";
     $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
 
+    //re-captcha werkend maken
     $secret = "6LdOqQ4UAAAAAJsO6oQmSyEBcYEPdCsVRvrKF5Aw";
     $response = $_POST["g-recaptcha-response"];
     $url = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$response");
     $result = json_decode($url, TRUE);
+    //checken of alles correct is ingevuld
     if (intval($result["success"]) !== 1) {
         $errors[] = "Vul aub in of u geen robot bent";
     }
@@ -35,7 +38,7 @@ if (isset($_POST["submit"])) {
         $errors[] = 'Vul aub uw bericht in.';
     }
 
-    // If there are no errors, send the email
+    // Als er geen errors zijn stuur de mail
     if (!isset($errors)) {
         require './include/phpmailer/PHPMailerAutoload.php';
 
@@ -134,6 +137,7 @@ if (isset($_POST["submit"])) {
                                     foreach ($errors as $error) {
                                         echo "<li>" . $error . "</li>";
                                     }
+                                    //maakt een lijstje van alle errors
                                     ?>
                                 </ul>
                             </div>

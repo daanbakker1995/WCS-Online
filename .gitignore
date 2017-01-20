@@ -14,7 +14,7 @@ admin/README.md
 images/*
 nbproject/private/private.properties
 nbproject/project.properties
-offerte/image002.png
+offerte/*
 *.jpg
 test_file.php
-admin/classes/database_settings.php
+include/phpmailer/class.phpmailer.php
