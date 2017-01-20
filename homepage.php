@@ -67,7 +67,7 @@ if(isset($_GET['service']) && $_GET['service'] == 'drukservice'){
         <div class="col-md-8">
             <img class="img-responsive img-rounded" src="<?php print($result["homepage_header_image"]) ?>"  alt="">
         </div>
-        <!-- /.col-md-8 -->
+      
         <div class="col-md-4">
 
             <h1><?php print($result["homepage_header_title"]); ?></h1>
@@ -75,9 +75,9 @@ if(isset($_GET['service']) && $_GET['service'] == 'drukservice'){
             <p><?php print($result["homepage_header_content"]); ?></p>
             <a class="btn btn-primary btn-lg" href="<?php print($result["homepage_header_button_link"]) ?>"><?php print($result["homepage_header_button_text"]);?></a>
         </div>
-        <!-- /.col-md-4 -->
+        
     </div>
-    <!-- /.row -->
+    
 
     <hr>
 
@@ -88,29 +88,29 @@ if(isset($_GET['service']) && $_GET['service'] == 'drukservice'){
             <p><?php print($result["homepage_service_one_content"]);?></p>
             <a class="btn btn-primary" href="<?php print($result["homepage_service_one_button_link"]);?>"><?php print($result["homepage_service_one_button_text"]);?></a>
         </div>
-        <!-- /.col-md-4 -->
+        
         <div class="col-md-4">
             <h2><?php print($result["homepage_service_two_header"]); ?></h2>
             <p><?php print($result["homepage_service_two_content"]);?></p>
             <a class="btn btn-primary" href="<?php print($result["homepage_service_two_button_link"]);?>"><?php print($result["homepage_service_two_button_text"]);?></a>
         </div>
-        <!-- /.col-md-4 -->
+        
         <div class="col-md-4">
             <h2><?php print($result["homepage_service_three_header"]); ?></h2>
             <p><?php print($result["homepage_service_three_content"]);?></p>
             <a class="btn btn-primary" href="<?php print($result["homepage_service_three_button_link"]);?>"><?php print($result["homepage_service_three_button_text"]);?></a>
         </div>
-        <!-- /.col-md-4 -->
-    </div>
-    <!-- /.row -->
 
-    <!-- Footer -->
+    </div>
+
+
+
     <footer>
         <?php include 'include/footer.php';?>
     </footer>
 
 </div>
-<!-- /.container -->
+
 
 <!-- jQuery -->
 <script src="js/jquery.js"></script>

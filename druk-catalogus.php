@@ -4,7 +4,8 @@
 include './admin/classes/Database.php';
 $db = new Database();
 session_start();
-$db->query("SELECT * FROM product WHERE category_id = '" . $_GET["category"] . "' ORDER BY product_name");
+$db->query("SELECT * FROM product WHERE category_id = :category ORDER BY product_name");
+$db->bind(":category",$_GET["category"]);
 $products = $db->resultset();
 ?>
 <html lang="en">
