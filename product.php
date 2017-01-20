@@ -8,7 +8,8 @@ $db = new Database();
 ///product info opvragem met het id van de vorige pagina
 $db->query("select *  "
         . "from product "
-        . "where product_id=" . $_GET['id']);
+        . "where product_id= :id");
+$db->bind(":id",$_GET["id"]);		
 $result = $db->single();
 $product_id = $_GET["id"];
 
@@ -148,7 +149,7 @@ if (isset($_POST['email'])) {
                                 email:<input type="email" class="form-control" name="email" required/>*
                                 adres:<input type="text" class="form-control" name="address" required/>*
                                 woonplaats:<input type="text" class="form-control" name="place" required/>*
-                                postcode:<input type="text" class="form-control" name="zipcode" required/>
+                                postcode:<input type="text" class="form-control" name="zipcode" pattern="[1-9]{4}[A-Z]{2}" title="PostCode" required/>
                                 bedrijf:<input type="text" class="form-control" name="company"/>
                             </div>
                             <div class="modal-footer">
@@ -238,17 +239,17 @@ if (isset($_POST['email'])) {
 
 
     </div>
-    <!-- /.container -->
+
 
     <div class="container">
 
-        <!-- Footer -->
+
         <footer>
             <?php include 'include/footer.php'; ?>
         </footer>
 
     </div>
-    <!-- /.container -->
+
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
