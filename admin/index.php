@@ -71,7 +71,7 @@ include "check_login.php";
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="./invoice_overview.php">
                                 <div class="panel-footer">
                                     <span class="pull-left">Bekijk details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -217,7 +217,7 @@ include "check_login.php";
                                     </table>
                                 </div>
                                 <div class="text-right">
-                                    <a href="#">Bekijk Alles <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a href="invoice_overview.php">Bekijk Alles <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>

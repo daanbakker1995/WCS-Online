@@ -21,6 +21,7 @@ if(isset($_POST["submit"])){
     else{
         $error = "Er is iets fout gegaan."; // if not successful set var error.
     }
+    $page_info = get_page_info($_GET["id"]); // get the page information.
 }
 else{
     if(isset($_GET["id"])){ // check if id of page is set.

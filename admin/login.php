@@ -31,6 +31,7 @@ if (isset($_POST["signin"])) {
                 if (password_verify($password, $row['user_password'])) {
                     $_SESSION["ingelogd"] = true;
                     $_SESSION["email"] = $email;
+                    $_SESSION['user_type'] = $row['user_type'];
                     header('location: ./index.php');
                 } else {
                     ++$_SESSION['count'];

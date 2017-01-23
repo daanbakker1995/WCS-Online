@@ -1,5 +1,6 @@
 <!--gemaakt door Daan bakker, aangepast door jan kaptijn-->
 <?php
+$admin_rights = true; // Page is only for admins.
 
 ob_start();
     if(isset($_GET["id"])){

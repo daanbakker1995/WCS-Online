@@ -1,5 +1,11 @@
 <?php
+/**
+ * Created by Maarten Klomp
+ * met medwerking van Daan Bakker & Jan Kaptijn
+ */
 session_start();
+$admin_rights = true; // Page is only for admins.
+include "check_login.php";
 if ($_SESSION["ingelogd"] == true)
 {
     
@@ -24,7 +30,7 @@ if ($_SESSION["ingelogd"] == true)
 
             <!-- ADMIN MENU -->
             <?php
-            $active = "Dashboard";
+            $active = "gebruiker";
             include 'include/menu.php';
             include 'classes/Database.php';
             ?>
@@ -33,11 +39,11 @@ if ($_SESSION["ingelogd"] == true)
                 <!--invoegen in database-->
                 <?php
                 //test of wachtwoord voldoet aan eisen
-                if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]$/', $_POST["pwd"]))
+                if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,20}$/', $_POST["pwd"]))
                 {
                     ?>
                     <div class="alert alert-danger">
-                        <p>Het wachtwoord moet minstens 1 letter, 1 cijfer en 1 teken bevatten.</p>
+                        <p>Het wachtwoord moet 8-20 tekens bevatten. Waarvan minimaal 1 kleine letter(a-z), 1 hoofdletter(A-Z), 1 cijfer(0-9) en 1 speciaal teken(!@#$%).</p>
                     </div>
                 <?php
                 } else
@@ -76,9 +82,6 @@ if ($_SESSION["ingelogd"] == true)
                                     <p>emailadres</p>
                                 </div>
                                 <div class="col-md-3">
-                                    <p>wachtwoord</p>
-                                </div>
-                                <div class="col-md-3">
                                     <p>rol</p>
                                 </div>
                             </div>
@@ -88,9 +91,6 @@ if ($_SESSION["ingelogd"] == true)
                                 </div>
                                 <div class="col-md-3">
                                     <p><?php print($_POST["email"]); ?></p>
-                                </div>
-                                <div class="col-md-3">
-                                    <p><?php print($_POST["pwd"]); ?></p>
                                 </div>
                                 <div class="col-md-3">
                                     <p><?php print($_POST["role"]); ?></p>
