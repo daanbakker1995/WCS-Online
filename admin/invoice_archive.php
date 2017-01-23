@@ -1,4 +1,5 @@
 <?php
+$admin_rights = true; // Page is only for admins.
 include "check_login.php";
 /**
  * Set qoutation status to 1(achrive).

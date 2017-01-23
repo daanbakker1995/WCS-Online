@@ -5,6 +5,7 @@
  * Date: 13-12-2016
  * Time: 15:46
  */
+$admin_rights = true; // Page is only for admins.
 include "check_login.php";
 
 if(isset($_GET['id'])){

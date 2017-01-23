@@ -1,5 +1,7 @@
 <?php
+$admin_rights = true; // Page is only for admins.
 include 'functions.php';
+include "check_login.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,11 +26,11 @@ include 'functions.php';
                         <h3>Bevestiging</h3>
                     </div>
                     <div class="modal-body">
-                        <p>Weet u zeker dat u deze pagina wilt verwijderen?</p>
+                        <p>Weet u zeker dat u deze gebruiker wilt verwijderen?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
-                        <a class="btn btn-danger btn-ok">Verwijder pagina</a>
+                        <a class="btn btn-danger btn-ok">Verwijderen</a>
                     </div>
                 </div>
             </div>
@@ -38,7 +40,7 @@ include 'functions.php';
 
             <!-- ADMIN MENU -->
             <?php
-            $active = "Informatie";
+            $active = "gebruiker";
             include 'include/menu.php';
             ?>
 
@@ -50,7 +52,7 @@ include 'functions.php';
                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="page-header">
-                                Informatiepagina's
+                                Gebruikers
                                 <small>Overzicht</small>
                             </h1>
                         </div>
@@ -65,7 +67,7 @@ include 'functions.php';
                         <div class="alert alert-success">
                             <strong>Geslaagd!</strong> De pagina is toegevoegd.
                         </div>
-<?php endif; ?>
+                    <?php endif; ?>
 
 
                     <!-- /.row -->
@@ -76,7 +78,7 @@ include 'functions.php';
                         <div class="alert alert-success">
                             <strong>Geslaagd!</strong> De pagina is succesvol bewerkt.
                         </div>
-<?php endif; ?>
+                    <?php endif; ?>
 
 
                     <!-- /.row -->
@@ -90,20 +92,20 @@ include 'functions.php';
                     <?php endif; ?>
 
                     <!-- /.row -->
-<?php
-//alert if page is not added
-if (isset($_GET["delete"]) && $_GET["delete"] == 0):
-    ?>
+                    <?php
+                    //alert if page is not added
+                    if (isset($_GET["delete"]) && $_GET["delete"] == 0):
+                        ?>
                         <div class="alert alert-danger">
                             <strong>Fout!</strong> Er is iets fout gegaan tijdens het verwijderen.
                         </div>
-<?php endif; ?>
+                    <?php endif; ?>
 
 
                     <!-- Page Heading -->
                     <div class="row">
                         <div class="col-lg-12">
-                            <a href="./user_add.php" class="btn btn-primary">Toevoegen</a><br><br>
+                            <a href="./users_add.php" class="btn btn-primary">Toevoegen</a><br><br>
                         </div>
                     </div>
                     <!-- /.row -->
@@ -126,19 +128,19 @@ if (isset($_GET["delete"]) && $_GET["delete"] == 0):
                                     <tbody>
                                         <?php
                                         $db = new Database();
-                                        $db->query('SELECT user_name, user_email, user_role, user_active, user_id FROM users');
+                                        $db->query('SELECT user_name, user_email, user_type, user_active, user_id FROM user');
                                         $users = $db->resultset();
 
                                         foreach ($users as $user):
-                                            if ($user["user_role"] == 0)
+                                            if ($user["user_type"] == 0)
                                             {
-                                                $user["user_role"] = "Super Admin";
-                                            } elseif ($user["user_role"] == 1)
+                                                $user["user_type"] = "Super Admin";
+                                            } elseif ($user["user_type"] == 1)
                                             {
-                                                $user["user_role"] = "Admin";
+                                                $user["user_type"] = "Admin";
                                             } else
                                             {
-                                                $user["user_role"] = "Content Beheerder";
+                                                $user["user_type"] = "Content Beheerder";
                                             }
                                             if ($user["user_active"]==1){
                                                 $user["user_active"]="Actief";
@@ -149,7 +151,7 @@ if (isset($_GET["delete"]) && $_GET["delete"] == 0):
                                             <tr>
                                                 <td><?php print($user["user_name"]);?></td>
                                                 <td><?php print($user["user_email"]);?></td>
-                                                <td><?php print($user["user_role"]);?></td>
+                                                <td><?php print($user["user_type"]);?></td>
                                                 <td><?php print($user["user_active"]);?></td>
                                                 <td><a href="user_edit.php?id=<?= $user["user_id"] ?>" class="btn btn-primary"><span class="fa fa-pencil"></span></a>
                                                     <a href="user_delete.php?id=<?= $user["user_id"] ?>" class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete" ><span class="fa fa-trash"></span></a>

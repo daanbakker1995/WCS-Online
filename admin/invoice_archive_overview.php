@@ -1,5 +1,7 @@
 <?php
+$admin_rights = true; // Page is only for admins.
 include 'functions.php';
+include "check_login.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">

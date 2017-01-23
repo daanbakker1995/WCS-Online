@@ -1,5 +1,5 @@
 <?php
-
+$admin_rights = true; // Page is only for admins.
 /* 
  * jan kaptijn s1106061
  */

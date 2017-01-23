@@ -1,5 +1,7 @@
 <?php
 session_start();
+$admin_rights = true; // Page is only for admins.
+include "check_login.php";
 if($_SESSION["ingelogd"] == true){
 
 }
@@ -22,7 +24,7 @@ if($_SESSION["ingelogd"] == true){
 
             <!-- ADMIN MENU -->
             <?php
-            $active = "Dashboard";
+            $active = "gebruiker";
             include 'include/menu.php';
             ?>
 

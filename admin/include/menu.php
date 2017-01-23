@@ -50,6 +50,7 @@
                     </li>
                 </ul>
             </li>
+            <?php if($_SESSION['user_type']  < 2):?>
             <li <?php if($active == "Factuur") echo "class='active'" ?>>
                 <a href="javascript:;" data-toggle="collapse" data-target="#quotation"><i class="fa fa-fw fa-file-o"></i> Offertes overzicht<i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="quotation" class="collapse">
@@ -67,6 +68,7 @@
                     </li>
                 </ul>
             </li>
+            <?php endif; ?>
             <li <?php if($active == "Catalogus") echo "class='active'" ?>>
                 <a href="javascript:;" data-toggle="collapse" data-target="#products"><i class="fa fa-fw fa-laptop"></i> Hardware catalogus<i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="products" class="collapse">
@@ -82,10 +84,12 @@
                         <a href="drukservice_overview.php">Overzicht</a>
                     </li>
                 </ul>
-            </li>            
+            </li>
+            <?php if($_SESSION['user_type']  < 2):?>
             <li>
                 <a href="./users.php"><i class="fa fa-fw fa-user"></i> Gebruikers</a>
             </li>
+            <?php endif; ?>
             <li>
                 <a href="../"><i class="fa fa-fw fa-sign-out"></i> Naar Website</a>
             </li>
