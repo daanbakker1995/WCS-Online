@@ -19,7 +19,7 @@ if ($_SESSION["ingelogd"] == true)
 
     <head>
         <!-- ADMIN HEADER -->
-<?php include 'include/head.php'; ?>
+        <?php include 'include/head.php'; ?>
         <link href="css/MaartenTheme.css" rel="stylesheet">
 
     </head>
@@ -45,7 +45,8 @@ if ($_SESSION["ingelogd"] == true)
                     <div class="alert alert-danger">
                         <p>Het wachtwoord moet 8-20 tekens bevatten. Waarvan minimaal 1 kleine letter(a-z), 1 hoofdletter(A-Z), 1 cijfer(0-9) en 1 speciaal teken(!@#$%).</p>
                     </div>
-                <?php
+                    <a href="users_add.php" class="btn btn-primary">Terug</a>
+                    <?php
                 } else
                 {
                     //rol string omzetten naar integer voor gemak
@@ -70,32 +71,27 @@ if ($_SESSION["ingelogd"] == true)
                     $db->execute();
                     ?>
 
-                    <div class="container-fluid">
-                        <div id="page-wrapper">
-                            <h2>De volgende gebruiker is toegevoegd</h2>
-                            <br>
-                            <div class="row index">
-                                <div class="col-md-3">
-                                    <p>username</p>
-                                </div>
-                                <div class="col-md-3">
-                                    <p>emailadres</p>
-                                </div>
-                                <div class="col-md-3">
-                                    <p>rol</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <p><?php print($_POST["user"]); ?></p>
-                                </div>
-                                <div class="col-md-3">
-                                    <p><?php print($_POST["email"]); ?></p>
-                                </div>
-                                <div class="col-md-3">
-                                    <p><?php print($_POST["role"]); ?></p>
-                                </div>
-                            </div>
+                    <div id="page-wrapper">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped">
+                                <h2>De volgende gebruiker is toegevoegd</h2>
+                                <br>
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Emailadres</th>
+                                        <th>Rol</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><?php print($_POST["user"]); ?></td>
+                                        <td><?php print($_POST["email"]); ?></td>
+                                        <td><?php print($_POST["role"]); ?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a href="users.php" class="btn btn-primary">Terug naar overzicht</a>
                         </div>
                         <!-- /.container-fluid -->
 
@@ -104,7 +100,7 @@ if ($_SESSION["ingelogd"] == true)
 
                 </div>
                 <!-- /#wrapper -->
-<?php } ?>
+            <?php } ?>
 
             <!-- jQuery -->
             <script src="js/jquery.js"></script>

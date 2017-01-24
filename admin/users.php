@@ -10,31 +10,13 @@ include "check_login.php";
         <!-- ADMIN HEADER -->
         <?php include 'include/head.php'; ?>
 
-        <!-- jQuery -->
-        <script src="js/jquery.js"></script>
-
         <!-- Bootstrap Core JavaScript -->
         <script src="js/bootstrap.min.js"></script>
 
     </head>
 
     <body>
-        <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Bevestiging</h3>
-                    </div>
-                    <div class="modal-body">
-                        <p>Weet u zeker dat u deze gebruiker wilt verwijderen?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
-                        <a class="btn btn-danger btn-ok">Verwijderen</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
         <div id="wrapper">
 
@@ -154,7 +136,7 @@ include "check_login.php";
                                                 <td><?php print($user["user_type"]);?></td>
                                                 <td><?php print($user["user_active"]);?></td>
                                                 <td><a href="user_edit.php?id=<?= $user["user_id"] ?>" class="btn btn-primary"><span class="fa fa-pencil"></span></a>
-                                                    <a href="user_delete.php?id=<?= $user["user_id"] ?>" class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete" ><span class="fa fa-trash"></span></a>
+                                                    <a href="users_delete.php?id=<?= $user["user_id"] ?>" class="btn btn-danger"><span class="fa fa-trash"></span></a>
                                                 </td>
                                             </tr>
 <?php endforeach; ?>
@@ -175,11 +157,16 @@ include "check_login.php";
         </div>
         <!-- /#wrapper -->
 
-        <script>
-            $('#confirm-delete').on('show.bs.modal', function (e) {
-                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-            });
-        </script>
+            <!-- jQuery -->
+            <script src="js/jquery.js"></script>
+
+            <!-- Bootstrap Core JavaScript -->
+            <script src="js/bootstrap.min.js"></script>
+
+            <!-- Morris Charts JavaScript -->
+            <script src="js/plugins/morris/raphael.min.js"></script>
+            <script src="js/plugins/morris/morris.min.js"></script>
+            <script src="js/plugins/morris/morris-data.js"></script>
 
     </body>
 
