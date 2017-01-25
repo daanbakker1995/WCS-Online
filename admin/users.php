@@ -135,7 +135,7 @@ include "check_login.php";
                                                 <td><?php print($user["user_email"]);?></td>
                                                 <td><?php print($user["user_type"]);?></td>
                                                 <td><?php print($user["user_active"]);?></td>
-                                                <td><a href="user_edit.php?id=<?= $user["user_id"] ?>" class="btn btn-primary"><span class="fa fa-pencil"></span></a>
+                                                <td><a href="users_edit.php?id=<?= $user["user_id"] ?>" class="btn btn-primary"><span class="fa fa-pencil"></span></a>
                                                     <a href="users_delete.php?id=<?= $user["user_id"] ?>" class="btn btn-danger"><span class="fa fa-trash"></span></a>
                                                 </td>
                                             </tr>
