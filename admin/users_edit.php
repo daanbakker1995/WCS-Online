@@ -28,6 +28,7 @@ if ($_SESSION["ingelogd"] == true)
             $active = "gebruiker";
             include 'include/menu.php';
             include 'classes/Database.php';
+                ?><div id="page-wrapper"><?php
 
 
 
@@ -46,18 +47,19 @@ if ($_SESSION["ingelogd"] == true)
 
                 if ($_POST["pwd"] != "")
                 {
-                    if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,20}$/', $_POST["pwd"]))
+                    //check of nieuwe wachtwoord voldoet aan de eisen
+                    //preg_match bron: http://stackoverflow.com/a/26904965
+                    if (!preg_match('/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{8,20}$/',$_POST["pwd"]))
                     {
                         ?>
                         <div class="alert alert-danger">
-                            <p>Het wachtwoord moet 8-20 tekens bevatten. Waarvan minimaal 1 kleine letter(a-z), 1 hoofdletter(A-Z), 1 cijfer(0-9) en 1 speciaal teken(!@#$%).</p>
+                            <p>Het wachtwoord moet 8-20 tekens bevatten. Waarvan minimaal 1 kleine letter(a-z), 1 hoofdletter(A-Z), 1 cijfer(0-9) en 1 speciaal teken(@#-_$%^&+=§!?).</p>
                         </div>
                         <a href="users_edit.php?id=<?php print($_GET["id"]); ?>" class="btn btn-primary">Terug</a>
                         <?php
                     } else
                     {
                         //password hashen
-                        print($_POST["pwd"]);
                         $paswh = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
                         //database updaten
                         $db = new Database();
@@ -109,7 +111,6 @@ if ($_SESSION["ingelogd"] == true)
                 }
                 ?>
 
-                <div id="page-wrapper">
                     <div class="container-fluid">
                         <div id="page-wrapper">
                             <form action="users_edit.php?id=<?php print($_GET["id"]); ?>" method="post">
