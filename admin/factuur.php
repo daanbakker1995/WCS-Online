@@ -1,6 +1,7 @@
 <!--gemaakt door Daan bakker, aangepast door jan kaptijn-->
 <?php
 $admin_rights = true; // Page is only for admins.
+session_start();
 include "check_login.php";
 ob_start();
 	
