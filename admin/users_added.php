@@ -38,8 +38,8 @@ if ($_SESSION["ingelogd"] == true)
             <div id="page-wrapper">
                 <!--invoegen in database-->
                 <?php
-                //test of wachtwoord voldoet aan eisen
-                if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,20}$/', $_POST["pwd"]))
+                //test of wachtwoord voldoet aan eisen. bron: http://stackoverflow.com/a/26904965
+                if (!preg_match('/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{8,20}$/',$_POST["pwd"]))
                 {
                     ?>
                     <div class="alert alert-danger">
